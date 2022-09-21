@@ -15,7 +15,7 @@ namespace API
         {
             DatabaseQuery data = new DatabaseQuery(); 
             data.init(); 
-            //CreateHostBuilder(args).Build().Run();
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
