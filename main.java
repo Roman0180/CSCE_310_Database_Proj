@@ -7,6 +7,6 @@ import java.util.Map;
 class main {
     public static void main(String[] args) {
         Database db = new Database(); 
-        db.getData("restaurant_entity"); 
+        db.getData("user_entity"); 
     }
 }
