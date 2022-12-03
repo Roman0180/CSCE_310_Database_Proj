@@ -3310,19 +3310,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/roman/.nuget/packages/": {}
+    "/Users/joni/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/roman/Desktop/CSCE_310_Database_Proj/API/API.csproj",
+      "projectUniqueName": "/Users/joni/Desktop/projects/CSCE_310_Database_Proj/API/API.csproj",
       "projectName": "API",
-      "projectPath": "/Users/roman/Desktop/CSCE_310_Database_Proj/API/API.csproj",
-      "packagesPath": "/Users/roman/.nuget/packages/",
-      "outputPath": "/Users/roman/Desktop/CSCE_310_Database_Proj/API/obj/",
+      "projectPath": "/Users/joni/Desktop/projects/CSCE_310_Database_Proj/API/API.csproj",
+      "packagesPath": "/Users/joni/.nuget/packages/",
+      "outputPath": "/Users/joni/Desktop/projects/CSCE_310_Database_Proj/API/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/roman/.nuget/NuGet/NuGet.Config"
+        "/Users/joni/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
