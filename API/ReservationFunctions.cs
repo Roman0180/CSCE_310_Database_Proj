@@ -56,6 +56,23 @@ public class ReservationFunctions
             return null; 
         }
     }
+
+    public List<Tuple<int, DateTime, int, int>> makeReservations(int reservationPartySize, DateTime reservationDateTime, int restaurantId, int reservationMaker){
+        List<Tuple<int, DateTime, int, int>> reservationData= new List<Tuple<int, DateTime, int, int>>(); 
+
+        if (reservation_table.ContainsKey(restaurantId)){
+            foreach(var reservation in reservation_table[restaurantId]){
+                Tuple<int, DateTime, int, int> r = new Tuple<int, DateTime, int, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId, reservation.customerId); 
+                reservationData.Add(r); 
+            }
+            return reservationData; 
+        }
+        else{
+            return null; 
+        }
+    }
+
+
     
 }
 
