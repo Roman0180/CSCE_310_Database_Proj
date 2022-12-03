@@ -22,10 +22,4 @@ public class MenuItemEntityController : ControllerBase
         return db.getMenuItemsFromMenu(menuNum); 
     }
 
-    // [HttpPut(Name = "registerUser")]
-    // public void Put(String firstName, String lastName, String email, String password)
-    // {
-    //     UserFunctions db = new UserFunctions(); 
-    //     db.updateUsers(firstName, lastName, email, password); 
-    // }
 }

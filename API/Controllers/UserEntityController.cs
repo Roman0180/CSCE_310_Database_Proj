@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Http.Cors;
 
 namespace API.Controllers;
 
@@ -14,6 +15,7 @@ public class UserEntityController : ControllerBase
         _logger = logger;
     }
 
+    //[EnableCors(origins: "http://127.0.0.1:5500", headers: "GET", methods: "GET")]
     [HttpGet(Name = "isValidUser")]
     public Tuple<Boolean, String, String, String, String, Boolean> Get(String userName, String password)
     {
