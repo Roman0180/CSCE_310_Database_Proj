@@ -18,7 +18,7 @@ public class UserObject{
 public class UserFunctions
 {
     // (username, password) -> userData
-    Dictionary<Tuple<String, String>, UserObject> user_table = new Dictionary<Tuple<String, String>, UserObject>();
+    Dictionary<Tuple<String, String>, UserObject> userTable = new Dictionary<Tuple<String, String>, UserObject>();
 
     public void userDataFetch()
     {
@@ -36,15 +36,15 @@ public class UserFunctions
             newUser.email = userName; 
             newUser.password = password;
             Tuple<String, String> loginInfo = new Tuple<String, String>(userName, password); 
-            user_table.Add(loginInfo, newUser);  
+            userTable.Add(loginInfo, newUser);  
         }
     }
     public Tuple<Boolean, String, String, String, String, Boolean> validateUser(String userName, String password){
         Tuple<String, String> loginInfo = new Tuple<String, String>(userName, password); 
         
-        if (user_table.ContainsKey(loginInfo)){
+        if (userTable.ContainsKey(loginInfo)){
             Console.WriteLine(loginInfo); 
-            Tuple<Boolean, String, String, String, String, Boolean> foundTuple = new Tuple<Boolean, String, String, String, String, Boolean>(true, user_table[loginInfo].firstName, user_table[loginInfo].lastName, user_table[loginInfo].email, user_table[loginInfo].password, user_table[loginInfo].userType); 
+            Tuple<Boolean, String, String, String, String, Boolean> foundTuple = new Tuple<Boolean, String, String, String, String, Boolean>(true, userTable[loginInfo].firstName, userTable[loginInfo].lastName, userTable[loginInfo].email, userTable[loginInfo].password, userTable[loginInfo].userType); 
             return foundTuple; 
         }
         Tuple<Boolean, String, String, String, String, Boolean> notFound = new Tuple<Boolean, String, String, String, String, Boolean>(false, null, null, null, null, false); 
