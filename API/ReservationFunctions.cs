@@ -17,7 +17,7 @@ public class Reservation{
 public class ReservationFunctions
 {
     // restaurant of reservation -> all reservations at that restaurant
-    Dictionary<int, List<Reservation>> reservation_table = new Dictionary<int, List<Reservation>>();
+    Dictionary<int, List<Reservation>> reservationTable = new Dictionary<int, List<Reservation>>();
 
     public void reservationDataFetch()
     {
@@ -32,21 +32,21 @@ public class ReservationFunctions
             reservation.reservationTime = reader.GetDateTime(2); 
             reservation.restaurantId = reader.GetInt32(3); 
             reservation.customerId = reader.GetInt32(4); 
-            if(reservation_table.ContainsKey(reservation.restaurantId)){
-                reservation_table[reservation.restaurantId].Add(reservation);
+            if(reservationTable.ContainsKey(reservation.restaurantId)){
+                reservationTable[reservation.restaurantId].Add(reservation);
             } 
             else{
                 List<Reservation> newList = new List<Reservation>(); 
                 newList.Add(reservation); 
-                reservation_table.Add(reservation.restaurantId, newList);
+                reservationTable.Add(reservation.restaurantId, newList);
             }
         }
     }
     public List<Tuple<int, DateTime, int, int>> getReservations(int restaurantId){
         List<Tuple<int, DateTime, int, int>> reservationData= new List<Tuple<int, DateTime, int, int>>(); 
 
-        if (reservation_table.ContainsKey(restaurantId)){
-            foreach(var reservation in reservation_table[restaurantId]){
+        if (reservationTable.ContainsKey(restaurantId)){
+            foreach(var reservation in reservationTable[restaurantId]){
                 Tuple<int, DateTime, int, int> r = new Tuple<int, DateTime, int, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId, reservation.customerId); 
                 reservationData.Add(r); 
             }
@@ -60,8 +60,8 @@ public class ReservationFunctions
     public List<Tuple<int, DateTime, int, int>> makeReservations(int reservationPartySize, DateTime reservationDateTime, int restaurantId, int reservationMaker){
         List<Tuple<int, DateTime, int, int>> reservationData= new List<Tuple<int, DateTime, int, int>>(); 
 
-        if (reservation_table.ContainsKey(restaurantId)){
-            foreach(var reservation in reservation_table[restaurantId]){
+        if (reservationTable.ContainsKey(restaurantId)){
+            foreach(var reservation in reservationTable[restaurantId]){
                 Tuple<int, DateTime, int, int> r = new Tuple<int, DateTime, int, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId, reservation.customerId); 
                 reservationData.Add(r); 
             }
