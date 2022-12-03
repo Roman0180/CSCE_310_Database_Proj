@@ -7,4 +7,10 @@ fetch("http://localhost:8000/")
 .then(function(products){
     let placeholder = document.querySelector("#");
     let out = "";
+
+    for(let product of products){
+        out += `
+            <tr>
+        `
+    }
 })
