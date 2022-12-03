@@ -16,7 +16,7 @@ public class Reservation{
 }
 public class ReservationFunctions
 {
-    // (username, password) -> userData
+    // restaurant of reservation -> all reservations at that restaurant
     Dictionary<int, List<Reservation>> reservation_table = new Dictionary<int, List<Reservation>>();
 
     public void reservationDataFetch()
@@ -57,12 +57,5 @@ public class ReservationFunctions
         }
     }
     
-    // public void updateUsers(String firstName, String lastName, String email, String password){
-    //     var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
-    //     using var conn = new NpgsqlConnection(cs);
-    //     conn.Open();
-    //     NpgsqlCommand command = new NpgsqlCommand("INSERT INTO user_entity VALUES (DEFAULT,'" + firstName + "','" + lastName + "','" + email + "','" + password + "', 0);", conn);
-    //     NpgsqlDataReader reader = command.ExecuteReader();
-    // }
 }
 
