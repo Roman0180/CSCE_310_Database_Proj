@@ -45,11 +45,11 @@ public class EmployeeFunctions
         return notFound; 
     }
     
-    internal void updateUsers(String firstName, String lastName, String email, String password){
+    internal void updateEmployees(int userId, int restaurantId, int adminFlag){
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
         using var conn = new NpgsqlConnection(cs);
         conn.Open();
-        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO user_entity VALUES (DEFAULT,'" + firstName + "','" + lastName + "','" + email + "','" + password + "', 0);", conn);
+        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO restaurant_employee_entity VALUES (DEFAULT," + userId + "," + restaurantId + "," + adminFlag + ");", conn);
         NpgsqlDataReader reader = command.ExecuteReader();
     }
 

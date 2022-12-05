@@ -31,5 +31,12 @@ public class EmployeeEntityController : ControllerBase
         db.employeeDataFetch(); 
         return db.validateEmployeeWithEmpId(employeeId); 
     }
+
+    [HttpPut("registerEmployee")]
+    public void Put(int userId, int restaurantId, int adminFlag)
+    {
+        EmployeeFunctions db = new EmployeeFunctions(); 
+        db.updateEmployees(userId, restaurantId, adminFlag); 
+    }
     
 }
