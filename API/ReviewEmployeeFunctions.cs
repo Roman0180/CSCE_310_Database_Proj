@@ -93,7 +93,20 @@ public class ReviewEmployeeFunctions
     //         return null;
     //     }
     //}
-
+    public void updateComment(int comment_id, string comment){
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        NpgsqlCommand command = new NpgsqlCommand("UPDATE review_entity SET comment = '"+comment+"'WHERE comment_id= "+comment_id+";", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
+    }
+    public void updateCommentEmployee(int comment_id, int employee_id){
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        NpgsqlCommand command = new NpgsqlCommand("UPDATE review_entity SET employee_id = "+employee_id+"WHERE comment_id= "+comment_id+";", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
+    }
 
     
 }
