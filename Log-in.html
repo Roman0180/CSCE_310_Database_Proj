@@ -52,16 +52,23 @@
                                     nameValue = nameValue.replace("@", "%40")
                                     var passwordValue = document.getElementById("floatingPassword").value;
                                     url = "https://localhost:7091/UserEntity?userName="+nameValue+"&password="+passwordValue
-                                    console.log(url)
-
-                                    fetch(url)
-                                    .then((response) => {
-                                        console.log(response.json())
-                                        return response.json()
-                                    }); 
-                                    window.location.replace("./loggedInIndex.html");
+                    
+                                    fetch(url).then(response => 
+                                        response.json().then(data => ({
+                                            data: data,
+                                            status: response.status
+                                        })
+                                    ).then(res => {
+                                        // console.log(res.status, res.data.title)
+                                        if(res.data.item1 == true){
+                                            console.log("valid user")
+                                            window.location.replace("./loggedInIndex.html");
+                                        }
+                                        else{
+                                            console.log("invalid user")
+                                        }
+                                    }));
                                 }
-                                // document.getElementById("loginbutton").addEventListener("click", userLogIn);
                             </script>
                             <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="loginbutton" onclick="userLogIn()">Log In</button>
                             <hr class="my-4">
