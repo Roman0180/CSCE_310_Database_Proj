@@ -17,7 +17,7 @@ public class UserEntityController : ControllerBase
 
     //[EnableCors(origins: "http://127.0.0.1:5500", headers: "GET", methods: "GET")]
     [HttpGet(Name = "isValidUser")]
-    public Tuple<Boolean, String, String, String, String, Boolean> Get(String userName, String password)
+    public Tuple<Boolean, int, String, String, String, String, Boolean> Get(String userName, String password)
     {
         UserFunctions db = new UserFunctions(); 
         db.userDataFetch(); 

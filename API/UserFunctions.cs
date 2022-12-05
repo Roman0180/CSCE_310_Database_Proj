@@ -9,6 +9,7 @@ using System.Text.Json;
 namespace API;
 
 public class UserObject{
+    public int userID; // this is customer_id on the lucid chart
     public String firstName; 
     public String lastName; 
     public String email; 
@@ -29,6 +30,7 @@ public class UserFunctions
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
             UserObject newUser = new UserObject(); 
+            newUser.userID = reader.GetInt32(0); 
             newUser.firstName = reader.GetString(1); 
             newUser.lastName = reader.GetString(2); 
             String userName = reader.GetString(3); 
@@ -39,15 +41,15 @@ public class UserFunctions
             userTable.Add(loginInfo, newUser);  
         }
     }
-    public Tuple<Boolean, String, String, String, String, Boolean> validateUser(String userName, String password){
+    public Tuple<Boolean, int, String, String, String, String, Boolean> validateUser(String userName, String password){
         Tuple<String, String> loginInfo = new Tuple<String, String>(userName, password); 
         
         if (userTable.ContainsKey(loginInfo)){
             Console.WriteLine(loginInfo); 
-            Tuple<Boolean, String, String, String, String, Boolean> foundTuple = new Tuple<Boolean, String, String, String, String, Boolean>(true, userTable[loginInfo].firstName, userTable[loginInfo].lastName, userTable[loginInfo].email, userTable[loginInfo].password, userTable[loginInfo].userType); 
+            Tuple<Boolean, int, String, String, String, String, Boolean> foundTuple = new Tuple<Boolean, int, String, String, String, String, Boolean>(true, userTable[loginInfo].userID, userTable[loginInfo].firstName, userTable[loginInfo].lastName, userTable[loginInfo].email, userTable[loginInfo].password, userTable[loginInfo].userType); 
             return foundTuple; 
         }
-        Tuple<Boolean, String, String, String, String, Boolean> notFound = new Tuple<Boolean, String, String, String, String, Boolean>(false, null, null, null, null, false); 
+        Tuple<Boolean, int, String, String, String, String, Boolean> notFound = new Tuple<Boolean, int, String, String, String, String, Boolean>(false, 0, null, null, null, null, false); 
         return notFound; 
     }
     
