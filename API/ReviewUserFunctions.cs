@@ -18,7 +18,7 @@ public class Review{
     public int employee_id;
 }
 
-public class ReviewFunctions
+public class ReviewUserFunctions
 {
     // restaurant of review -> all reviews at that restaurant
     Dictionary<int, List<Review>> review_table = new Dictionary<int, List<Review>>();
@@ -79,12 +79,12 @@ public class ReviewFunctions
     //         return null; 
     //     }
     // }
-    public List<Tuple<int, int, string, DateTime, int, string, int>> makeReview(int order_num, int rating, string text, DateTime date_posted, int restaurantId, string comment, int employee_id) {
+    public List<Tuple<int, int, string, DateTime, int, string, int>> makeReview(int order_num, int rating, string text, DateTime date_posted, int restaurantId) {
         List<Tuple<int, int, string, DateTime, int, string, int>> reviewData = new List<Tuple<int, int, string, DateTime, int, string, int>>();
 
         if(review_table.ContainsKey(restaurantId)){
             foreach(var review in review_table[restaurantId]){
-                Tuple<int, int, string, DateTime, int, string, int> r = new Tuple<int, int, string, DateTime, int, string, int>(order_num,rating,text,date_posted,restaurantId,comment,employee_id);
+                Tuple<int, int, string, DateTime, int, string, int> r = new Tuple<int, int, string, DateTime, int, string, int>(order_num,rating,text,date_posted,restaurantId,"None",-1);
                 reviewData.Add(r);
             }
             return reviewData;
