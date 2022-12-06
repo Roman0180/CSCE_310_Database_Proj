@@ -24,7 +24,7 @@ public class UserEntityController : ControllerBase
         return db.validateUser(userName, password); 
     }
 
-    [HttpPut(Name = "registerUser")]
+    [HttpPost(Name = "registerUser")]
     public void Put(String firstName, String lastName, String email, String password)
     {
         UserFunctions db = new UserFunctions(); 

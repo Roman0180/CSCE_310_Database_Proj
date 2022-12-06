@@ -24,7 +24,7 @@ public class ReservationEntityController : ControllerBase
         return db.getReservations(restaurantId); 
     }
 
-    [HttpPut(Name = "createReservation")]
+    [HttpPost(Name = "createReservation")]
     public void Put(int reservationPartySize, DateTime reservationDateTime, int restaurantId, int reservationMaker)
     {
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";

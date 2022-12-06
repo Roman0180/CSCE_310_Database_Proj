@@ -20,7 +20,7 @@ public class ReviewEntityEmployeeController : ControllerBase
         return db.getReviews(restaurantId); 
     }
 
-    [HttpPut(Name = "updateComment")]
+    [HttpPost(Name = "updateComment")]
     public void Put(int comment_id, string comment,int employee_id)
     {
         // var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";

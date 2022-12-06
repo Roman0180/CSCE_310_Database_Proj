@@ -24,7 +24,7 @@ public class RestaurantEntity : ControllerBase
         return db.getRestaurant(restaurantId); 
     }
 
-    [HttpPut(Name = "addRestaurant")]
+    [HttpPost(Name = "addRestaurant")]
     public void Put(String restaurantName, String location, String operatingHours, String description)
     {
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
