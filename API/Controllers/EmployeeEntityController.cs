@@ -32,7 +32,7 @@ public class EmployeeEntityController : ControllerBase
         return db.validateEmployeeWithEmpId(employeeId); 
     }
 
-    [HttpPut("registerEmployee")]
+    [HttpPost("registerEmployee")]
     public void Put(int userId, int restaurantId, int adminFlag)
     {
         EmployeeFunctions db = new EmployeeFunctions(); 

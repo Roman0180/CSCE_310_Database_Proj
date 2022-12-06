@@ -24,7 +24,7 @@ public class PaymentEntityController : ControllerBase
         return db.getPayment(userId); 
     }
 
-    [HttpPut(Name = "updatePayment")]
+    [HttpPost(Name = "updatePayment")]
     public void Put(String paymentMethod, String expDate, int CVV, int zipCode, int cardNum, int userId)
     {
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";

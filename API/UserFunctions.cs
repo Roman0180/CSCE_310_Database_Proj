@@ -38,7 +38,7 @@ public class UserFunctions
             newUser.email = userName; 
             newUser.password = password;
             Tuple<String, String> loginInfo = new Tuple<String, String>(userName, password); 
-            userTable.Add(loginInfo, newUser);  
+            userTable[loginInfo] = newUser;  // if a user updates their userName and password, it will automatically erase the old data
         }
     }
     public Tuple<Boolean, int, String, String, String, String, Boolean> validateUser(String userName, String password){
