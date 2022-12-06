@@ -8,15 +8,7 @@ using System.Text.Json;
 
 namespace API;
 
-public class Review{
-    public int order_num; 
-    public int rating;
-    public string text_feedback;
-    public DateTime date_posted; 
-    public int restaurantId; 
-    public string comment;
-    public int employee_id;
-}
+
 
 public class ReviewUserFunctions
 {
