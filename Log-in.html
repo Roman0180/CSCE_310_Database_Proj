@@ -19,7 +19,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
-    <!-- <script type="text/javascript" src="script.js"></script> -->
+    <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body class="bg-danger">
@@ -46,34 +46,6 @@
                                     placeholder="Password">
                                 <label for="floatingPassword">Password</label>
                             </div>
-                            <script>
-                                function userLogIn() {
-                                    var nameValue = document.getElementById("floatingUsername").value;
-                                    nameValue = nameValue.replace("@", "%40")
-                                    var passwordValue = document.getElementById("floatingPassword").value;
-                                    url = "https://localhost:7091/UserEntity?userName="+nameValue+"&password="+passwordValue
-                                    console.log(url)
-                                    fetch(url).then(response => 
-                                        response.json().then(data => ({
-                                            data: data,
-                                            status: response.status
-                                        })
-                                    ).then(res => {
-                                        console.log(res.status, res.data.title)
-                                        // console.log(res)
-                                        if(res.data.item1 == true){
-                                            firstName = res.data.item3
-                                            lastName = res.data.item4
-                                            // userInfo(firstName, lastName)
-                                            console.log(res)
-                                            // window.location.replace("./loggedInIndex.html");
-                                        }
-                                        else{
-                                            window.alert("Wrong username and/or password. Try again.");
-                                        }
-                                    }));
-                                }
-                            </script>
                             <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="button" id="loginbutton" onclick="userLogIn()">Log In</button>
                             <hr class="my-4">
                             <p>New to Online Foods? <a href="sign-up.html">Create account</a>
