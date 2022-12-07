@@ -1,34 +1,242 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--Title-->
-    <title>Cheeck-Out Online Foods</title>
-
-    <!--Faviccon-->
-    <link rel="icon" type="image/x-icon" href="logosqure.jpeg">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!--CSS-->
-    <link rel="stylesheet" href="style.css">
-
-    <!--Botsstrap CSS-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     
-</head>
-
-<body>
-
+        <!--Bootstrap CDN-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     
+        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    
+        <!--Font-awesome CDN-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+        <!--Link CSS-->
+        <link rel="stylesheet" href="style.css">
+    
+        <!--Favicon-->
+        <link rel="icon" type="image/x-icon" href="images/logosquare.jpeg">
+    
+        <script type="text/javascript" src="script.js"></script>
+    
+        <title>Check Out</title>
+    </head>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous">
+<body style="width:100%;">
+    <!--------------------------------------------Header------------------------------------------------->
+    <div class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <img src="images\LOGO.jpeg" width="120" height="40px">
+        </a>
+        
+        <div class="col-md-4 text-end">
+          <a href="#" class="link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle"
+              viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="#">My Profile</a></li>
+            <li><a class="dropdown-item" href="#">My Orders</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="index.html" onclick="userLogOut()">Sign out</a></li>
+          </ul>
+          <a id="LogIn" href="Log-in.html"> <button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+          <a id = "SignUp" href="sign-up.html"> <button type="button" class="btn btn-outline-success me-4">Sign-up</button></a>
+          <a href="checkoutpg.html"><button type="button" class="btn btn-danger" id="Cart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
+                </path>
+              </svg>
+              Cart
+            </button>
+          </a>
+        </div>
+      </header>
+      <script>
+        if(localStorage.id){
+          document.getElementById('LogIn').hidden = true
+          document.getElementById('SignUp').hidden = true
+          document.getElementById('Cart').hidden = true
+        }
+        else{
+          document.getElementById('dropdownUser1').hidden = true
+        }
+      </script>
+    </div> 
+
+    <!--------------------------------Categories-------------------------------->
+    <section class="padding-y">
+        <div class="container">
+          <header class="section-heading">
+              <h3 class="section-title">Your Cart</h3>
+          </header>
+          <div class="d-flex">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" id="checkoutItem1"></h5>
+                    <p class="card-text" id="checkoutPrice1">$</p>
+                    <a href="" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" id="checkoutItem2"></h5>
+                    <p class="card-text" id="checkoutPrice2">$</p>
+                    <a href="" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" id="checkoutItem3"></h5>
+                    <p class="card-text" id="checkoutPrice3">$</p>
+                    <a href="" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+  
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" id="checkoutItem4"></h5>
+                    <p class="card-text" id="checkoutPrice4">$</p>
+                    <a href="" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title" id="checkoutItem5"></h5>
+                    <p class="card-text" id="checkoutPrice5">$</p>
+                    <a href="" class="btn btn-danger">Remove</a>
+                </div>
+            </div>
+            </div> 
+  
+            <div class="d-flex">
+                
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem6"></h5>
+                        <p class="card-text" id="checkoutPrice6">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem7"></h5>
+                        <p class="card-text" id="checkoutPrice7">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem8"></h5>
+                        <p class="card-text" id="checkoutPrice8">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem9"></h5>
+                        <p class="card-text" id="checkoutPrice9">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div> 
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem10"></h5>
+                        <p class="card-text" id="checkoutPrice10">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem11"></h5>
+                        <p class="card-text" id="checkoutPrice11">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem12"></h5>
+                        <p class="card-text" id="checkoutPrice12">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem13"></h5>
+                        <p class="card-text" id="checkoutPrice13">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem14"></h5>
+                        <p class="card-text" id="checkoutPrice14">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem15"></h5>
+                        <p class="card-text" id="checkoutPrice15">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title" id="checkoutItem16"></h5>
+                        <p class="card-text" id="checkoutPrice16">$</p>
+                        <a href="" class="btn btn-danger">Remove</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    <script>
+        var j = 0
+        for (var i = 1; i < localStorage.length; i++){
+            if(!(localStorage.key(i) == "id" || localStorage.key(i) == "value")){
+                j++
+                console.log(localStorage.key(i), localStorage.getItem(localStorage.key(i)))
+                itemID = "checkoutItem" + j
+                priceID = "checkoutPrice" + j
+                document.getElementById(itemID).textContent = localStorage.key(i)
+                document.getElementById(priceID).textContent = localStorage.getItem(localStorage.key(i))
+            }
+        }
+        console.log(j) // number of checkout items
+    </script>
+
+    <!--Js-CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+        crossorigin="anonymous"></script>
+
+    <!--AOS-->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
     </script>
     
 </body>
