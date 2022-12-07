@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/roman/Desktop/CSCE_310_Database_Proj/API/API.csproj": {}
+    "/Users/Sarahsotelo/Desktop/CSCE_310_Database_Proj/API/API.csproj": {}
   },
   "projects": {
-    "/Users/roman/Desktop/CSCE_310_Database_Proj/API/API.csproj": {
+    "/Users/Sarahsotelo/Desktop/CSCE_310_Database_Proj/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/roman/Desktop/CSCE_310_Database_Proj/API/API.csproj",
+        "projectUniqueName": "/Users/Sarahsotelo/Desktop/CSCE_310_Database_Proj/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/Users/roman/Desktop/CSCE_310_Database_Proj/API/API.csproj",
-        "packagesPath": "/Users/roman/.nuget/packages/",
-        "outputPath": "/Users/roman/Desktop/CSCE_310_Database_Proj/API/obj/",
+        "projectPath": "/Users/Sarahsotelo/Desktop/CSCE_310_Database_Proj/API/API.csproj",
+        "packagesPath": "/Users/Sarahsotelo/.nuget/packages/",
+        "outputPath": "/Users/Sarahsotelo/Desktop/CSCE_310_Database_Proj/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/roman/.nuget/NuGet/NuGet.Config"
+          "/Users/Sarahsotelo/.nuget/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"

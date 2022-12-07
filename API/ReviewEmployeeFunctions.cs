@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace API;
 
-public class ReviewEmployee{
+public class Review{
     public int order_num; 
     public int rating;
     public string text_feedback;
@@ -21,7 +21,7 @@ public class ReviewEmployee{
 public class ReviewEmployeeFunctions
 {
     // restaurant of review -> all reviews at that restaurant
-    Dictionary<int, List<ReviewEmployee>> review_table = new Dictionary<int, List<ReviewEmployee>>();
+    Dictionary<int, List<Review>> review_table = new Dictionary<int, List<Review>>();
 
     public void reviewDataFetch()
     {
@@ -31,7 +31,7 @@ public class ReviewEmployeeFunctions
         NpgsqlCommand command = new NpgsqlCommand("SELECT * from review_entity", conn);
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
-            ReviewEmployee review = new ReviewEmployee(); 
+            Review review = new Review(); 
             review.order_num = reader.GetInt32(1);
             review.rating = reader.GetInt32(2);
             review.text_feedback = reader.GetString(3);
@@ -44,7 +44,7 @@ public class ReviewEmployeeFunctions
                 review_table[review.restaurantId].Add(review);
             } 
             else{
-                List<ReviewEmployee> newList = new List<ReviewEmployee>(); 
+                List<Review> newList = new List<Review>(); 
                 newList.Add(review); 
                 review_table.Add(review.restaurantId, newList);
             }
