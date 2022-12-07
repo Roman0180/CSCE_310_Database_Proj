@@ -36,30 +36,44 @@ function userLogOut(){
 }
 
 function addToCart(id, price){
-    // console.log(itemNum)
-
     var itemName = document.getElementById(id).textContent;
     var itemPrice = document.getElementById(price).textContent;
-
-    // item = {itemName, itemPrice}
+    itemPrice = itemPrice.substring(1)
     localStorage.setItem(itemName, itemPrice);
-    // localStorage.setItem(JSON.stringify(item));
 
-    for (var i = 0; i < localStorage.length; i++){
-        if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
-            console.log(localStorage.key(i) + " in cart " + localStorage.getItem(localStorage.key(i)))
-        }
-    }
+    // for (var i = 0; i < localStorage.length; i++){
+    //     if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
+    //         console.log(localStorage.key(i) + " in cart " + localStorage.getItem(localStorage.key(i)))
+    //     }
+    // }
 }
 
 function showCartItems(){
+    var completelist = document.getElementById("thelist");
+
     for (var i = 0; i < localStorage.length; i++){
-        if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
-            console.log(localStorage.key(i) + " " + localStorage.getItem(localStorage.key(i)))
+        if(!(localStorage.key(i) == "id" || localStorage.key(i) == "value")){
+            j++
+            completelist.innerHTML += "<li class='list-group-item'> <input class='form-check-input me-1' type='checkbox' value=''>" + localStorage.key(i) + " $" + localStorage.getItem(localStorage.key(i)) + "</li>";
+            price = parseFloat(localStorage.getItem(localStorage.key(i)));
+            totalCost += price
         }
     }
+    document.getElementById("totalCost").innerHTML = totalCost;
 }
 
 function deleteFromCart(){
-    localStorage.removeItem(itemName);
+    var cboxes = document.getElementsByClassName('form-check-input me-1');
+    var len = cboxes.length;
+    console.log(cboxes, len)
+    for (var i=0; i<len; i++) {
+        if(cboxes[i].checked){
+            let seperator = cboxes[i].offsetParent.innerText.indexOf("$")
+            var item = cboxes[i].offsetParent.innerText.substring(0, seperator-1)
+            var price = cboxes[i].offsetParent.innerText.substring(seperator)
+            localStorage.removeItem(item)
+            console.log("removing " + item + " from cart")
+        }
+    }
+    location.reload()
 }
