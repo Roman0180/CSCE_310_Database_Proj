@@ -39,13 +39,24 @@ function addToCart(id, price){
     var itemName = document.getElementById(id).textContent;
     var itemPrice = document.getElementById(price).textContent;
     itemPrice = itemPrice.substring(1)
-    localStorage.setItem(itemName, itemPrice);
+    // localStorage.setItem(itemName, itemPrice)
 
-    // for (var i = 0; i < localStorage.length; i++){
-    //     if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
-    //         console.log(localStorage.key(i) + " in cart " + localStorage.getItem(localStorage.key(i)))
-    //     }
-    // }
+    localStorage.setItem([itemName, itemPrice], itemCount);
+    console.log(localStorage.getItem([itemName, itemPrice]))
+
+    if (localStorage.getItem([itemName, itemPrice]) === null) {
+        localStorage.setItem([itemName, itemPrice], itemCount);
+    }
+    else{
+        console.log("already in cart")
+        localStorage.setItem([itemName, itemPrice], itemCount++);
+    }
+    console.log("LocalStorage items: ")
+    for (var i = 0; i < localStorage.length; i++){
+        if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
+            console.log(localStorage.key(i) + localStorage.getItem(localStorage.key(i)) + " in cart ")
+        }
+    }
 }
 
 function showCartItems(){
@@ -72,7 +83,6 @@ function deleteFromCart(){
             var item = cboxes[i].offsetParent.innerText.substring(0, seperator-1)
             var price = cboxes[i].offsetParent.innerText.substring(seperator)
             localStorage.removeItem(item)
-            console.log("removing " + item + " from cart")
         }
     }
     location.reload()
