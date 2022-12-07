@@ -34,8 +34,6 @@ function userLogOut(){
     localStorage.clear()
     console.log("storage cleared")
 }
-<<<<<<< HEAD
-=======
 
 function addToCart(id, price){
     // console.log(itemNum)
@@ -65,4 +63,24 @@ function showCartItems(){
 function deleteFromCart(){
     localStorage.removeItem(itemName);
 }
->>>>>>> 990c55bd3cef90dfbbefea18d988aef6894c3d64
+
+signUpUser = async () => {
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    email = email.replace("@", "%40")
+    const location = `https://localhost:7091/UserEntity?firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}`;
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(location, settings);
+    } catch (e) {
+        return e;
+    }  
+}
