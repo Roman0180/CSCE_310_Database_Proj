@@ -1,3 +1,6 @@
+items = {}
+itemNum = 1
+
 function userLogIn() {
     var nameValue = document.getElementById("floatingUsername").value;
     nameValue = nameValue.replace("@", "%40")
@@ -13,8 +16,9 @@ function userLogIn() {
         // console.log(res.status, res.data.title)
         console.log(res)
         if(res.data.item1 == true){
-            localStorage.id = res.data.item2
-            console.log(localStorage.id)
+            localStorage.id = res.data.item2 // userID
+            localStorage.value = res.data.item7 // employee bool 
+            console.log(localStorage.id, localStorage.value)
             firstName = res.data.item3
             lastName = res.data.item4
             window.alert("Welcome, " + firstName + " " + lastName + "!");
@@ -29,4 +33,33 @@ function userLogIn() {
 function userLogOut(){
     localStorage.clear()
     console.log("storage cleared")
+}
+
+function addToCart(id, price){
+    // console.log(itemNum)
+
+    var itemName = document.getElementById(id).textContent;
+    var itemPrice = document.getElementById(price).textContent;
+
+    // item = {itemName, itemPrice}
+    localStorage.setItem(itemName, itemPrice);
+    // localStorage.setItem(JSON.stringify(item));
+
+    for (var i = 0; i < localStorage.length; i++){
+        if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
+            console.log(localStorage.key(i) + " in cart " + localStorage.getItem(localStorage.key(i)))
+        }
+    }
+}
+
+function showCartItems(){
+    for (var i = 0; i < localStorage.length; i++){
+        if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
+            console.log(localStorage.key(i) + " " + localStorage.getItem(localStorage.key(i)))
+        }
+    }
+}
+
+function deleteFromCart(){
+    localStorage.removeItem(itemName);
 }
