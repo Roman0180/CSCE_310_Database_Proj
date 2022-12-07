@@ -9,8 +9,9 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddCors(policyBuilder =>
     policyBuilder.AddDefaultPolicy(policy =>
-        policy.WithOrigins("http://127.0.0.1:5500").AllowAnyHeader().AllowAnyHeader())
+        policy.WithOrigins("http://127.0.0.1:5500", "http://127.0.0.1:5501").AllowAnyHeader().AllowAnyHeader())
 );
+
 
 var app = builder.Build();
 app.UseCors();
