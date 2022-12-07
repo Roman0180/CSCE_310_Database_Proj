@@ -34,6 +34,8 @@ function userLogOut(){
     localStorage.clear()
     console.log("storage cleared")
 }
+<<<<<<< HEAD
+=======
 
 function addToCart(id, price){
     // console.log(itemNum)
@@ -63,3 +65,4 @@ function showCartItems(){
 function deleteFromCart(){
     localStorage.removeItem(itemName);
 }
+>>>>>>> 990c55bd3cef90dfbbefea18d988aef6894c3d64
