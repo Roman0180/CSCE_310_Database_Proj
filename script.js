@@ -84,11 +84,73 @@ signUpUser = async () => {
         return e;
     }  
 }
-
+function stringToTimestamp(s) {
+    var t = s.match(/[\d\w]+/g);
+    console.log(t)
+    var months = {jan:'01',feb:'02',mar:'03',apr:'04',may:'05',jun:'06',
+                  jul:'07',aug:'08',sep:'09',oct:'10',nov:'11',dec:'12'};
+    function pad(n){return (n<10?'0':'') + +n;}
+  
+    return t[3] + '-' + months[t[1].toLowerCase()] + '-' + (parseInt(t[2]) + 1)
+  }
 async function reservationFetch() {
-    
+    var restaurantNum = document.getElementById("restaurant").value;
+    // var f = $('#checkin_date').val().getFormattedDate('yyyy-mm-dd');
+    var f = $('#checkin_date').data().datepicker.viewDate;
+    startDate = stringToTimestamp(f.toString())
+    //startDate = "2017-07-21"
     url = `https://localhost:7091/ReservationEntity?restaurantId=${restaurantNum}&startDate=${startDate}`
     const response = await fetch(url);
     const json = await response.json();
     console.log(json);
+    var T = document.getElementById("reservationTimes");
+    T.style.display = "block";
+    var select = document.getElementById("restaurantReservationTimes");
+
+    for(var option of json) {
+        var el = document.createElement("option");
+        el.textContent = option;
+        el.value = option;
+        select.appendChild(el);
+    }
+}
+function convertTime12To24(time) {
+    var hours   = Number(time.match(/^(\d+)/)[1]);
+    var minutes = Number(time.match(/:(\d+)/)[1]);
+    var AMPM    = time.match(/\s(.*)$/)[1];
+    console.log(AMPM)
+    if (AMPM === "pm" && hours < 12) hours = hours + 12;
+    if (AMPM === "am" && hours === 12) hours = hours - 12;
+    var sHours   = hours.toString();
+    var sMinutes = minutes.toString();
+    if (hours < 10) sHours = "0" + sHours;
+    if (minutes < 10) sMinutes = "0" + sMinutes;
+    return (sHours + ":" + sMinutes);
+}
+makeReservation = async () => {
+    var restaurantNum = document.getElementById("restaurant").value;
+    var numPeople = document.getElementById("numPeople").value; 
+    var f = $('#checkin_date').data().datepicker.viewDate;
+    startDate = stringToTimestamp(f.toString())
+    var startTime = document.getElementById("restaurantReservationTimes").value; 
+    console.log(startTime)
+    hours = convertTime12To24(startTime)
+    formattedDateTime = startDate + 'T' + hours + ':00Z'
+    console.log(formattedDateTime)
+    // FIXME: update reservation maker to pull from local storage
+    var reservationMaker = 1
+    url = `https://localhost:7091/ReservationEntity?reservationPartySize=${numPeople}&reservationDateTime=${formattedDateTime}&restaurantId=${restaurantNum}&reservationMaker=${reservationMaker}`
+    console.log(url)
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(url, settings);
+    } catch (e) {
+        return e;
+    }  
 }
