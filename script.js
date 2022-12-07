@@ -84,3 +84,11 @@ signUpUser = async () => {
         return e;
     }  
 }
+
+async function reservationFetch() {
+    
+    url = `https://localhost:7091/ReservationEntity?restaurantId=${restaurantNum}&startDate=${startDate}`
+    const response = await fetch(url);
+    const json = await response.json();
+    console.log(json);
+}
