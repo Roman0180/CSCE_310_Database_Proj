@@ -36,32 +36,56 @@ function userLogOut(){
 }
 
 function addToCart(id, price){
-    // console.log(itemNum)
-
     var itemName = document.getElementById(id).textContent;
     var itemPrice = document.getElementById(price).textContent;
+    itemPrice = itemPrice.substring(1)
+    // localStorage.setItem(itemName, itemPrice)
 
-    // item = {itemName, itemPrice}
-    localStorage.setItem(itemName, itemPrice);
-    // localStorage.setItem(JSON.stringify(item));
+    localStorage.setItem([itemName, itemPrice], itemCount);
+    console.log(localStorage.getItem([itemName, itemPrice]))
 
+    if (localStorage.getItem([itemName, itemPrice]) === null) {
+        localStorage.setItem([itemName, itemPrice], itemCount);
+    }
+    else{
+        console.log("already in cart")
+        localStorage.setItem([itemName, itemPrice], itemCount++);
+    }
+    console.log("LocalStorage items: ")
     for (var i = 0; i < localStorage.length; i++){
         if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
-            console.log(localStorage.key(i) + " in cart " + localStorage.getItem(localStorage.key(i)))
+            console.log(localStorage.key(i) + localStorage.getItem(localStorage.key(i)) + " in cart ")
         }
     }
 }
 
 function showCartItems(){
+    var completelist = document.getElementById("thelist");
+
     for (var i = 0; i < localStorage.length; i++){
-        if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
-            console.log(localStorage.key(i) + " " + localStorage.getItem(localStorage.key(i)))
+        if(!(localStorage.key(i) == "id" || localStorage.key(i) == "value")){
+            j++
+            completelist.innerHTML += "<li class='list-group-item'> <input class='form-check-input me-1' type='checkbox' value=''>" + localStorage.key(i) + " $" + localStorage.getItem(localStorage.key(i)) + "</li>";
+            price = parseFloat(localStorage.getItem(localStorage.key(i)));
+            totalCost += price
         }
     }
+    document.getElementById("totalCost").innerHTML = totalCost;
 }
 
 function deleteFromCart(){
-    localStorage.removeItem(itemName);
+    var cboxes = document.getElementsByClassName('form-check-input me-1');
+    var len = cboxes.length;
+    console.log(cboxes, len)
+    for (var i=0; i<len; i++) {
+        if(cboxes[i].checked){
+            let seperator = cboxes[i].offsetParent.innerText.indexOf("$")
+            var item = cboxes[i].offsetParent.innerText.substring(0, seperator-1)
+            var price = cboxes[i].offsetParent.innerText.substring(seperator)
+            localStorage.removeItem(item)
+        }
+    }
+    location.reload()
 }
 
 signUpUser = async () => {
@@ -133,10 +157,8 @@ makeReservation = async () => {
     var f = $('#checkin_date').data().datepicker.viewDate;
     startDate = stringToTimestamp(f.toString())
     var startTime = document.getElementById("restaurantReservationTimes").value; 
-    console.log(startTime)
     hours = convertTime12To24(startTime)
     formattedDateTime = startDate + 'T' + hours + ':00Z'
-    console.log(formattedDateTime)
     // FIXME: update reservation maker to pull from local storage
     var reservationMaker = 1
     url = `https://localhost:7091/ReservationEntity?reservationPartySize=${numPeople}&reservationDateTime=${formattedDateTime}&restaurantId=${restaurantNum}&reservationMaker=${reservationMaker}`
