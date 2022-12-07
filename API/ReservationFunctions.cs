@@ -42,15 +42,32 @@ public class ReservationFunctions
             }
         }
     }
-    public List<Tuple<int, DateTime, int, int>> getReservations(int restaurantId){
+    public List<String> getReservations(int restaurantId, DateTime startDate){
         List<Tuple<int, DateTime, int, int>> reservationData= new List<Tuple<int, DateTime, int, int>>(); 
-
+        HashSet<int> existing_reservation_times = new HashSet<int>(); 
+        List<String> reservations = new List<String>(); 
         if (reservationTable.ContainsKey(restaurantId)){
             foreach(var reservation in reservationTable[restaurantId]){
-                Tuple<int, DateTime, int, int> r = new Tuple<int, DateTime, int, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId, reservation.customerId); 
-                reservationData.Add(r); 
+                // Tuple<int, DateTime, int, int> r = new Tuple<int, DateTime, int, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId, reservation.customerId); 
+                // reservationData.Add(r); 
+                if (reservation.reservationTime.Year == startDate.Year && reservation.reservationTime.Month == startDate.Month && reservation.reservationTime.Day == startDate.Day){
+                    existing_reservation_times.Add(reservation.reservationTime.Hour);
+                }
             }
-            return reservationData; 
+            for(int i = 9; i < 12; i++){
+                if(! existing_reservation_times.Contains(i)){
+                    reservations.Add(i.ToString() + ":00 am"); 
+                }
+            }
+            if(! existing_reservation_times.Contains(12)){
+                reservations.Add("12:00 pm"); 
+            }
+            for(int i = 13; i < 22; i++){
+                if(! existing_reservation_times.Contains(i)){
+                    reservations.Add((i - 12).ToString() + ":00 pm"); 
+                }
+            }
+            return reservations; 
         }
         else{
             return null; 

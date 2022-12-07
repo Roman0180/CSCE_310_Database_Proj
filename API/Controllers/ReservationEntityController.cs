@@ -17,11 +17,11 @@ public class ReservationEntityController : ControllerBase
     // }
 
     [HttpGet(Name = "checkReservations")]
-    public List<Tuple<int, DateTime, int, int>> Get(int restaurantId)
+    public List<String> Get(int restaurantId, DateTime startDate)
     {
         ReservationFunctions db = new ReservationFunctions(); 
         db.reservationDataFetch(); 
-        return db.getReservations(restaurantId); 
+        return db.getReservations(restaurantId, startDate); 
     }
 
     [HttpPost(Name = "createReservation")]
