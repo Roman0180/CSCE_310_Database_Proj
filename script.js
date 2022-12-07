@@ -77,3 +77,32 @@ function deleteFromCart(){
     }
     location.reload()
 }
+
+signUpUser = async () => {
+    var firstName = document.getElementById("firstName").value;
+    var lastName = document.getElementById("lastName").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    email = email.replace("@", "%40")
+    const location = `https://localhost:7091/UserEntity?firstName=${firstName}&lastName=${lastName}&email=${email}&password=${password}`;
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(location, settings);
+    } catch (e) {
+        return e;
+    }  
+}
+
+async function reservationFetch() {
+    
+    url = `https://localhost:7091/ReservationEntity?restaurantId=${restaurantNum}&startDate=${startDate}`
+    const response = await fetch(url);
+    const json = await response.json();
+    console.log(json);
+}
