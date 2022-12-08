@@ -20,14 +20,14 @@ public class PlacedOrderEntityController : ControllerBase
         return db.getPlacedOrder(order_num); 
     }
 
-    [HttpPut(Name = "createPlacedOrder")]
-    public void Put(int customer_id)
+    [HttpPost(Name = "createPlacedOrder")]
+    public void Post(int customer_id, float total)
     {
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
         using var conn = new NpgsqlConnection(cs);
         conn.Open();
         //INSERT INTO placed_order_entity VALUES(DEFAULT, 2, NULL, NULL, NULL, NULL);
-        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO placed_order_entity VALUES (DEFAULT," + customer_id + ",'2000/01/01',false,'2000/01/01',-1.0 );", conn);
+        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO placed_order_entity VALUES (DEFAULT," + customer_id + ",'2000/01/01',false,'2000/01/01'," + total + ");", conn);
         
         NpgsqlDataReader reader = command.ExecuteReader();
     }
