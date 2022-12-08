@@ -173,7 +173,6 @@
               <div class="row justify-content-center mrow">
                 <div class="col-12"> <img src="https://img.icons8.com/color/48/000000/mastercard-logo.png" width="35px"
                     height="35px" /> <img src="https://img.icons8.com/color/48/000000/visa.png" width="35px"
-                    height="35px" /> <img src="https://img.icons8.com/color/48/000000/paypal.png" width="35px"
                     height="35px" /> </div>
               </div>
               <form class="form-card">
@@ -194,10 +193,16 @@
                     <div class="form-group"> <input type="text" class="form-control p-0" id="expdate" required><label
                         class="form-control-placeholder p-0" for="expdate" id="expDate">ExpirationDate</label> </div>
                   </div>
+
                   <div class="col-sm-4 col-12">
-                    <div class="form-group"> <input type="password" class="form-control p-0" id="passw" required><label
+                    <div class="form-group"> <input type="text" class="form-control p-0" id="passw" required><label
                         class="form-control-placeholder p-0" for="passw" id="CVV">CVV</label> </div>
                   </div>
+                  <div class="col-sm-4 col-12">
+                    <div class="form-group"> <input type="text" class="form-control p-0" id="method" required><label
+                        class="form-control-placeholder p-0" for="passw" id="CVV">Method</label> </div>
+                  </div>
+
                 </div>
                 <div class="row lrow mt-4 mb-3">
                   <div class="col-sm-8 col-12">
@@ -205,7 +210,8 @@
                   </div>
                 </div>
                 <div class="row mb-2">
-                  <div class="col-sm-12"> <button type="button" onclick="revealDelivery()" class="btn btn-primary">Enter Delivery Address</button>
+                  <div class="col-sm-12"> <button type="button" onclick="revealDelivery()" class="btn btn-primary">Enter
+                      Delivery Address</button>
                   </div>
                 </div>
               </form>
@@ -213,12 +219,12 @@
           </div>
         </div>
       </div>
-        <div class="container-fluid" id="deliveryAddressContainer" style="display:none">
-          <div class="row justify-content-center">
-            <div class="card my-4 p-3">
-              <div class="row main">
-                <div class="row justify-content-center mrow">
-                  
+      <div class="container-fluid" id="deliveryAddressContainer" style="display:none">
+        <div class="row justify-content-center">
+          <div class="card my-4 p-3">
+            <div class="row main">
+              <div class="row justify-content-center mrow">
+
                 <form class="form-card">
                   <div class="row">
                     <div class="col-12">
@@ -237,11 +243,12 @@
                     <div class="col-sm-4 col-12">
                       <div class="form-group"> <input type="text" class="form-control p-0" id="expdate" required><label
                           class="form-control-placeholder p-0" for="expdate" id="expDate">State</label> </div>
-                          
+
                     </div>
                     <div class="col-sm-4 col-12">
                       <div class="form-group"> <input type="password" class="form-control p-0" id="passw"
-                          required><label class="form-control-placeholder p-0" for="passw" id="CVV">Zip Code</label> </div>
+                          required><label class="form-control-placeholder p-0" for="passw" id="CVV">Zip Code</label>
+                      </div>
                     </div>
                   </div>
                   <div class="row lrow mt-4 mb-3">
@@ -250,7 +257,8 @@
                     </div>
                   </div>
                   <div class="row mb-2">
-                    <div class="col-sm-12"> <button type="button" onclick="placeOrder()"class="btn btn-primary">Place Order</button>
+                    <div class="col-sm-12"> <button type="button" onclick="placeOrder()" class="btn btn-primary">Place
+                        Order</button>
                     </div>
                   </div>
                 </form>
