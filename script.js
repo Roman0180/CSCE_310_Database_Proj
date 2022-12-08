@@ -68,7 +68,7 @@ function showCartItems(){
             totalCost += price
         }
     }
-    document.getElementById("totalCost").innerHTML = totalCost;
+    document.getElementById("totalCost").innerHTML = parseFloat(totalCost).toFixed(2);
 }
 
 function deleteFromCart(){
@@ -92,23 +92,52 @@ function deleteFromCart(){
             else{
                 localStorage.setItem([item, price], itemCount)
             }
-            console.log(item)
-            console.log(localStorage.getItem(item))
-
-            // if(itemCount > 1){
-            //     // console.log("has more than one")
-            //     // console.log(localStorage.getItem([item, price], 1))
-            //     // console.log(localStorage.getItem([item, price], count-1))
-            //     // // localStorage.removeItem([item, price])
-            // }
-            // else{
-            //     localStorage.removeItem([item, price])
-            // }
+            
         }
     }
     location.reload()
 }
+function revealDelivery(){
+    var T = document.getElementById("deliveryAddressContainer");
+    T.style.display = "block";
+}
 
+placeOrder = async () => {
+    custId = parseInt(localStorage.getItem("id"))
+    orderTotal = parseFloat(document.getElementById("totalCost").innerHTML)
+    url = `https://localhost:7091/PlacedOrderEntity?customer_id=${custId}&total=${orderTotal}`
+    console.log(url)
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(url, settings);
+        window.alert("Your order has been placed!");
+    } catch (e) {
+        return e;
+    }  
+    
+}
+populatePayment = async() =>{
+    //1. get user current payments
+    //1.a. get curr user
+    var userId = parseInt(localStorage.getItem("id"))
+    //1.b. fetch request to get payment data
+    var url = `https://localhost:7091/PaymentEntity?userId=${userId}`
+    $.get(url, function (data) {
+        //populate payment data
+        console.log(data[0].item6)
+        document.getElementById("number").value = data[0].item6
+        document.getElementById("expdate").value = data[0].item3
+        document.getElementById("passw").value = data[0].item4
+    })
+    //show user current payments and option to add new payment
+    document.getElementById("paymentContainer").style = "block"
+}
 signUpUser = async () => {
     var firstName = document.getElementById("firstName").value;
     var lastName = document.getElementById("lastName").value;
