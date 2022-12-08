@@ -43,13 +43,13 @@ function addToCart(id, price){
         localStorage.setItem([itemName, itemPrice], itemCount);
     }
     else{
-        console.log("already in cart")
-        localStorage.setItem([itemName, itemPrice], ++itemCount);
+        var count = parseInt(localStorage.getItem([itemName, itemPrice]))
+        count += 1
+        localStorage.setItem([itemName, itemPrice], count);
     }
     for (var i = 0; i < localStorage.length; i++){
         if(!(localStorage.key(i) == "id" || localStorage.key(i) == "value")){
             console.log(localStorage.key(i) + " QTY: " + localStorage.getItem(localStorage.key(i)))
-            price = localStorage.key(i).toString().indexOf(",")
         }
     }
 }
@@ -63,7 +63,7 @@ function showCartItems(){
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
             priceSubstr = localStorage.key(i).toString().substring(priceIndex+1)
-            completelist.innerHTML += "<li class='list-group-item'> <input class='form-check-input me-1' type='checkbox' value=''>" + itemSubstr + " $" + priceSubstr +  " x" + localStorage.getItem(localStorage.key(i)) + "</li>";
+            completelist.innerHTML += "<li class='list-group-item'> <input class='form-check-input me-1' type='checkbox' value=''>" + itemSubstr + "&emsp; $" + priceSubstr +  "&emsp; x" + localStorage.getItem(localStorage.key(i)) + "</li>";
             price = parseFloat(localStorage.key(i).toString().substring(priceIndex+1)) * localStorage.getItem(localStorage.key(i))
             totalCost += price
         }
@@ -81,18 +81,18 @@ function deleteFromCart(){
             let quentitySeperator = cboxes[i].offsetParent.innerText.indexOf("x")
             var item = cboxes[i].offsetParent.innerText.substring(0, priceSeperator-1)
             var price = cboxes[i].offsetParent.innerText.substring(priceSeperator+1, quentitySeperator-1)
-            console.log(localStorage.getItem([item, price]))
-            var count = localStorage.getItem([item, price])
+            var itemCount = localStorage.getItem([item, price])
+            // console.log(localStorage.key(cboxes[i]))
 
-            if(count > 1){
-                console.log("has more than one")
-                console.log(localStorage.getItem([item, price], 1))
-                console.log(localStorage.getItem([item, price], count-1))
-                // localStorage.removeItem([item, price])
-            }
-            else{
-                // localStorage.removeItem([item, price])
-            }
+            // if(itemCount > 1){
+            //     // console.log("has more than one")
+            //     // console.log(localStorage.getItem([item, price], 1))
+            //     // console.log(localStorage.getItem([item, price], count-1))
+            //     // // localStorage.removeItem([item, price])
+            // }
+            // else{
+            //     localStorage.removeItem([item, price])
+            // }
         }
     }
     location.reload()
