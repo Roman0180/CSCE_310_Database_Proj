@@ -51,15 +51,19 @@
 
 <body>
 
+  <script>
+    console.log(localStorage.id)
+  </script>
+
   <div class="container">
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
       <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
         <img src="images\LOGO.jpeg" width="120" height="40px">
       </a>
-
+      
       <div class="col-md-4 text-end">
-        <a href="#" class="link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown"
-          aria-expanded="false">
+        <a href="#" class="link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+          data-bs-toggle="dropdown" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle"
             viewBox="0 0 16 16">
             <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
@@ -70,15 +74,15 @@
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
           <li><a class="dropdown-item" href="userprofile.html">My Profile</a></li>
           <li><a class="dropdown-item" href="#">My Orders</a></li>
-          <li><a class="dropdown-item" href="makeareservation.html">My Reservation</a></li>
+          <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
+          <li><a class="dropdown-item" href="#">My Reviews</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
           <li><a class="dropdown-item" href="index.html" onclick="userLogOut()">Sign out</a></li>
         </ul>
         <a id="LogIn" href="Log-in.html"> <button type="button" class="btn btn-outline-primary me-2">Login</button></a>
-        <a id="SignUp" href="sign-up.html"> <button type="button"
-            class="btn btn-outline-success me-4">Sign-up</button></a>
+        <a id = "SignUp" href="sign-up.html"> <button type="button" class="btn btn-outline-success me-4">Sign-up</button></a>
         <a href="checkoutpg.html"><button type="button" class="btn btn-danger" id="Cart">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3"
               viewBox="0 0 16 16">
@@ -93,10 +97,11 @@
     </header>
     <script>
       console.log(localStorage.id)
-      if (localStorage.id) {
+      if(localStorage.id){
         document.getElementById('LogIn').hidden = true
         document.getElementById('SignUp').hidden = true
-      } else {
+      }
+      else{
         document.getElementById('dropdownUser1').hidden = true
         document.getElementById('Cart').hidden = true
       }
@@ -219,15 +224,26 @@
   <script src="js/jquery.stellar.min.js"></script>
   <script src="js/jquery.fancybox.min.js"></script>
 
-
   <script src="js/aos.js"></script>
 
   <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/jquery.timepicker.min.js"></script>
 
-
-
   <script src="js/main.js"></script>
+
+  <!--Js-CDN-->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+    integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+    integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+    crossorigin="anonymous"></script>
+
+  <!--AOS-->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 </body>
 
 </html>

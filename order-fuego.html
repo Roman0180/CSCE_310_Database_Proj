@@ -27,6 +27,10 @@
 
 <body style="width:100%;">
     <!--------------------------------------------Header------------------------------------------------->
+    <script>
+      console.log(localStorage.id)
+    </script>
+  
     <div class="container">
       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
@@ -44,8 +48,10 @@
             </svg>
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">My Profile</a></li>
+            <li><a class="dropdown-item" href="userprofile.html">My Profile</a></li>
             <li><a class="dropdown-item" href="#">My Orders</a></li>
+            <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
+            <li><a class="dropdown-item" href="#">My Reviews</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -75,11 +81,8 @@
           document.getElementById('dropdownUser1').hidden = true
           document.getElementById('Cart').hidden = true
         }
-
-        var itemCount = 1
-        console.log(itemCount)
       </script>
-    </div>                                                                
+    </div>                                                              
     
   
     <!--------------------------------Order Now-------------------------------->
@@ -226,33 +229,33 @@
                        
                     <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                          <h5 class="card-title">Rajas de Fuego</h5>
-                          <p class="card-text">$5.89</p>
-                          <a href="" class="btn btn-primary">Add to Order</a>
+                          <h5 class="card-title" id="item17">Rajas de Fuego</h5>
+                          <p class="card-text" id="price17">$5.89</p>
+                          <a href="" class="btn btn-primary" onclick="addToCart('item17', 'price17')">Add to Order</a>
                         </div>
                       </div>
         
                       <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                          <h5 class="card-title">The Hippie</h5>
-                          <p class="card-text">$5.89</p>
-                          <a href="" class="btn btn-primary">Add to Order</a>
+                          <h5 class="card-title" id="item18">The Hippie</h5>
+                          <p class="card-text" id="price18">$5.89</p>
+                          <a href="" class="btn btn-primary" onclick="addToCart('item18', 'price18')">Add to Order</a>
                         </div>
                       </div>
         
                       <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                          <h5 class="card-title">Veggie Monster AKA James Allen</h5>
-                          <p class="card-text">$4.39</p>
-                          <a href="" class="btn btn-primary">Add to Order</a>
+                          <h5 class="card-title" id="item19">Veggie Monster AKA James Allen</h5>
+                          <p class="card-text" id="price19">$4.39</p>
+                          <a href="" class="btn btn-primary" onclick="addToCart('item19', 'price19')">Add to Order</a>
                         </div>
                       </div>
                     
                       <div class="card" style="width: 18rem;">
                         <div class="card-body">
-                          <h5 class="card-title">Rock Star</h5>
-                          <p class="card-text">$5.99</p>
-                          <a href="" class="btn btn-primary">Add to Order</a>
+                          <h5 class="card-title" id="item20">Rock Star</h5>
+                          <p class="card-text" id="price20">$5.99</p>
+                          <a href="" class="btn btn-primary" onclick="addToCart('item20', 'price20')">Add to Order</a>
                         </div>
                       </div>
                     </div>
@@ -260,41 +263,41 @@
                     <div class="d-flex">
                       <div class="card" style="width: 18rem;">
                           <div class="card-body">
-                            <h5 class="card-title">Fuego Steak</h5>
-                            <p class="card-text">$5.99</p>
-                            <a href="" class="btn btn-primary">Add to Order</a>
+                            <h5 class="card-title" id="item21">Fuego Steak</h5>
+                            <p class="card-text" id="price21">$5.99</p>
+                            <a href="" class="btn btn-primary" onclick="addToCart('item21', 'price21')">Add to Order</a>
                           </div>
                         </div>
                          
                       <div class="card" style="width: 18rem;">
                           <div class="card-body">
-                            <h5 class="card-title">The King</h5>
-                            <p class="card-text">$5.99</p>
-                            <a href="" class="btn btn-primary">Add to Order</a>
+                            <h5 class="card-title" id="item22">The King</h5>
+                            <p class="card-text" id="price22">$5.99</p>
+                            <a href="" class="btn btn-primary" onclick="addToCart('item22', 'price22')">Add to Order</a>
                           </div>
                         </div>
           
                         <div class="card" style="width: 18rem;">
                           <div class="card-body">
-                            <h5 class="card-title">Good Golly Miss Holly</h5>
-                            <p class="card-text">$5.99</p>
-                            <a href="" class="btn btn-primary">Add to Order</a>
+                            <h5 class="card-title" id="item23">Good Golly Miss Holly</h5>
+                            <p class="card-text" id="price23">$5.99</p>
+                            <a href="" class="btn btn-primary" onclick="addToCart('item23', 'price23')">Add to Order</a>
                           </div>
                         </div>
           
                         <div class="card" style="width: 18rem;">
                           <div class="card-body">
-                            <h5 class="card-title">Fugeo A-Go-Go</h5>
-                            <p class="card-text">$5.99</p>
-                            <a href="" class="btn btn-primary">Add to Order</a>
+                            <h5 class="card-title" id="item24">Fugeo A-Go-Go</h5>
+                            <p class="card-text" id="price24">$5.99</p>
+                            <a href="" class="btn btn-primary" onclick="addToCart('item24', 'price24')">Add to Order</a>
                           </div>
                         </div>
                       
                         <div class="card" style="width: 18rem;">
                           <div class="card-body">
-                            <h5 class="card-title">Dr Pepper Cowboy</h5>
-                            <p class="card-text">$5.99</p>
-                            <a href="" class="btn btn-primary">Add to Order</a>
+                            <h5 class="card-title" id="item25">Dr Pepper Cowboy</h5>
+                            <p class="card-text" id="price25">$5.99</p>
+                            <a href="" class="btn btn-primary" onclick="addToCart('item25', 'price25')">Add to Order</a>
                           </div>
                         </div>
                       </div>
@@ -302,41 +305,41 @@
                       <div class="d-flex">
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Classic Carne Guisada</h5>
-                              <p class="card-text">$5.89</p>
-                              <a href="" class="btn btn-primary">Add to Order</a>
+                              <h5 class="card-title" id="item26">Classic Carne Guisada</h5>
+                              <p class="card-text" id="price26">$5.89</p>
+                              <a href="" class="btn btn-primary" onclick="addToCart('item26', 'price26')">Add to Order</a>
                             </div>
                           </div>
                            
                         <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Dodge City Mac & Cheese</h5>
-                              <p class="card-text">$5.69</p>
-                              <a href="" class="btn btn-primary">Add to Order</a>
+                              <h5 class="card-title" id="item27">Dodge City Mac & Cheese</h5>
+                              <p class="card-text" id="price27">$5.69</p>
+                              <a href="" class="btn btn-primary" onclick="addToCart('item27', 'price27')">Add to Order</a>
                             </div>
                           </div>
             
                           <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Sweet Caroline</h5>
-                              <p class="card-text">$5.69</p>
-                              <a href="" class="btn btn-primary">Add to Order</a>
+                              <h5 class="card-title" id="item28">Sweet Caroline</h5>
+                              <p class="card-text" id="price28">$5.69</p>
+                              <a href="" class="btn btn-primary" onclick="addToCart('item28', 'price28')">Add to Order</a>
                             </div>
                           </div>
             
                           <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Rita Carnita</h5>
-                              <p class="card-text">$5.69</p>
-                              <a href="" class="btn btn-primary">Add to Order</a>
+                              <h5 class="card-title" id="item29">Rita Carnita</h5>
+                              <p class="card-text" id="price29">$5.69</p>
+                              <a href="" class="btn btn-primary" onclick="addToCart('item29', 'price29')">Add to Order</a>
                             </div>
                           </div>
                         
                           <div class="card" style="width: 18rem;">
                             <div class="card-body">
-                              <h5 class="card-title">Campeche Fish Taco</h5>
-                              <p class="card-text">$5.39</p>
-                              <a href="" class="btn btn-primary">Add to Order</a>
+                              <h5 class="card-title" id="item30">Campeche Fish Taco</h5>
+                              <p class="card-text" id="price30">$5.39</p>
+                              <a href="" class="btn btn-primary" onclick="addToCart('item30', 'price30')">Add to Order</a>
                             </div>
                           </div>
                         </div>
@@ -345,41 +348,41 @@
                         <div class="d-flex">
                           <div class="card" style="width: 18rem;">
                               <div class="card-body">
-                                <h5 class="card-title">South Padre</h5>
-                                <p class="card-text">$5.39</p>
-                                <a href="" class="btn btn-primary">Add to Order</a>
+                                <h5 class="card-title" id="item31">South Padre</h5>
+                                <p class="card-text" id="price31">$5.39</p>
+                                <a href="" class="btn btn-primary" onclick="addToCart('item31', 'price31')">Add to Order</a>
                               </div>
                             </div>
                              
                           <div class="card" style="width: 18rem;">
                               <div class="card-body">
-                                <h5 class="card-title">Fuel For Fitness Fuego Bowl</h5>
-                                <p class="card-text">$7.49</p>
-                                <a href="" class="btn btn-primary">Add to Order</a>
+                                <h5 class="card-title" id="item32">Fuel For Fitness Fuego Bowl</h5>
+                                <p class="card-text" id="price32">$7.49</p>
+                                <a href="" class="btn btn-primary" onclick="addToCart('item32', 'price32')">Add to Order</a>
                               </div>
                             </div>
               
                             <div class="card" style="width: 18rem;">
                               <div class="card-body">
-                                <h5 class="card-title">1/2 Pint Roasted Poblano Queso</h5>
-                                <p class="card-text">$4.99</p>
-                                <a href="" class="btn btn-primary">Add to Order</a>
+                                <h5 class="card-title" id="item33">1/2 Pint Roasted Poblano Queso</h5>
+                                <p class="card-text" id="price33">$4.99</p>
+                                <a href="" class="btn btn-primary" onclick="addToCart('item33', 'price33')">Add to Order</a>
                               </div>
                             </div>
               
                             <div class="card" style="width: 18rem;">
                               <div class="card-body">
-                                <h5 class="card-title">Pint Roasted Poblano Queso</h5>
-                                <p class="card-text">$9.79</p>
-                                <a href="" class="btn btn-primary">Add to Order</a>
+                                <h5 class="card-title" id="item34">Pint Roasted Poblano Queso</h5>
+                                <p class="card-text" id="price34">$9.79</p>
+                                <a href="" class="btn btn-primary" onclick="addToCart('item34', 'price34')">Add to Order</a>
                               </div>
                             </div>
                           
                             <div class="card" style="width: 18rem;">
                               <div class="card-body">
-                                <h5 class="card-title">1/2 Pint Handmade Guacamole</h5>
-                                <p class="card-text">$5.39</p>
-                                <a href="" class="btn btn-primary">Add to Order</a>
+                                <h5 class="card-title" id="item35">1/2 Pint Handmade Guacamole</h5>
+                                <p class="card-text" id="price35">$5.39</p>
+                                <a href="" class="btn btn-primary" onclick="addToCart('item35', 'price35')">Add to Order</a>
                               </div>
                             </div>
                           </div>
@@ -388,41 +391,41 @@
                           <div class="d-flex">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Pint Handmade Guacamole</h5>
-                                  <p class="card-text">$10.19</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item36">Pint Handmade Guacamole</h5>
+                                  <p class="card-text" id="price36">$10.19</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item36', 'price36')">Add to Order</a>
                                 </div>
                               </div>
                               
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Mexican Cobb Salad</h5>
-                                  <p class="card-text">$12.99</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item37">Mexican Cobb Salad</h5>
+                                  <p class="card-text" id="price37">$12.99</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item37', 'price37')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Small Rotisserie Chicken Tortilla Soup</h5>
-                                  <p class="card-text">$4.29</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item38">Small Rotisserie Chicken Tortilla Soup</h5>
+                                  <p class="card-text" id="price38">$4.29</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item38', 'price38')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Large Rotisserie Chicken Tortilla Soup</h5>
-                                  <p class="card-text">$5.99</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item39">Large Rotisserie Chicken Tortilla Soup</h5>
+                                  <p class="card-text" id="price39">$5.99</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item39', 'price39')">Add to Order</a>
                                 </div>
                               </div>
                             
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">1/2 Pint Chipotle Cream Corn</h5>
-                                  <p class="card-text">$3.49</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item40">1/2 Pint Chipotle Cream Corn</h5>
+                                  <p class="card-text" id="price40">$3.49</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item40', 'price40')">Add to Order</a>
                                 </div>
                               </div>
                             </div>
@@ -431,41 +434,41 @@
                           <div class="d-flex">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Pint Chipotle Cream Corn</h5>
-                                  <p class="card-text">$6.29</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item41">Pint Chipotle Cream Corn</h5>
+                                  <p class="card-text" id="price41">$6.29</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item41', 'price41')">Add to Order</a>
                                 </div>
                               </div>
                               
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">1/2 Pint Mac & Cheese</h5>
-                                  <p class="card-text">$3.49</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item42">1/2 Pint Mac & Cheese</h5>
+                                  <p class="card-text" id="price42">$3.49</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item42', 'price42')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Pint Mac & Cheese</h5>
-                                  <p class="card-text">$6.29</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item43">Pint Mac & Cheese</h5>
+                                  <p class="card-text" id="price43">$6.29</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item43', 'price43')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">1/2 Pint French Fries</h5>
-                                  <p class="card-text">$2.99</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item44">1/2 Pint French Fries</h5>
+                                  <p class="card-text" id="price44">$2.99</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item44', 'price44')">Add to Order</a>
                                 </div>
                               </div>
                             
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Pint French Fries</h5>
-                                  <p class="card-text">$5.49</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item45">Pint French Fries</h5>
+                                  <p class="card-text" id="price45">$5.49</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item45', 'price45')">Add to Order</a>
                                 </div>
                               </div>
                             </div>
@@ -474,41 +477,41 @@
                           <div class="d-flex">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">1/2 Pint Holy Frijoles</h5>
-                                  <p class="card-text">$2.89</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item46">1/2 Pint Holy Frijoles</h5>
+                                  <p class="card-text" id="price46">$2.89</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item46', 'price46')">Add to Order</a>
                                 </div>
                               </div>
                               
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Pint Holy Frijoles</h5>
-                                  <p class="card-text">$5.29</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item47">Pint Holy Frijoles</h5>
+                                  <p class="card-text" id="price47">$5.29</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item47', 'price47')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">1/2 Pint Charro Beans</h5>
-                                  <p class="card-text">$2.89</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item48">1/2 Pint Charro Beans</h5>
+                                  <p class="card-text" id="price48">$2.89</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item48', 'price48')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Pint Charro Beans</h5>
-                                  <p class="card-text">$5.29</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item49">Pint Charro Beans</h5>
+                                  <p class="card-text" id="price49">$5.29</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item49', 'price49')">Add to Order</a>
                                 </div>
                               </div>
                             
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">1/2 Pint Rice</h5>
-                                  <p class="card-text">$2.89</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item50">1/2 Pint Rice</h5>
+                                  <p class="card-text" id="price50">$2.89</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item50', 'price50')">Add to Order</a>
                                 </div>
                               </div>
                             </div>
@@ -517,41 +520,41 @@
                           <div class="d-flex">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Pint Rice</h5>
-                                  <p class="card-text">$5.29</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item51">Pint Rice</h5>
+                                  <p class="card-text" id="price51">$5.29</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item51', 'price51')">Add to Order</a>
                                 </div>
                               </div>
                               
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Magic Cookie</h5>
-                                  <p class="card-text">$2.79</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item52">Magic Cookie</h5>
+                                  <p class="card-text" id="price52">$2.79</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item52', 'price52')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Banana Pudding</h5>
-                                  <p class="card-text">$3.69</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item53">Banana Pudding</h5>
+                                  <p class="card-text" id="price53">$3.69</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item53', 'price53')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Triple Chocolate Chip Cinnamon Brownie</h5>
-                                  <p class="card-text">$2.79</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item54">Triple Chocolate Chip Cinnamon Brownie</h5>
+                                  <p class="card-text" id="price54">$2.79</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item54', 'price54')">Add to Order</a>
                                 </div>
                               </div>
                             
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Fountain Drinks & Tea</h5>
-                                  <p class="card-text">$2.49</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item55">Fountain Drinks & Tea</h5>
+                                  <p class="card-text" id="price55">$2.49</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item55', 'price55')">Add to Order</a>
                                 </div>
                               </div>
                             </div>
@@ -560,25 +563,25 @@
                           <div class="d-flex">
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Orange or Apple Juice</h5>
-                                  <p class="card-text">$2.09</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item56">Orange or Apple Juice</h5>
+                                  <p class="card-text" id="price56">$2.09</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item56', 'price56')">Add to Order</a>
                                 </div>
                               </div>
                               
                             <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Milk or Chocolate Milk</h5>
-                                  <p class="card-text">$1.59</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item57">Milk or Chocolate Milk</h5>
+                                  <p class="card-text" id="price57">$1.59</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item57', 'price57')">Add to Order</a>
                                 </div>
                               </div>
                 
                               <div class="card" style="width: 18rem;">
                                 <div class="card-body">
-                                  <h5 class="card-title">Premium Coffee</h5>
-                                  <p class="card-text">$1.69</p>
-                                  <a href="" class="btn btn-primary">Add to Order</a>
+                                  <h5 class="card-title" id="item58">Premium Coffee</h5>
+                                  <p class="card-text" id="price58">$1.69</p>
+                                  <a href="" class="btn btn-primary" onclick="addToCart('item58', 'price58')">Add to Order</a>
                                 </div>
                               </div>                      
         <script>
@@ -597,19 +600,19 @@
   </section>
   
 
-    <!--Js-CDN-->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
-        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
-        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
-        crossorigin="anonymous"></script>
+  <!--Js-CDN-->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+  integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+  integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+  crossorigin="anonymous"></script>
 
-    <!--AOS-->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>
-        AOS.init();
-    </script>
+  <!--AOS-->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+  AOS.init();
+  </script>
     
 </body>
 
