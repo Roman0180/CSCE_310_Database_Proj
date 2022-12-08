@@ -82,7 +82,9 @@ function deleteFromCart(){
             var item = cboxes[i].offsetParent.innerText.substring(0, priceSeperator-1)
             var price = cboxes[i].offsetParent.innerText.substring(priceSeperator+1, quentitySeperator-1)
             var itemCount = localStorage.getItem([item, price])
-            // console.log(localStorage.key(cboxes[i]))
+
+            console.log(item)
+            console.log(localStorage.getItem(item))
 
             // if(itemCount > 1){
             //     // console.log("has more than one")
