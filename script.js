@@ -73,6 +73,7 @@ function showCartItems(){
 
 function deleteFromCart(){
     var cboxes = document.getElementsByClassName('form-check-input me-1');
+    
     var len = cboxes.length;
     console.log(cboxes, len)
     for (var i=0; i<len; i++) {
@@ -80,9 +81,17 @@ function deleteFromCart(){
             let priceSeperator = cboxes[i].offsetParent.innerText.indexOf("$")
             let quentitySeperator = cboxes[i].offsetParent.innerText.indexOf("x")
             var item = cboxes[i].offsetParent.innerText.substring(0, priceSeperator-1)
+            item = item.trim()
             var price = cboxes[i].offsetParent.innerText.substring(priceSeperator+1, quentitySeperator-1)
-            var itemCount = localStorage.getItem([item, price])
-
+            price = price.trim()
+            var itemCount = localStorage.getItem([item, parseFloat(price)])
+            itemCount -= 1
+            if(itemCount < 1){
+                localStorage.removeItem([item, price])
+            }
+            else{
+                localStorage.setItem([item, price], itemCount)
+            }
             console.log(item)
             console.log(localStorage.getItem(item))
 
