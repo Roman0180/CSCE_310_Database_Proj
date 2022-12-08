@@ -7,20 +7,19 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-body {
+/* body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background-color: #0C4160;
 
     padding: 30px 10px;
-}
+} */
 
 .card {
     max-width: 500px;
-    margin: auto;
-    margin-left: 14vw;
+    margin: 0;
+    margin-left: 10vw;
     color: black;
     border-radius: 20 px;
 }
