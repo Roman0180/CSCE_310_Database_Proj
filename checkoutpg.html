@@ -25,7 +25,7 @@
         <title>Check Out</title>
     </head>
 
-<body style="width:100%;">
+<body style="width:100%;" onload="showCartItems()">
     <!--------------------------------------------Header------------------------------------------------->
     <div class="container">
       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
@@ -83,146 +83,17 @@
           <header class="section-heading">
               <h3 class="section-title">Your Cart</h3>
           </header>
-          <div class="d-flex">
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title" id="checkoutItem1"></h5>
-                    <p class="card-text" id="checkoutPrice1">$</p>
-                    <a href="" class="btn btn-danger">Remove</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title" id="checkoutItem2"></h5>
-                    <p class="card-text" id="checkoutPrice2">$</p>
-                    <a href="" class="btn btn-danger">Remove</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title" id="checkoutItem3"></h5>
-                    <p class="card-text" id="checkoutPrice3">$</p>
-                    <a href="" class="btn btn-danger">Remove</a>
-                </div>
-            </div>
-  
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title" id="checkoutItem4"></h5>
-                    <p class="card-text" id="checkoutPrice4">$</p>
-                    <a href="" class="btn btn-danger">Remove</a>
-                </div>
-            </div>
-            <div class="card" style="width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title" id="checkoutItem5"></h5>
-                    <p class="card-text" id="checkoutPrice5">$</p>
-                    <a href="" class="btn btn-danger">Remove</a>
-                </div>
-            </div>
-            </div> 
-  
-            <div class="d-flex">
-                
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem6"></h5>
-                        <p class="card-text" id="checkoutPrice6">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem7"></h5>
-                        <p class="card-text" id="checkoutPrice7">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
+            <br/><br/>
+            <ul id="thelist" class="list-group">
+            </ul>
+            <p padding-top:35px>Total: $<span id="totalCost"></span></p>
 
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem8"></h5>
-                        <p class="card-text" id="checkoutPrice8">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem9"></h5>
-                        <p class="card-text" id="checkoutPrice9">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div> 
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem10"></h5>
-                        <p class="card-text" id="checkoutPrice10">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="d-flex">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem11"></h5>
-                        <p class="card-text" id="checkoutPrice11">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem12"></h5>
-                        <p class="card-text" id="checkoutPrice12">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem13"></h5>
-                        <p class="card-text" id="checkoutPrice13">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem14"></h5>
-                        <p class="card-text" id="checkoutPrice14">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem15"></h5>
-                        <p class="card-text" id="checkoutPrice15">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title" id="checkoutItem16"></h5>
-                        <p class="card-text" id="checkoutPrice16">$</p>
-                        <a href="" class="btn btn-danger">Remove</a>
-                    </div>
-                </div>
-            </div>
-
+            <button onclick="deleteFromCart()">Remove from Cart</button>
         </div>
     <script>
         var j = 0
-        for (var i = 1; i < localStorage.length; i++){
-            if(!(localStorage.key(i) == "id" || localStorage.key(i) == "value")){
-                j++
-                console.log(localStorage.key(i), localStorage.getItem(localStorage.key(i)))
-                itemID = "checkoutItem" + j
-                priceID = "checkoutPrice" + j
-                document.getElementById(itemID).textContent = localStorage.key(i)
-                document.getElementById(priceID).textContent = localStorage.getItem(localStorage.key(i))
-            }
-        }
-        console.log(j) // number of checkout items
+        var totalCost = 0.00
+        
     </script>
 
     <!--Js-CDN-->
