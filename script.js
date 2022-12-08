@@ -38,24 +38,13 @@ function userLogOut(){
 function addToCart(id, price){
     var itemName = document.getElementById(id).textContent;
     var itemPrice = document.getElementById(price).textContent;
-    itemPrice = itemPrice.substring(1)
-    // localStorage.setItem(itemName, itemPrice)
-
-    localStorage.setItem([itemName, itemPrice], itemCount);
-    console.log(localStorage.getItem([itemName, itemPrice]))
-
+    itemPrice = parseFloat(itemPrice.substring(1))
     if (localStorage.getItem([itemName, itemPrice]) === null) {
         localStorage.setItem([itemName, itemPrice], itemCount);
     }
     else{
         console.log("already in cart")
-        localStorage.setItem([itemName, itemPrice], itemCount++);
-    }
-    console.log("LocalStorage items: ")
-    for (var i = 0; i < localStorage.length; i++){
-        if(!(localStorage.key(i) == "id" | localStorage.key(i) == "value")){
-            console.log(localStorage.key(i) + localStorage.getItem(localStorage.key(i)) + " in cart ")
-        }
+        localStorage.setItem([itemName, itemPrice], ++itemCount);
     }
 }
 
