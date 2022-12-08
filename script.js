@@ -129,27 +129,31 @@ function stringToTimestamp(s) {
   
     return t[3] + '-' + months[t[1].toLowerCase()] + '-' + (parseInt(t[2]) + 1)
   }
-async function reservationFetch() {
-    var restaurantNum = document.getElementById("restaurant").value;
-    // var f = $('#checkin_date').val().getFormattedDate('yyyy-mm-dd');
-    var f = $('#checkin_date').data().datepicker.viewDate;
-    startDate = stringToTimestamp(f.toString())
-    //startDate = "2017-07-21"
-    url = `https://localhost:7091/ReservationEntity?restaurantId=${restaurantNum}&startDate=${startDate}`
-    const response = await fetch(url);
-    const json = await response.json();
-    console.log(json);
-    var T = document.getElementById("reservationTimes");
-    T.style.display = "block";
-    var select = document.getElementById("restaurantReservationTimes");
-
-    for(var option of json) {
-        var el = document.createElement("option");
-        el.textContent = option;
-        el.value = option;
-        select.appendChild(el);
-    }
+function test(){
+    event.preventDefault();
 }
+
+
+$(document).ready(function () {
+    $("#reservationButton").click(function () {
+        var restaurantNum = document.getElementById("restaurant").value;
+        var f = $('#checkin_date').data().datepicker.viewDate;
+        startDate = stringToTimestamp(f.toString())
+        url = `https://localhost:7091/ReservationEntity?restaurantId=${restaurantNum}&startDate=${startDate}`
+        $.get(url, function (data) {
+            var T = document.getElementById("reservationTimes");
+            T.style.display = "block";
+            var select = document.getElementById("restaurantReservationTimes");
+
+            for(var option of data) {
+                var el = document.createElement("option");
+                el.textContent = option;
+                el.value = option;
+                select.appendChild(el);
+            }
+        })
+    });
+});
 function convertTime12To24(time) {
     var hours   = Number(time.match(/^(\d+)/)[1]);
     var minutes = Number(time.match(/:(\d+)/)[1]);
