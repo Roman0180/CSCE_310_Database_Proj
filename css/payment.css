@@ -45,15 +45,14 @@ p {
     margin: 0px;
 }
 
-.container {
-    /* background-color: white; */
+.container2 {
     padding-left: 0vw;
     padding-right: 5vw;
     padding-top: 2vw;
     padding-bottom: 2vw;
 }
 
-.container .h8 {
+.container2 .h8 {
     font-size: 30px;
     font-weight: 800;
     text-align: center;
