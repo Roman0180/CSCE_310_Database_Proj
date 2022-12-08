@@ -158,14 +158,13 @@
       'format': 'm/d/yyyy',
       'autoclose': true
     });
-    $('#checkin_date, #checkout_date').datepicker({
-      'format': 'd MM, yyyy',
+    $('#checkin_date').datepicker({
+      'format': 'MM d, yyyy',
       'autoclose': true
     });
     $('#m_time').timepicker();
   };
   dateAndTime();
-
 
   var windowScroll = function() {
 
