@@ -43,8 +43,9 @@ function addToCart(id, price){
         localStorage.setItem([itemName, itemPrice], itemCount);
     }
     else{
-        console.log("already in cart")
-        localStorage.setItem([itemName, itemPrice], ++itemCount);
+        var count = parseInt(localStorage.getItem([itemName, itemPrice]))
+        count += 1
+        localStorage.setItem([itemName, itemPrice], count);
     }
 }
 
