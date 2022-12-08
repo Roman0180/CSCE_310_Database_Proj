@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Bootstrap CDN-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />\
+
+    <!--Font-awesome CDN-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+
+    <!--Link CSS-->
+    <link rel="stylesheet" href="style.css">
+
+    <!--Favicon-->
+    <link rel="icon" type="image/x-icon" href="images/logosquare.jpeg">
+
+    <script type="text/javascript" src="script.js"></script>
+
+    <title>Fuego Reviews - Online Foods</title>
+
+<body style="width:100%;">
+    <!--------------------------------------------Header------------------------------------------------->
+    <script>
+      console.log(localStorage.id)
+    </script>
+  
+    <div class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
+        <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+          <img src="images\LOGO.jpeg" width="120" height="40px">
+        </a>
+        
+        <div class="col-md-4 text-end">
+          <a href="#" class="link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-circle"
+              viewBox="0 0 16 16">
+              <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+              <path fill-rule="evenodd"
+                d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+            </svg>
+          </a>
+          <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="userprofile.html">My Profile</a></li>
+            <li><a class="dropdown-item" href="#">My Orders</a></li>
+            <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
+            <li><a class="dropdown-item" href="#">My Reviews</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="index.html" onclick="userLogOut()">Sign out</a></li>
+          </ul>
+          <a id="LogIn" href="Log-in.html"> <button type="button" class="btn btn-outline-primary me-2">Login</button></a>
+          <a id = "SignUp" href="sign-up.html"> <button type="button" class="btn btn-outline-success me-4">Sign-up</button></a>
+          <a href="checkoutpg.html"><button type="button" class="btn btn-danger" id="Cart">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3"
+                viewBox="0 0 16 16">
+                <path
+                  d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z">
+                </path>
+              </svg>
+              Cart
+            </button>
+          </a>
+        </div>
+      </header>
+      <script>
+        console.log(localStorage.id)
+        if(localStorage.id){
+          document.getElementById('LogIn').hidden = true
+          document.getElementById('SignUp').hidden = true
+        }
+        else{
+          document.getElementById('dropdownUser1').hidden = true
+          document.getElementById('Cart').hidden = true
+        }
+      </script>
+    </div>                                                           
+    <!--------------------------------------------Table------------------------------------------------->
+    <div class="table">
+      <style>
+        table, th, td {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+        }
+    </style>
+    FUEGO's Reviews
+      <p id='showData'></p>
+        
+        <script>
+            
+            //const reviewData = await grabReviewData(url);
+            let  reviewData;
+//         let reviewData;
+let get_data = async() => {
+    let url = "https://localhost:7091/ReviewEntityUser/checkReviews?restaurantId=1";
+    let response = await fetch (url);
+    reviewData = await response.json();	// fill array with data.
+    
+    make_the_table();		// convert data to table.
+  }  
+  
+  let make_the_table = () => {
+    console.log(reviewData);
+    let col = ["Name","Rating","Feedback","Date Posted","Employee Comment","Edit"];
+    let colOther = ["item2","item3","item4","item5","item6"]
+    // Extract value from table header.
+    for (let i = 0; i < reviewData.length; i++) {
+      for (let key in reviewData[i]) {
+        //console.log(key);
+        // if (col.indexOf(key) === -1) {
+        //   col.push(key);
+        // }
+      }
+    }
+
+    // Create a table.
+    const table = document.createElement("table");
+
+    // Create table header row using the extracted headers above.
+    let tr = table.insertRow(-1);                 // table row.
+    
+    for (let i = 0; i < col.length; i++) {
+      let th = document.createElement("th");      // table header.
+      th.innerHTML = col[i];
+      tr.appendChild(th);
+    }
+
+    // add json data to the table as rows.
+    for (let i = 0; i < reviewData.length; i++) {
+
+      tr = table.insertRow(-1);
+
+      for (let j = 0; j < col.length; j++) {
+        let tabCell = tr.insertCell(-1);
+        if(j == col.length - 1)
+        {
+        var btn = document.createElement('input');
+        btn.type = "button";
+        btn.className = i;
+        btn.innerHTML = "EDIT";
+        btn.value = "EDIT";
+        //btn.onclick = (function(entry) {return function() {chooseUser(entry);}})(entry);
+        //btn.onclick = (function(btn) {console.log(btn.path[0].className);});
+        btn.onclick = (function(btn) {let id = parseInt(btn.path[0].className); console.log(id);});
+        tabCell.appendChild(btn);
+        }
+        else tabCell.innerHTML = reviewData[i][colOther[j]];
+        
+      }
+    }
+
+    // Now, add the newly created table with json data, to a container.
+    const divShowData = document.getElementById('showData');
+    divShowData.innerHTML = "";
+    divShowData.appendChild(table);
+  }
+//   let get_data = async() => {
+//     let response = await fetch (url);
+//     let output = await response.json();
+//     console.log(output);
+//   }
+
+//   get_data().then(reviewData => reviewData);
+
+// console.log(reviewData);
+// const table = document.createElement("table");
+
+// // Create table header row using the extracted headers above.
+// let tr = table.insertRow(-1);                 // table row.
+// let col = ["comment_id","firstLast","rating","text_feedback","date_posted","comment","restaruant_id","employee_id"];
+// for (let i = 0; i < col.length; i++) {
+//   let th = document.createElement("th");      // table header.
+//   th.innerHTML = col[i];
+//   tr.appendChild(th);
+// }
+// for (let i = 0; i < reviewData.length; i++) {
+
+//     tr = table.insertRow(-1);
+
+//     for (let j = 0; j < col.length; j++) {
+//       let tabCell = tr.insertCell(-1);
+//       tabCell.innerHTML = reviewData[i][col[j]];
+//       console.log(reviewData[i][col[j]]);
+//     }
+//   }
+
+//   // Now, add the newly created table with json data, to a container.
+//   const divShowData = document.getElementById('showData');
+//   divShowData.innerHTML = "";
+//   divShowData.appendChild(table);
+get_data();
+        </script>
+        
+
+    </div>
+    
+    
+
+    <!--Js-CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
+        integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js"
+        integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy"
+        crossorigin="anonymous"></script>
+
+    <!--AOS-->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+    
+</body>
+
+</html>

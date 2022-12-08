@@ -8,8 +8,12 @@ using System.Text.Json;
 
 namespace API;
 
-public class ReviewEmployee{
-    public int order_num; 
+public class Review{
+    public int commentId;
+    //public int order_num;
+    public string firstName;
+    public string lastName; 
+    public string firstLast;
     public int rating;
     public string text_feedback;
     public DateTime date_posted; 
@@ -21,41 +25,43 @@ public class ReviewEmployee{
 public class ReviewEmployeeFunctions
 {
     // restaurant of review -> all reviews at that restaurant
-    Dictionary<int, List<ReviewEmployee>> review_table = new Dictionary<int, List<ReviewEmployee>>();
+    Dictionary<int, List<Review>> review_table = new Dictionary<int, List<Review>>();
 
     public void reviewDataFetch()
     {
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
         using var conn = new NpgsqlConnection(cs);
         conn.Open();
-        NpgsqlCommand command = new NpgsqlCommand("SELECT * from review_entity", conn);
+        NpgsqlCommand command = new NpgsqlCommand("SELECT * from reviewWithNames", conn);
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
-            ReviewEmployee review = new ReviewEmployee(); 
-            review.order_num = reader.GetInt32(1);
-            review.rating = reader.GetInt32(2);
-            review.text_feedback = reader.GetString(3);
-            review.date_posted = reader.GetDateTime(4); 
-            review.restaurantId = reader.GetInt32(5); 
+            Review review = new Review(); 
+            review.commentId = reader.GetInt32(0);
+            review.firstName = reader.GetString(1);
+            review.lastName = reader.GetString(2);
+            review.rating = reader.GetInt32(3);
+            review.text_feedback = reader.GetString(4);
+            review.date_posted = reader.GetDateTime(5);
             review.comment = reader.GetString(6);
-            review.employee_id = reader.GetInt32(7);
-            //review.comment_customer_id = reader.GetInt32(8);
+            review.restaurantId = reader.GetInt32(7);
+            review.employee_id = reader.GetInt32(8);
+            review.firstLast = review.firstName + " " + review.lastName;
             if(review_table.ContainsKey(review.restaurantId)){
                 review_table[review.restaurantId].Add(review);
             } 
             else{
-                List<ReviewEmployee> newList = new List<ReviewEmployee>(); 
+                List<Review> newList = new List<Review>(); 
                 newList.Add(review); 
                 review_table.Add(review.restaurantId, newList);
             }
         }
     }
-    public List<Tuple<int, int, string, DateTime, int, string, int>> getReviews(int restaurantId){
-        List<Tuple<int, int, string, DateTime, int, string, int>> reviewData= new List<Tuple<int, int, string, DateTime, int, string, int>>(); 
+    public List<Tuple<int,string,int,string,DateTime,string,int>> getReviews(int restaurantId){
+        List<Tuple<int,string,int,string,DateTime,string,int>> reviewData= new List<Tuple<int,string,int,string,DateTime,string,int>>(); 
 
         if (review_table.ContainsKey(restaurantId)){
             foreach(var review in review_table[restaurantId]){
-                Tuple<int, int, string, DateTime, int, string, int> r = new Tuple<int, int, string, DateTime, int, string, int>(review.order_num,review.rating, review.text_feedback, review.date_posted, review.restaurantId, review.comment, review.employee_id); 
+                Tuple<int,string,int,string,DateTime,string,int> r = new Tuple<int,string,int,string,DateTime,string,int>(review.commentId,review.firstLast,review.rating,review.text_feedback,review.date_posted,review.comment,review.employee_id); 
                 reviewData.Add(r); 
             }
             return reviewData; 
