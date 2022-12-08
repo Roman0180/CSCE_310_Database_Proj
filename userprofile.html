@@ -156,6 +156,7 @@
           <li><a class="dropdown-item" href="#">My Orders</a></li>
           <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
           <li><a class="dropdown-item" href="#">My Reviews</a></li>
+          <li><a class="dropdown-item" href="employeeRestaurants.html">My Restaurants</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -333,11 +334,71 @@
                   </div>
                 </div>
               </form>
+              
             </div>
+          </div>
+          
+        </div>
+      </div>
+      <div>
+        <button onclick="getRestaurantData()">View Restaurants</button>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Select Day</th>
+                  <th scope="col">Article Name</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Words</th>
+                  <th scope="col">Shares</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
+                        <label class="custom-control-label" for="customCheck1">1</label>
+                    </div>
+                  </td>
+                  <td>Bootstrap 4 CDN and Starter Template</td>
+                  <td>Cristina</td>
+                  <td>913</td>
+                  <td>2.846</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck2">
+                        <label class="custom-control-label" for="customCheck2">2</label>
+                    </div>
+                  </td>
+                  <td>Bootstrap Grid 4 Tutorial and Examples</td>
+                  <td>Cristina</td>
+                  <td>1.434</td>
+                  <td>3.417</td>
+                </tr>
+                <tr>
+                  <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="customCheck3">
+                        <label class="custom-control-label" for="customCheck3">3</label>
+                    </div>
+                  </td>
+                  <td>Bootstrap Flexbox Tutorial and Examples</td>
+                  <td>Cristina</td>
+                  <td>1.877</td>
+                  <td>1.234</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-    </div>
+      
       <!--Js-CDN-->
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">

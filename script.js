@@ -25,6 +25,16 @@ function userLogIn() {
                 console.log(localStorage.id, localStorage.value)
                 firstName = res.data.item3
                 lastName = res.data.item4
+                var userId = parseInt(localStorage.getItem("id"))
+                var url = `https://localhost:7091/EmployeeEntity/getEmployeeByUserId?userId=${4}`
+                $.get(url,  function (data) {
+                    var isEmployee = data.item1
+                    var employeeId = data.item2
+                    var restaurantId = data.item4
+                    var isAdmin = data.item5
+                    localStorage.setItem("isEmployee", data.item1); 
+                    localStorage.setItem("restaurantData", restaurantId);
+                })
                 window.alert("Welcome, " + firstName + " " + lastName + "!");
                 window.location.replace("./index.html");
             }
@@ -36,7 +46,7 @@ function userLogIn() {
 
 
 function toggleEnable(ids) {
-    ids.forEach(id =>{
+    ids.forEach(id => {
         console.log(id)
         var textbox = document.getElementById(id);
 
@@ -77,9 +87,9 @@ function addToCart(id, price) {
 
 function showCartItems() {
     var completelist = document.getElementById("thelist");
-
+    var keys = ["id", "value", "email", "password", "firstName", "lastName", "restaurantData", "isEmployee"]
     for (var i = 0; i < localStorage.length; i++) {
-        if (!(localStorage.key(i) == "id" || localStorage.key(i) == "value")) {
+        if (!(keys.includes(localStorage.key(i)))) {
             j++
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
@@ -143,9 +153,25 @@ placeOrder = async () => {
     }
 
 }
-populateData= async () => {
+function getRestaurantData() {
+    if(localStorage.getItem("isEmployee") == "true"){
+        var location = `https://localhost:7091/RestaurantEntity?restaurantId=${localStorage.getItem("restaurantData")}`
+        $.get(location, function (data) {
+            var restaurantName = data.item3
+            var restaurantAddy = data.item4
+            var restaurantHours = data.item5
+            var restaurantDesc = data.item6
+        })
+    }
+    else{
+
+    }
+    
+}
+
+populateData = async () => {
     //1. get user data
-    document.getElementById("firstName").value = localStorage.firstName; 
+    document.getElementById("firstName").value = localStorage.firstName;
     document.getElementById("lastName").value = localStorage.lastName;
     document.getElementById("email").value = localStorage.email;
     document.getElementById("password").value = localStorage.password;
