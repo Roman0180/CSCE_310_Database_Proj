@@ -87,6 +87,7 @@ function addToCart(id, price) {
 
 function showCartItems() {
     var completelist = document.getElementById("thelist");
+<<<<<<< HEAD
     var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder"]
 
     for (var i = 0; i < localStorage.length; i++) {
@@ -94,6 +95,11 @@ function showCartItems() {
         var invalidKey = ignore.some(item => myString.includes(item))
 
         if(!invalidKey){
+=======
+    var keys = ["id", "value", "email", "password", "firstName", "lastName", "restaurantData", "isEmployee"]
+    for (var i = 0; i < localStorage.length; i++) {
+        if (!(keys.includes(localStorage.key(i)))) {
+>>>>>>> origin/master
             j++
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
@@ -259,6 +265,7 @@ placeOrder = async () => {
 
     
 }
+<<<<<<< HEAD
 
 updateOrder = async () => {
     var orderNum = localStorage.getItem("latestOrderNum")
@@ -275,6 +282,8 @@ updateOrder = async () => {
         }));
 }
 
+populateData= async () => {
+=======
 addEmployee = async () => {
     // 1. reveal add employee form 
 
@@ -310,6 +319,7 @@ function getRestaurantData() {
 }
 
 populateData = async () => {
+>>>>>>> origin/master
     //1. get user data
     document.getElementById("firstName").value = localStorage.firstName;
     document.getElementById("lastName").value = localStorage.lastName;
@@ -447,6 +457,8 @@ makeReservation = async () => {
     } catch (e) {
         return e;
     }
+<<<<<<< HEAD
+=======
 }
 
 async function grabReviewData(url) {
@@ -542,4 +554,5 @@ function delFunction() {
         }})
         window.location.reload();
     }
+>>>>>>> origin/master
 }
