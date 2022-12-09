@@ -395,4 +395,29 @@ function delFunction() {
         }})
         window.location.reload();
     }
-    }s
+    }
+
+    function editEmpFunction(restaurantId) {
+        if(localStorage.getItem("value"))
+        {
+        var commentId = document.getElementById("commentEditId").value;
+        var comment = document.getElementById("commentEmp").value;
+        var employee_id = -1;
+        if(restaurantId == 1)
+            employee_id = 2;
+        else if(restaurantId ==2)
+            employee_id = 4;
+        else if(restaurantId == 3)
+            employee_id = 6;
+        else employee_id = 8;
+        //console.log(commentId);
+        //https://localhost:7091/ReviewEntityEmployee?comment_id=1&comment=none&employee_id=1
+        let url = `https://localhost:7091/ReviewEntityEmployee?comment_id=${commentId}&comment=${comment}&employee_id=${employee_id}`
+        fetch(url, {
+        method: "POST",
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }})
+        window.location.reload();
+    }
+}
