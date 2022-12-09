@@ -22,10 +22,14 @@
 
     <script type="text/javascript" src="script.js"></script>
 
-    <title>Order Now - Online Foods</title>
+    <title>Fuego Reviews - Online Foods</title>
 
 <body style="width:100%;">
     <!--------------------------------------------Header------------------------------------------------->
+    <script>
+      console.log(localStorage.id)
+    </script>
+  
     <div class="container">
       <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3  ">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
@@ -77,91 +81,129 @@
           document.getElementById('Cart').hidden = true
         }
       </script>
-    </div>                                                                
-    
-  
-    <!--------------------------------Order Now-------------------------------->
-    <section class="padding-y">
-      <div class="container">
-        <header class="section-heading">
-            <h3 class="section-title">Layne's Chicken Fingers - Menu</h3>
-        </header>
-        <div class="d-flex">
-          <div class="card" style="width: 18rem;">
-              
-              <div class="card-body">
-                <h5 class="card-title" id="l-item1">Chicken Finger Box</h5>
-                <p class="card-text" id="l-price1">$6.50</p>
-                <a href="" class="btn btn-primary" onclick="addToCart('l-item1', 'l-price1')">Add to Order</a>
-              </div>
-            </div>
-             
-          <div class="card" style="width: 18rem;" id="2">
-              <div class="card-body">
-                <h5 class="card-title" id="l-item2">Chicken Finger Sandwich</h5>
-                <p class="card-text" id="l-price2">$3.75</p>
-                <a href="" class="btn btn-primary" onclick="addToCart('l-item2', 'l-price2')">Add to Order</a>
-              </div>
-            </div>
-
-            <div class="card" style="width: 18rem;" id="3">
-              <div class="card-body">
-                <h5 class="card-title" id="l-item3">French Fries</h5>
-                <p class="card-text" id="l-price3">$1.75</p>
-                <a href="" class="btn btn-primary" onclick="addToCart('l-item3', 'l-price3')">Add to Order</a>
-              </div>
-            </div>
-
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title" id="l-item4">Potato Salad</h5>
-                <p class="card-text" id="l-price4">$0.75</p>
-                <a href="" class="btn btn-primary" onclick="addToCart('l-item4', 'l-price4')">Add to Order</a>
-              </div>
-            </div>
-          
-            <div class="card" style="width: 18rem;">
-              <div class="card-body">
-                <h5 class="card-title" id="l-item5">Toast</h5>
-                <p class="card-text" id="l-price5">$0.50</p>
-                <a href="" class="btn btn-primary" onclick="addToCart('l-item5', 'l-price5')">Add to Order</a>
-              </div>
-            </div>
-          </div> 
-
-          <div class="d-flex">
-              <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title" id="l-item6">20 Oz Drink</h5>
-                    <p class="card-text" id="l-price6">$1.25</p>
-                    <a href="" class="btn btn-primary" onclick="addToCart('l-item6', 'l-price6')">Add to Order</a>
-                  </div>
-                </div>
-                 
-              <div class="card" style="width: 18rem;">
-                  <div class="card-body">
-                    <h5 class="card-title" id="l-item7">32 Oz Drink </h5>
-                    <p class="card-text" id="l-price7">$1.75</p>
-                    <a href="" class="btn btn-primary" onclick="addToCart('l-item7', 'l-price7')">Add to Order</a>
-                  </div>
-                </div>
-  
-                
+    </div>                                                             
+    <!--------------------------------------------Table------------------------------------------------->
+    <div class="table">
+      <style>
+        table, th, td {
+            border: solid 1px #ddd;
+            border-collapse: collapse;
+            padding: 2px 3px;
+            text-align: center;
+        }
+        th {
+            font-weight:bold;
+        }
+    </style>
+    Layne's Reviews
+      <p id='showData'></p>
+        
         <script>
-          if(localStorage.id){
-          }
-          else{
-            const buttons = document.getElementsByClassName('btn btn-primary');
-            for (const button of buttons) {
-              button.style.visibility = 'hidden';
-            }
-          }
-
-          
-        </script>        
-      </div> <!-- container end.// -->
-  </section>
+            
+            //const reviewData = await grabReviewData(url);
+            let  reviewData;
+//         let reviewData;
+let get_data = async(restaurantId) => {
+    let url = "https://localhost:7091/ReviewEntityUser/checkReviews?restaurantId="+restaurantId;
+    let response = await fetch (url);
+    reviewData = await response.json();	// fill array with data.
+    
+    make_the_table();		// convert data to table.
+  }  
   
+  let make_the_table = () => {
+    console.log(reviewData);
+    let col = ["Comment ID","Name","Rating","Feedback","Date Posted","Employee Comment"];
+    let colOther = ["item1","item2","item3","item4","item5","item6"]
+    // Extract value from table header.
+    for (let i = 0; i < reviewData.length; i++) {
+      for (let key in reviewData[i]) {
+        //console.log(key);
+        // if (col.indexOf(key) === -1) {
+        //   col.push(key);
+        // }
+      }
+    }
+
+    // Create a table.
+    const table = document.createElement("table");
+
+    // Create table header row using the extracted headers above.
+    let tr = table.insertRow(-1);                 // table row.
+    
+    for (let i = 0; i < col.length; i++) {
+      let th = document.createElement("th");      // table header.
+      th.innerHTML = col[i];
+      tr.appendChild(th);
+    }
+
+    // add json data to the table as rows.
+    for (let i = 0; i < reviewData.length; i++) {
+
+      tr = table.insertRow(-1);
+
+      for (let j = 0; j < col.length; j++) {
+        let tabCell = tr.insertCell(-1);
+        
+         tabCell.innerHTML = reviewData[i][colOther[j]];
+        
+      }
+    }
+
+    // Now, add the newly created table with json data, to a container.
+    const divShowData = document.getElementById('showData');
+    divShowData.innerHTML = "";
+    divShowData.appendChild(table);
+  }
+//   let get_data = async() => {
+//     let response = await fetch (url);
+//     let output = await response.json();
+//     console.log(output);
+//   }
+
+//   get_data().then(reviewData => reviewData);
+
+// console.log(reviewData);
+// const table = document.createElement("table");
+
+// // Create table header row using the extracted headers above.
+// let tr = table.insertRow(-1);                 // table row.
+// let col = ["comment_id","firstLast","rating","text_feedback","date_posted","comment","restaruant_id","employee_id"];
+// for (let i = 0; i < col.length; i++) {
+//   let th = document.createElement("th");      // table header.
+//   th.innerHTML = col[i];
+//   tr.appendChild(th);
+// }
+// for (let i = 0; i < reviewData.length; i++) {
+
+//     tr = table.insertRow(-1);
+
+//     for (let j = 0; j < col.length; j++) {
+//       let tabCell = tr.insertCell(-1);
+//       tabCell.innerHTML = reviewData[i][col[j]];
+//       console.log(reviewData[i][col[j]]);
+//     }
+//   }
+
+//   // Now, add the newly created table with json data, to a container.
+//   const divShowData = document.getElementById('showData');
+//   divShowData.innerHTML = "";
+//   divShowData.appendChild(table);
+let restaurantId = 2;
+get_data(restaurantId);
+        </script>
+        <label for="commentEditId">Comment ID:</label>
+        <input type="text" id="commentEditId" name="commentEditId"><br><br>
+        <label for="commentEmp">Comment:</label>
+        <input type="text" id="commentEmp" name="commentEmp"><br><br>
+        <button onclick="editEmpFunction(restaurantId)">Edit/Insert</button><br><br>
+        <label for="commentDelEmpId">Comment ID:</label>
+        <input type="text" id="commentDelEmpId" name="commentDelEmpId"><br><br>
+        <button onclick="delEmpFunction()">Delete</button> <br><br>
+
+    </div>
+    
+    
 
     <!--Js-CDN-->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"

@@ -156,6 +156,7 @@
           <li><a class="dropdown-item" href="#">My Orders</a></li>
           <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
           <li><a class="dropdown-item" href="#">My Reviews</a></li>
+          <li><a class="dropdown-item" href="employeeRestaurants.html">My Restaurants</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -333,11 +334,86 @@
                   </div>
                 </div>
               </form>
+              
             </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="col text-center">
+        <button  class="btn btn-success" onclick="getRestaurantData()">View Restaurants</button>
+      </div>
+      <div class="container" style="display:none" id="empRestaurants">
+        <div class="row">
+          <div class="col-12">
+            <table class="table table-bordered" id="childTable">
+              <thead>
+                <tr>
+                  <th scope="col">Select</th>
+                  <th scope="col">Restaurant Name</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Hours</th>
+                  <th scope="col">Description</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
-    </div>
+      <div>
+        <div class="container-fluid" id="paymentContainer" style="display:block">
+          <div class="row justify-content-center">
+            <div class="card my-4 p-3">
+              <div class="row main">
+                <div class="row justify-content-center mrow">
+    
+                  <form class="form-card">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group"> <input type="text" class="form-control" id="empId" required><label
+                            class="form-control-placeholder p-0" for="number" id="cardNumber">Enter Employee Id</label> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <h5>Make Admin?</h5> 
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                          <label class="form-check-label" for="flexRadioDefault1">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                          <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                   
+    
+                    </div>
+                    <div class="row lrow mt-4 mb-3">
+                      <div class="col-sm-8 col-12">
+    
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-sm-12"> <button type="button" onclick="addEmployee()" class="btn btn-primary">Add Employee</button>
+                      </div>
+                    </div>
+                  </form>
+                  
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        
+      </div>
+      
       <!--Js-CDN-->
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
         integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous">

@@ -25,6 +25,16 @@ function userLogIn() {
                 console.log(localStorage.id, localStorage.value)
                 firstName = res.data.item3
                 lastName = res.data.item4
+                var userId = parseInt(localStorage.getItem("id"))
+                var url = `https://localhost:7091/EmployeeEntity/getEmployeeByUserId?userId=${4}`
+                $.get(url, function (data) {
+                    var isEmployee = data.item1
+                    var employeeId = data.item2
+                    var restaurantId = data.item4
+                    var isAdmin = data.item5
+                    localStorage.setItem("isEmployee", data.item1);
+                    localStorage.setItem("restaurantData", restaurantId);
+                })
                 window.alert("Welcome, " + firstName + " " + lastName + "!");
                 window.location.replace("./index.html");
             }
@@ -36,7 +46,7 @@ function userLogIn() {
 
 
 function toggleEnable(ids) {
-    ids.forEach(id =>{
+    ids.forEach(id => {
         console.log(id)
         var textbox = document.getElementById(id);
 
@@ -77,6 +87,7 @@ function addToCart(id, price) {
 
 function showCartItems() {
     var completelist = document.getElementById("thelist");
+<<<<<<< HEAD
     var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder"]
 
     for (var i = 0; i < localStorage.length; i++) {
@@ -84,6 +95,11 @@ function showCartItems() {
         var invalidKey = ignore.some(item => myString.includes(item))
 
         if(!invalidKey){
+=======
+    var keys = ["id", "value", "email", "password", "firstName", "lastName", "restaurantData", "isEmployee"]
+    for (var i = 0; i < localStorage.length; i++) {
+        if (!(keys.includes(localStorage.key(i)))) {
+>>>>>>> origin/master
             j++
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
@@ -249,6 +265,7 @@ placeOrder = async () => {
 
     
 }
+<<<<<<< HEAD
 
 updateOrder = async () => {
     var orderNum = localStorage.getItem("latestOrderNum")
@@ -266,8 +283,45 @@ updateOrder = async () => {
 }
 
 populateData= async () => {
+=======
+addEmployee = async () => {
+    // 1. reveal add employee form 
+
+    //2. make post request after information has been filled in
+    url = `https://localhost:7091/EmployeeEntity/registerEmployee?userId=${empId}&restaurantId=${restaurantId}&adminFlag=${adminLevel}`
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+
+
+
+}
+function getRestaurantData() {
+    if (localStorage.getItem("isEmployee") == "true") {
+        document.getElementById("empRestaurants").style = "block"
+        var location = `https://localhost:7091/RestaurantEntity?restaurantId=${localStorage.getItem("restaurantData")}`
+        $.get(location, function (data) {
+            var restaurantName = data.item3
+            var restaurantAddy = data.item4
+            var restaurantHours = data.item5
+            var restaurantDesc = data.item6
+            $('#childTable').find('tbody').append(`<tr><td><button onclick="addEmployee()" class="btn btn-warning">Add Employee</button></td><td>${restaurantName}</td><td>${restaurantAddy}</td><td>${restaurantHours}</td><td>${restaurantDesc}</td></tr>`);
+        })
+    }
+    else {
+        window.alert("You aren't an employee of any restaurants")
+    }
+
+}
+
+populateData = async () => {
+>>>>>>> origin/master
     //1. get user data
-    document.getElementById("firstName").value = localStorage.firstName; 
+    document.getElementById("firstName").value = localStorage.firstName;
     document.getElementById("lastName").value = localStorage.lastName;
     document.getElementById("email").value = localStorage.email;
     document.getElementById("password").value = localStorage.password;
@@ -346,7 +400,7 @@ $(document).ready(function () {
         var restaurantNum = document.getElementById("restaurant").value;
         var f = $('#checkin_date').data().datepicker.viewDate;
         startDate = stringToTimestamp(f.toString())
-        url = `https://localhost:7091/ReservationEntity?restaurantId=${restaurantNum}&startDate=${startDate}`
+        url = `https://localhost:7091/ReservationEntity/checkReservations?restaurantId=${restaurantNum}&startDate=${startDate}`
         $.get(url, function (data) {
             var T = document.getElementById("reservationTimes");
             T.style.display = "block";
@@ -361,6 +415,11 @@ $(document).ready(function () {
         })
     });
 });
+var i = 0;
+function childrenRow() {
+    i++;
+    $('#childTable').find('tbody').append('<tr><th scope="row">' + i + '</th><td class="col-sm-4"><input type="text" name="name" class="form-control" /></td><td><input type="text" name="school" class="form-control" /></td><td class="col-sm-2"><input type="text" name="year" class="form-control" /></td><td class="col-sm-2"><input type="text" name="age" class="form-control" /></td><td><input type="button" class="btn btn-block btn-default" id="addrow" onclick="childrenRow()" value="+" /></td></tr>');
+}
 function convertTime12To24(time) {
     var hours = Number(time.match(/^(\d+)/)[1]);
     var minutes = Number(time.match(/:(\d+)/)[1]);
@@ -384,7 +443,7 @@ makeReservation = async () => {
     formattedDateTime = startDate + 'T' + hours + ':00Z'
     // FIXME: update reservation maker to pull from local storage
     var reservationMaker = 1
-    url = `https://localhost:7091/ReservationEntity?reservationPartySize=${numPeople}&reservationDateTime=${formattedDateTime}&restaurantId=${restaurantNum}&reservationMaker=${reservationMaker}`
+    url = `https://localhost:7091/ReservationEntity/createReservation?reservationPartySize=${numPeople}&reservationDateTime=${formattedDateTime}&restaurantId=${restaurantNum}&reservationMaker=${localStorage.getItem("id")}`
     console.log(url)
     const settings = {
         method: 'POST',
@@ -398,4 +457,102 @@ makeReservation = async () => {
     } catch (e) {
         return e;
     }
+<<<<<<< HEAD
+=======
+}
+
+async function grabReviewData(url) {
+    url = "https://localhost:7091/ReviewEntityUser?restaurantId=1";
+    // fetch(url).then(response => 
+    //     response.json().then(data => ({
+    //         data: data,
+    //         status: response.status
+    //     })
+    // ).then(res => {
+    //     // console.log(res.status, res.data.title)
+    //     console.log(res)
+    //         localStorage.id = res.data.item2
+    //         console.log(localStorage.id)
+    //         firstName = res.data.item3
+    //         lastName = res.data.item4
+    //         window.alert("Welcome, " + firstName + " " + lastName + "!");
+    //         window.location.replace("./index.html");
+        
+        
+    // }));
+    const response = await fetch(url);
+    console.log(response.json());
+    return response.json();
+}
+
+
+
+function editFunction() {
+    var commentId = document.getElementById("commentEditId").value;
+    var rating = document.getElementById("rating").value;
+    var feedback = document.getElementById("feedback").value;
+    console.log(commentId+" "+rating+" "+feedback);
+    let url = `https://localhost:7091/ReviewEntityUser?comment_id=${commentId}&rating=${rating}&feedback=${feedback}`
+    fetch(url, {
+    method: "PUT",
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }})
+    window.location.reload();
+    }
+
+function delFunction() {
+    var commentId = document.getElementById("commentDelId").value;
+    console.log(commentId);
+    //https://localhost:7091/ReviewEntityUser?comment_id=10
+
+    let url = `https://localhost:7091/ReviewEntityUser?comment_id=${commentId}`
+    fetch(url, {
+    method: "DELETE",
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }})
+    window.location.reload();
+    }
+
+    function delEmpFunction() {
+        if(localStorage.getItem("value"))
+            {
+        var commentId = document.getElementById("commentDelEmpId").value;
+        console.log(commentId);
+        //https://localhost:7091/ReviewEntityEmployee?comment_id=1&comment=none&employee_id=1
+        let url = `https://localhost:7091/ReviewEntityEmployee?comment_id=${commentId}&comment=${"none"}&employee_id=-1`
+        fetch(url, {
+        method: "POST",
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }})
+        window.location.reload();
+    }
+    }
+
+    function editEmpFunction(restaurantId) {
+        if(localStorage.getItem("value"))
+        {
+        var commentId = document.getElementById("commentEditId").value;
+        var comment = document.getElementById("commentEmp").value;
+        var employee_id = -1;
+        if(restaurantId == 1)
+            employee_id = 2;
+        else if(restaurantId ==2)
+            employee_id = 4;
+        else if(restaurantId == 3)
+            employee_id = 6;
+        else employee_id = 8;
+        //console.log(commentId);
+        //https://localhost:7091/ReviewEntityEmployee?comment_id=1&comment=none&employee_id=1
+        let url = `https://localhost:7091/ReviewEntityEmployee?comment_id=${commentId}&comment=${comment}&employee_id=${employee_id}`
+        fetch(url, {
+        method: "POST",
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }})
+        window.location.reload();
+    }
+>>>>>>> origin/master
 }
