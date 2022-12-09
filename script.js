@@ -78,18 +78,22 @@ function addToCart(id, price) {
         count += 1
         localStorage.setItem([itemName, itemPrice], count);
     }
-    for (var i = 0; i < localStorage.length; i++) {
-        if (!(localStorage.key(i) == "id" || localStorage.key(i) == "value")) {
-            console.log(localStorage.key(i) + " QTY: " + localStorage.getItem(localStorage.key(i)))
-        }
-    }
+    // for (var i = 0; i < localStorage.length; i++) {
+    //     if (!(localStorage.key(i) == "id" || localStorage.key(i) == "value")) {
+    //         console.log(localStorage.key(i) + " QTY: " + localStorage.getItem(localStorage.key(i)))
+    //     }
+    // }
 }
 
 function showCartItems() {
     var completelist = document.getElementById("thelist");
-    var keys = ["id", "value", "email", "password", "firstName", "lastName", "restaurantData", "isEmployee"]
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee"]
+
     for (var i = 0; i < localStorage.length; i++) {
-        if (!(keys.includes(localStorage.key(i)))) {
+        myString = localStorage.key(i)
+        var invalidKey = ignore.some(item => myString.includes(item))
+
+        if(!invalidKey){
             j++
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
@@ -128,9 +132,75 @@ function deleteFromCart() {
     }
     location.reload()
 }
-function revealDelivery() {
-    var T = document.getElementById("deliveryAddressContainer");
-    T.style.display = "block";
+
+function showAllOrders() {
+    var completelist = document.getElementById("placedList");
+    var orders = ["order"]
+    for (var i = 0; i < localStorage.length; i++) {
+        myString = localStorage.key(i)
+        var validOrder = orders.some(item => myString.includes(item))
+
+        if(validOrder){
+            console.log(localStorage.getItem("latestOrderNum"))
+            let num = localStorage.key(i).toString().substring(5)
+            completelist.innerHTML += "<li class='list-group-item'> Order #" + num + ": " + localStorage.getItem(localStorage.key(i)) + "</li>";
+        }
+    }
+}
+
+getOrderNum = async () => {
+    url =  `https://localhost:7091/PlacedOrderEntity/grabLatestOrder`
+    $.get(url, function(data){
+        localStorage.setItem("latestOrderNum", data); 
+        var completelist = document.getElementById("placedList");
+        var orders = ["order"]
+        for (var i = 0; i < localStorage.length; i++) {
+            myString = localStorage.key(i)
+            var validOrder = orders.some(item => myString.includes(item))
+
+            if(validOrder){
+                console.log(localStorage.getItem("latestOrderNum"))
+                let num = localStorage.key(i).toString().substring(5)
+                completelist.innerHTML += "<li class='list-group-item'> Order #" + num + ": " + localStorage.getItem(localStorage.key(i)) + "</li>";
+            }
+        }
+    })
+    // console.log(url)
+
+    // fetch(url).then(response =>
+    //     response.json().then(data => ({
+    //         data: data,
+    //         status: response.status
+    //     })
+    //     ).then(res => {
+    //         console.log(res)
+    //         console.log(res.data)
+    //         num = res.data + 1
+    //         localStorage.setItem("latestOrderNum", num)
+    //         console.log(localStorage.getItem("latestOrderNum"))
+    //     }));
+
+}
+loadOrder = async () =>{
+    url =  `https://localhost:7091/PlacedOrderEntity/grabLatestOrder`
+    $.get(url, function(data){
+        localStorage.setItem("latestOrderNum", data);
+        let orderName = "order" + localStorage.getItem("latestOrderNum").toString(); 
+        localStorage.setItem(orderName, JSON.stringify(localStorage.getItem("itemsInOrder")));
+        console.log("test " + orderName)
+        var completelist = document.getElementById("placedList");
+        var orders = ["order"]
+        for (var i = 0; i < localStorage.length; i++) {
+            myString = localStorage.key(i)
+            var validOrder = orders.some(item => myString.includes(item))
+
+            if(validOrder){
+                console.log(localStorage.getItem("latestOrderNum"))
+                let num = localStorage.key(i).toString().substring(5)
+                completelist.innerHTML += "<li class='list-group-item'> Order #" + num + ": " + localStorage.getItem(localStorage.key(i)) + "</li>";
+            }
+        }
+    })
 }
 
 placeOrder = async () => {
@@ -138,6 +208,40 @@ placeOrder = async () => {
     orderTotal = parseFloat(document.getElementById("totalCost").innerHTML)
     url = `https://localhost:7091/PlacedOrderEntity?customer_id=${custId}&total=${orderTotal}`
     console.log(url)
+
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee"]
+
+    for (var i = 0; i < localStorage.length; i++) {
+        myString = localStorage.key(i)
+        var invalidKey = ignore.some(item => myString.includes(item))
+
+        if(!invalidKey){
+            priceIndex = localStorage.key(i).toString().indexOf(",")
+            itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
+            priceSubstr = localStorage.key(i).toString().substring(priceIndex + 1)
+            itemsInOrder[orderIndex] = itemSubstr
+            orderIndex++
+            localStorage.removeItem([itemSubstr, priceSubstr])
+        }
+    }
+    itemsInOrder[orderIndex] = "Order Total: " + totalCost
+    localStorage.setItem("itemsInOrder", itemsInOrder)
+    
+    
+    
+
+    // if(localStorage.getItem("placedNum") == null){
+    //     localStorage.setItem("placedNum", 1)
+    // }
+    // else{
+    //     var placedNum = parseInt(localStorage.getItem("placedNum"));
+    //     placedNum += 1
+    //     localStorage.setItem("placedNum", placedNum);
+    // }
+
+    // let orderName = "order" + localStorage.getItem("placedNum").toString()
+    // localStorage.setItem(orderName, JSON.stringify(itemsInOrder));
+
     const settings = {
         method: 'POST',
         headers: {
@@ -148,10 +252,12 @@ placeOrder = async () => {
     try {
         const fetchResponse = await fetch(url, settings);
         window.alert("Your order has been placed!");
+        window.location.replace("./vieworders.html");
     } catch (e) {
         return e;
     }
 
+    
 }
 addEmployee = async () => {
     // 1. reveal add employee form 
@@ -263,26 +369,26 @@ function test() {
 }
 
 
-$(document).ready(function () {
-    $("#reservationButton").click(function () {
-        var restaurantNum = document.getElementById("restaurant").value;
-        var f = $('#checkin_date').data().datepicker.viewDate;
-        startDate = stringToTimestamp(f.toString())
-        url = `https://localhost:7091/ReservationEntity/checkReservations?restaurantId=${restaurantNum}&startDate=${startDate}`
-        $.get(url, function (data) {
-            var T = document.getElementById("reservationTimes");
-            T.style.display = "block";
-            var select = document.getElementById("restaurantReservationTimes");
+// $(document).ready(function () {
+//     $("#reservationButton").click(function () {
+//         var restaurantNum = document.getElementById("restaurant").value;
+//         var f = $('#checkin_date').data().datepicker.viewDate;
+//         startDate = stringToTimestamp(f.toString())
+//         url = `https://localhost:7091/ReservationEntity/checkReservations?restaurantId=${restaurantNum}&startDate=${startDate}`
+//         $.get(url, function (data) {
+//             var T = document.getElementById("reservationTimes");
+//             T.style.display = "block";
+//             var select = document.getElementById("restaurantReservationTimes");
 
-            for (var option of data) {
-                var el = document.createElement("option");
-                el.textContent = option;
-                el.value = option;
-                select.appendChild(el);
-            }
-        })
-    });
-});
+//             for (var option of data) {
+//                 var el = document.createElement("option");
+//                 el.textContent = option;
+//                 el.value = option;
+//                 select.appendChild(el);
+//             }
+//         })
+//     });
+// });
 var i = 0;
 function childrenRow() {
     i++;
