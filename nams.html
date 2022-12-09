@@ -95,11 +95,11 @@
             font-weight:bold;
         }
     </style>
-    FUEGO's Employees
+    NAM's Employees
       <p id='showData'></p>
-    FUEGO's Reservations
+      NAM's Reservations
       <p id='showData2'></p> 
-    FUEGO's Orders 
+      NAM's Orders 
       <p id='showData3'></p>  
         <script>
             
@@ -267,7 +267,7 @@ let get_data_orders = async(restaurantId) => {
     divShowData.innerHTML = "";
     divShowData.appendChild(table);
   }
-let restaurantId = 1;
+let restaurantId = 4;
 get_data_employees(restaurantId);
 get_data_reservation(restaurantId);
 get_data_orders(restaurantId);

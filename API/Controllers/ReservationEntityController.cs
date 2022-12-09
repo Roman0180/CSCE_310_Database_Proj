@@ -63,4 +63,10 @@ public class ReservationEntityController : ControllerBase
         ReservationFunctions db = new ReservationFunctions(); 
         db.deleteReservation(reservation_id);
     }
+    [HttpPut("changeReservationOwner")]
+    public void Put(int reservation_id, int customer_id, Boolean flag)
+    {
+        ReservationFunctions db = new ReservationFunctions(); 
+        db.changeReservationOwner(reservation_id, customer_id);
+    }
 }
