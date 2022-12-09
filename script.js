@@ -1,6 +1,25 @@
 items = {}
 itemNum = 1
-
+function saveNam(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 4)
+    }
+}
+function saveMess(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 3)
+    }
+}
+function saveFuego(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 1)
+    }
+}
+function saveLaynes(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 2)
+    }
+}
 function userLogIn() {
     var nameValue = document.getElementById("floatingUsername").value;
     nameValue = nameValue.replace("@", "%40")
@@ -70,13 +89,13 @@ function addToCart(id, price) {
     var itemName = document.getElementById(id).textContent;
     var itemPrice = document.getElementById(price).textContent;
     itemPrice = parseFloat(itemPrice.substring(1))
-    if (localStorage.getItem([itemName, itemPrice]) === null) {
-        localStorage.setItem([itemName, itemPrice], itemCount);
+    if (localStorage.getItem([itemName, itemPrice, localStorage.getItem("currRes")]) === null) {
+        localStorage.setItem([itemName, itemPrice,localStorage.getItem("currRes")], itemCount);
     }
-    else if (!(localStorage.getItem([itemName, itemPrice]) === null)){
-        var count = parseInt(localStorage.getItem([itemName, itemPrice]))
+    else if (!(localStorage.getItem([itemName, itemPrice, localStorage.getItem("currRes")]) === null)){
+        var count = parseInt(localStorage.getItem([itemName, itemPrice, localStorage.getItem("currRes")]))
         count += 1
-        localStorage.setItem([itemName, itemPrice], count);
+        localStorage.setItem([itemName, itemPrice, localStorage.getItem("currRes")], count);
     }
     // for (var i = 0; i < localStorage.length; i++) {
     //     if (!(localStorage.key(i) == "id" || localStorage.key(i) == "value")) {
@@ -87,7 +106,7 @@ function addToCart(id, price) {
 
 function showCartItems() {
     var completelist = document.getElementById("thelist");
-    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee"]
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee", "currRes"]
 
     for (var i = 0; i < localStorage.length; i++) {
         myString = localStorage.key(i)
@@ -97,7 +116,9 @@ function showCartItems() {
             j++
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
-            priceSubstr = localStorage.key(i).toString().substring(priceIndex + 1)
+            var content = localStorage.key(i).toString().substring(priceIndex + 1).split(',')
+            priceSubstr = content[0]
+            restaurant = content[1]
             completelist.innerHTML += "<li class='list-group-item'> <input class='form-check-input me-1' type='checkbox' value=''>" + itemSubstr + "&emsp; $" + priceSubstr + "&emsp; x" + localStorage.getItem(localStorage.key(i)) + "</li>";
             price = parseFloat(localStorage.key(i).toString().substring(priceIndex + 1)) * localStorage.getItem(localStorage.key(i))
             totalCost += price
@@ -210,7 +231,7 @@ placeOrder = async () => {
     url = `https://localhost:7091/PlacedOrderEntity?customer_id=${custId}&total=${orderTotal}`
     console.log(url)
 
-    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee"]
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee", "currRes"]
 
     for (var i = 0; i < localStorage.length; i++) {
         myString = localStorage.key(i)
