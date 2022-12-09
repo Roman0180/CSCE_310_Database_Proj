@@ -32,6 +32,15 @@ public class ReservationEntityController : ControllerBase
         return db.getReservations(userId); 
     }
 
+    [HttpGet("getRestaurantReservations")]
+    public List<Tuple<int,int,DateTime,int, string>> Get(int restaurantId, Boolean flag)
+    {
+        ReservationFunctions db = new ReservationFunctions(); 
+        db.reservationDataFetchVariant(); 
+        return db.getReservationsWithNames(restaurantId); 
+    }
+
+
     [HttpPost("createReservation")]
     public void Put(int reservationPartySize, DateTime reservationDateTime, int restaurantId, int reservationMaker)
     {
@@ -40,5 +49,18 @@ public class ReservationEntityController : ControllerBase
         conn.Open();
         NpgsqlCommand command = new NpgsqlCommand("INSERT INTO reservation_entity VALUES (DEFAULT," + reservationPartySize + ",'" + reservationDateTime + "'," + restaurantId + "," + reservationMaker + ");", conn);
         NpgsqlDataReader reader = command.ExecuteReader();
+    }
+
+    [HttpPut(Name = "updateReservation")]
+    public void Put(int reservation_id, int party_size)
+    {
+        ReservationFunctions db = new ReservationFunctions(); 
+        db.updateReservation(reservation_id, party_size);
+    }
+    [HttpDelete(Name = "delReservation")]
+    public void Delete(int reservation_id)
+    {
+        ReservationFunctions db = new ReservationFunctions(); 
+        db.deleteReservation(reservation_id);
     }
 }

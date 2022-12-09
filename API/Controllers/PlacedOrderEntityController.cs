@@ -20,6 +20,15 @@ public class PlacedOrderEntityController : ControllerBase
         return db.getPlacedOrder(order_num); 
     }
 
+    [HttpGet("getRestaurantOrders")]
+    public List<Tuple<int, int,string, DateTime, DateTime, double>> Get(int restaurant_id, Boolean flag)
+    {
+        PlacedOrderFunctions db = new PlacedOrderFunctions(); 
+        db.placedOrderDataFetchVariant(); 
+        return db.getPlacedOrderVariant(restaurant_id); 
+    }
+
+
     [HttpPost(Name = "createPlacedOrder")]
     public void Post(int customer_id, float total)
     {

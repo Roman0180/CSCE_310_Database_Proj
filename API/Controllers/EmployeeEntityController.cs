@@ -24,6 +24,15 @@ public class EmployeeEntityController : ControllerBase
         return db.validateEmployeeWithUserId(userId); 
     }
 
+    [HttpGet("getEmployeeByRestaurant")]
+    public List<Tuple<int, int, string, int>> Get(int restaurantId, Boolean flag, Boolean flag2)
+    {
+        EmployeeFunctions db = new EmployeeFunctions(); 
+        db.employeeDataFetchVariant(); 
+        return db.getEmployees(restaurantId); 
+    }
+
+
     [HttpGet("getEmployeeByEmployeeId")]
     public Tuple<Boolean, int, int, int, int> Get(int employeeId, Boolean flag) //flag is ignored
     {
