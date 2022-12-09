@@ -32,12 +32,12 @@ public class ReviewEntityUserController : ControllerBase
     }
 
     [HttpPost(Name = "createReview")]
-    public void Put(int order_num, int rating, string text, DateTime date_posted, int restaurantId)
+    public void Post(int order_num, int rating, string text, int restaurantId)
     {
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
         using var conn = new NpgsqlConnection(cs);
         conn.Open();
-        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO review_entity VALUES (DEFAULT," + order_num + "," + rating + ",'" + text + "','" + date_posted + "'," + restaurantId + ",'None',-1"+ ");", conn);
+        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO review_entity VALUES (DEFAULT," + order_num + "," + rating + ",'" + text + "',(SELECT NOW()::TIMESTAMP)," + restaurantId + ",'None',-1"+ ");", conn);
 
         NpgsqlDataReader reader = command.ExecuteReader();
     }

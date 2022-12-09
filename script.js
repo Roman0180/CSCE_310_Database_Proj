@@ -305,6 +305,25 @@ function getRestaurantData() {
 
 }
 
+function createReview(restaurantId) {
+    if(localStorage.getItem("value"))
+    {
+        var order_num = document.getElementById("orderNumCr").value;
+        var rating = document.getElementById("ratingCr").value;
+        var text = document.getElementById("textCr").value;
+        var restaruantId = localstorageThing;
+        //https://localhost:7091/ReviewEntityUser?order_num=130&rating=10&text=awesome%20taco&restaurantId=1
+
+        let url = `https://localhost:7091/ReviewEntityUser?order_num=${order_num}&rating=${rating}&text=${text}&restaurantId=${restaruantId}`
+        fetch(url, {
+        method: "POST",
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }})
+        window.location.href = "http://127.0.0.1:5501/my-review.html";
+    }
+}
+
 populateData = async () => {
     //1. get user data
     document.getElementById("firstName").value = localStorage.firstName;
