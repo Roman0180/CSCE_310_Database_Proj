@@ -1,6 +1,13 @@
 function test() {
     event.preventDefault();
 }
+editReservation = async() => {
+
+}
+
+deleteReservation = async() => {
+    
+}
 getAllReservations = async() => {
     url = `https://localhost:7091/ReservationEntity/getAllReservations?userId=${localStorage.getItem("id")}`
         $.get(url, function (data) {
@@ -9,7 +16,7 @@ getAllReservations = async() => {
                 var restaurant = restaurants[data[i].item3]
                 var party = data[i].item1
                 var date = data[i].item2
-                $('#userResevationTable').find('tbody').append(`<tr><td><button onclick="addEmployee()" class="btn btn-warning">Add Employee</button></td><td>${restaurant}</td><td>${date}</td><td>${party}</td></tr>`);
+                $('#userResevationTable').find('tbody').append(`<tr><td><button onclick="editReservation()" class="btn btn-danger">Delete Reservation</button><button onclick="deleteReservation()" class="btn btn-warning">Edit Reservation</button></td><td>${restaurant}</td><td>${date}</td><td>${party}</td></tr>`);
             }
             
             

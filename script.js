@@ -261,7 +261,11 @@ placeOrder = async () => {
 }
 addEmployee = async () => {
     // 1. reveal add employee form 
-
+    document.getElementById("empEditContainer").style = "block"
+    var empId = document.getElementById("empId")
+    var adminLevel = document.querySelector('input[name="genderS"]:checked').value;
+    restaurants = {1: "Fuego Tortilla Grill", 2: "Layne's", 3:"MESS Waffles, Etc.", 4:"Nam Cafe"}
+    var restaurantId = restaurants[parseInt(localStorage.getItem("restaurantData"))]
     //2. make post request after information has been filled in
     url = `https://localhost:7091/EmployeeEntity/registerEmployee?userId=${empId}&restaurantId=${restaurantId}&adminFlag=${adminLevel}`
     const settings = {
@@ -271,6 +275,13 @@ addEmployee = async () => {
             'Content-Type': 'application/json',
         }
     };
+    try {
+        const fetchResponse = await fetch(url, settings);
+        window.alert("Employee added!");
+    } catch (e) {
+        return e;
+    }
+
 
 
 
