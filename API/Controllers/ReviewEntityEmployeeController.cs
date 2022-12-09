@@ -13,7 +13,7 @@ public class ReviewEntityEmployeeController : ControllerBase
 
 
     [HttpGet(Name = "checkRestaurantReviews")]
-    public List<Tuple<int,string,int,string,DateTime,string,int>> Get(int restaurantId)
+    public List<Tuple<int, int, string, DateTime, int, string, int>> Get(int restaurantId)
     {
         ReviewEmployeeFunctions db = new ReviewEmployeeFunctions(); 
         db.reviewDataFetch(); 
