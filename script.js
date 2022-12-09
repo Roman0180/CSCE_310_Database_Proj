@@ -78,18 +78,28 @@ function addToCart(id, price) {
         count += 1
         localStorage.setItem([itemName, itemPrice], count);
     }
-    for (var i = 0; i < localStorage.length; i++) {
-        if (!(localStorage.key(i) == "id" || localStorage.key(i) == "value")) {
-            console.log(localStorage.key(i) + " QTY: " + localStorage.getItem(localStorage.key(i)))
-        }
-    }
+    // for (var i = 0; i < localStorage.length; i++) {
+    //     if (!(localStorage.key(i) == "id" || localStorage.key(i) == "value")) {
+    //         console.log(localStorage.key(i) + " QTY: " + localStorage.getItem(localStorage.key(i)))
+    //     }
+    // }
 }
 
 function showCartItems() {
     var completelist = document.getElementById("thelist");
+<<<<<<< HEAD
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder"]
+
+    for (var i = 0; i < localStorage.length; i++) {
+        myString = localStorage.key(i)
+        var invalidKey = ignore.some(item => myString.includes(item))
+
+        if(!invalidKey){
+=======
     var keys = ["id", "value", "email", "password", "firstName", "lastName", "restaurantData", "isEmployee"]
     for (var i = 0; i < localStorage.length; i++) {
         if (!(keys.includes(localStorage.key(i)))) {
+>>>>>>> origin/master
             j++
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
@@ -128,9 +138,75 @@ function deleteFromCart() {
     }
     location.reload()
 }
-function revealDelivery() {
-    var T = document.getElementById("deliveryAddressContainer");
-    T.style.display = "block";
+
+function showAllOrders() {
+    var completelist = document.getElementById("placedList");
+    var orders = ["order"]
+    for (var i = 0; i < localStorage.length; i++) {
+        myString = localStorage.key(i)
+        var validOrder = orders.some(item => myString.includes(item))
+
+        if(validOrder){
+            console.log(localStorage.getItem("latestOrderNum"))
+            let num = localStorage.key(i).toString().substring(5)
+            completelist.innerHTML += "<li class='list-group-item'> Order #" + num + ": " + localStorage.getItem(localStorage.key(i)) + "</li>";
+        }
+    }
+}
+
+getOrderNum = async () => {
+    url =  `https://localhost:7091/PlacedOrderEntity/grabLatestOrder`
+    $.get(url, function(data){
+        localStorage.setItem("latestOrderNum", data); 
+        var completelist = document.getElementById("placedList");
+        var orders = ["order"]
+        for (var i = 0; i < localStorage.length; i++) {
+            myString = localStorage.key(i)
+            var validOrder = orders.some(item => myString.includes(item))
+
+            if(validOrder){
+                console.log(localStorage.getItem("latestOrderNum"))
+                let num = localStorage.key(i).toString().substring(5)
+                completelist.innerHTML += "<li class='list-group-item'> Order #" + num + ": " + localStorage.getItem(localStorage.key(i)) + "</li>";
+            }
+        }
+    })
+    // console.log(url)
+
+    // fetch(url).then(response =>
+    //     response.json().then(data => ({
+    //         data: data,
+    //         status: response.status
+    //     })
+    //     ).then(res => {
+    //         console.log(res)
+    //         console.log(res.data)
+    //         num = res.data + 1
+    //         localStorage.setItem("latestOrderNum", num)
+    //         console.log(localStorage.getItem("latestOrderNum"))
+    //     }));
+
+}
+loadOrder = async () =>{
+    url =  `https://localhost:7091/PlacedOrderEntity/grabLatestOrder`
+    $.get(url, function(data){
+        localStorage.setItem("latestOrderNum", data);
+        let orderName = "order" + localStorage.getItem("latestOrderNum").toString(); 
+        localStorage.setItem(orderName, JSON.stringify(localStorage.getItem("itemsInOrder")));
+        console.log("test " + orderName)
+        var completelist = document.getElementById("placedList");
+        var orders = ["order"]
+        for (var i = 0; i < localStorage.length; i++) {
+            myString = localStorage.key(i)
+            var validOrder = orders.some(item => myString.includes(item))
+
+            if(validOrder){
+                console.log(localStorage.getItem("latestOrderNum"))
+                let num = localStorage.key(i).toString().substring(5)
+                completelist.innerHTML += "<li class='list-group-item'> Order #" + num + ": " + localStorage.getItem(localStorage.key(i)) + "</li>";
+            }
+        }
+    })
 }
 
 placeOrder = async () => {
@@ -138,6 +214,40 @@ placeOrder = async () => {
     orderTotal = parseFloat(document.getElementById("totalCost").innerHTML)
     url = `https://localhost:7091/PlacedOrderEntity?customer_id=${custId}&total=${orderTotal}`
     console.log(url)
+
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", "placedNum", "latestOrderNum", "itemsInOrder"]
+
+    for (var i = 0; i < localStorage.length; i++) {
+        myString = localStorage.key(i)
+        var invalidKey = ignore.some(item => myString.includes(item))
+
+        if(!invalidKey){
+            priceIndex = localStorage.key(i).toString().indexOf(",")
+            itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
+            priceSubstr = localStorage.key(i).toString().substring(priceIndex + 1)
+            itemsInOrder[orderIndex] = itemSubstr
+            orderIndex++
+            localStorage.removeItem([itemSubstr, priceSubstr])
+        }
+    }
+    itemsInOrder[orderIndex] = "Order Total: " + totalCost
+    localStorage.setItem("itemsInOrder", itemsInOrder)
+    
+    
+    
+
+    // if(localStorage.getItem("placedNum") == null){
+    //     localStorage.setItem("placedNum", 1)
+    // }
+    // else{
+    //     var placedNum = parseInt(localStorage.getItem("placedNum"));
+    //     placedNum += 1
+    //     localStorage.setItem("placedNum", placedNum);
+    // }
+
+    // let orderName = "order" + localStorage.getItem("placedNum").toString()
+    // localStorage.setItem(orderName, JSON.stringify(itemsInOrder));
+
     const settings = {
         method: 'POST',
         headers: {
@@ -148,11 +258,32 @@ placeOrder = async () => {
     try {
         const fetchResponse = await fetch(url, settings);
         window.alert("Your order has been placed!");
+        window.location.replace("./vieworders.html");
     } catch (e) {
         return e;
     }
 
+    
 }
+<<<<<<< HEAD
+
+updateOrder = async () => {
+    var orderNum = localStorage.getItem("latestOrderNum")
+    url =  `https://localhost:7091/PlacedOrderEntity/updatePlacedOrder?order_num=${orderNum}&delivery_flag=${false}`
+    console.log(url)
+
+    fetch(url).then(response =>
+        response.json().then(data => ({
+            data: data,
+            status: response.status
+        })
+        ).then(res => {
+            console.log(res)
+        }));
+}
+
+populateData= async () => {
+=======
 addEmployee = async () => {
     // 1. reveal add employee form 
 
@@ -188,6 +319,7 @@ function getRestaurantData() {
 }
 
 populateData = async () => {
+>>>>>>> origin/master
     //1. get user data
     document.getElementById("firstName").value = localStorage.firstName;
     document.getElementById("lastName").value = localStorage.lastName;
@@ -325,6 +457,8 @@ makeReservation = async () => {
     } catch (e) {
         return e;
     }
+<<<<<<< HEAD
+=======
 }
 
 async function grabReviewData(url) {
@@ -420,4 +554,5 @@ function delFunction() {
         }})
         window.location.reload();
     }
+>>>>>>> origin/master
 }
