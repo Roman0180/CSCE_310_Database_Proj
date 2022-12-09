@@ -102,7 +102,8 @@
             
             //const reviewData = await grabReviewData(url);
             let  reviewData;
-            let customerId = 1;
+            let customerId = localStorage.getItem("id")
+            console.log("Customerid", customerId)
 //         let reviewData;
 let get_data = async(cutomerId) => {
     let url = "https://localhost:7091/ReviewEntityUser/checkReviewsForUser?customerId="+customerId+"&one=1";

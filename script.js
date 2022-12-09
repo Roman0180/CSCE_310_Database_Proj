@@ -1,6 +1,25 @@
 items = {}
 itemNum = 1
-
+function saveNam(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 4)
+    }
+}
+function saveMess(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 3)
+    }
+}
+function saveFuego(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 1)
+    }
+}
+function saveLaynes(){
+    if(localStorage.getItem("currRes") == null){
+        localStorage.setItem("currRes", 2)
+    }
+}
 function userLogIn() {
     var nameValue = document.getElementById("floatingUsername").value;
     nameValue = nameValue.replace("@", "%40")
@@ -70,13 +89,13 @@ function addToCart(id, price) {
     var itemName = document.getElementById(id).textContent;
     var itemPrice = document.getElementById(price).textContent;
     itemPrice = parseFloat(itemPrice.substring(1))
-    if (localStorage.getItem([itemName, itemPrice]) === null) {
-        localStorage.setItem([itemName, itemPrice], itemCount);
+    if (localStorage.getItem([itemName, itemPrice, localStorage.getItem("currRes")]) === null) {
+        localStorage.setItem([itemName, itemPrice,localStorage.getItem("currRes")], itemCount);
     }
-    else if (!(localStorage.getItem([itemName, itemPrice]) === null)){
-        var count = parseInt(localStorage.getItem([itemName, itemPrice]))
+    else if (!(localStorage.getItem([itemName, itemPrice, localStorage.getItem("currRes")]) === null)){
+        var count = parseInt(localStorage.getItem([itemName, itemPrice, localStorage.getItem("currRes")]))
         count += 1
-        localStorage.setItem([itemName, itemPrice], count);
+        localStorage.setItem([itemName, itemPrice, localStorage.getItem("currRes")], count);
     }
     // for (var i = 0; i < localStorage.length; i++) {
     //     if (!(localStorage.key(i) == "id" || localStorage.key(i) == "value")) {
@@ -87,7 +106,7 @@ function addToCart(id, price) {
 
 function showCartItems() {
     var completelist = document.getElementById("thelist");
-    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee"]
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee", "currRes"]
 
     for (var i = 0; i < localStorage.length; i++) {
         myString = localStorage.key(i)
@@ -97,7 +116,9 @@ function showCartItems() {
             j++
             priceIndex = localStorage.key(i).toString().indexOf(",")
             itemSubstr = localStorage.key(i).toString().substring(0, priceIndex)
-            priceSubstr = localStorage.key(i).toString().substring(priceIndex + 1)
+            var content = localStorage.key(i).toString().substring(priceIndex + 1).split(',')
+            priceSubstr = content[0]
+            restaurant = content[1]
             completelist.innerHTML += "<li class='list-group-item'> <input class='form-check-input me-1' type='checkbox' value=''>" + itemSubstr + "&emsp; $" + priceSubstr + "&emsp; x" + localStorage.getItem(localStorage.key(i)) + "</li>";
             price = parseFloat(localStorage.key(i).toString().substring(priceIndex + 1)) * localStorage.getItem(localStorage.key(i))
             totalCost += price
@@ -210,7 +231,7 @@ placeOrder = async () => {
     url = `https://localhost:7091/PlacedOrderEntity?customer_id=${custId}&total=${orderTotal}`
     console.log(url)
 
-    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee"]
+    var ignore = ["id", "value", "firstName", "lastName", "email", "password", "order", ,"placedNum", "latestOrderNum", "itemsInOrder", "restaurantData", "isEmployee", "currRes"]
 
     for (var i = 0; i < localStorage.length; i++) {
         myString = localStorage.key(i)
@@ -228,20 +249,6 @@ placeOrder = async () => {
     itemsInOrder[orderIndex] = "Order Total: " + totalCost
     localStorage.setItem("itemsInOrder", itemsInOrder)
     
-    
-    
-
-    // if(localStorage.getItem("placedNum") == null){
-    //     localStorage.setItem("placedNum", 1)
-    // }
-    // else{
-    //     var placedNum = parseInt(localStorage.getItem("placedNum"));
-    //     placedNum += 1
-    //     localStorage.setItem("placedNum", placedNum);
-    // }
-
-    // let orderName = "order" + localStorage.getItem("placedNum").toString()
-    // localStorage.setItem(orderName, JSON.stringify(itemsInOrder));
 
     const settings = {
         method: 'POST',
@@ -261,8 +268,7 @@ placeOrder = async () => {
     
 }
 addEmployee = async () => {
-    // 1. reveal add employee form 
-    document.getElementById("empEditContainer").style = "block"
+    // 1.get data
     var empId = document.getElementById("empId")
     var adminLevel = document.querySelector('input[name="genderS"]:checked').value;
     restaurants = {1: "Fuego Tortilla Grill", 2: "Layne's", 3:"MESS Waffles, Etc.", 4:"Nam Cafe"}
@@ -287,6 +293,10 @@ addEmployee = async () => {
 
 
 }
+function revealEmployeeAdd(){
+    document.getElementById("empEditContainer").style = "block"
+
+}
 function getRestaurantData() {
     if (localStorage.getItem("isEmployee") == "true") {
         document.getElementById("empRestaurants").style = "block"
@@ -296,7 +306,7 @@ function getRestaurantData() {
             var restaurantAddy = data.item4
             var restaurantHours = data.item5
             var restaurantDesc = data.item6
-            $('#childTable').find('tbody').append(`<tr><td><button onclick="addEmployee()" class="btn btn-warning">Add Employee</button></td><td>${restaurantName}</td><td>${restaurantAddy}</td><td>${restaurantHours}</td><td>${restaurantDesc}</td></tr>`);
+            $('#childTable').find('tbody').append(`<tr><td><button onclick="revealEmployeeAdd()" class="btn btn-warning">Add Employee</button></td><td>${restaurantName}</td><td>${restaurantAddy}</td><td>${restaurantHours}</td><td>${restaurantDesc}</td></tr>`);
         })
     }
     else {
@@ -305,23 +315,22 @@ function getRestaurantData() {
 
 }
 
-function createReview(restaurantId) {
-    if(localStorage.getItem("value"))
-    {
-        var order_num = document.getElementById("orderNumCr").value;
-        var rating = document.getElementById("ratingCr").value;
-        var text = document.getElementById("textCr").value;
-        var restaruantId = localstorageThing;
-        //https://localhost:7091/ReviewEntityUser?order_num=130&rating=10&text=awesome%20taco&restaurantId=1
+function createReview() {
+    var order_num = document.getElementById("orderNumCr").value;
+    var rating = document.getElementById("ratingCr").value;
+    var text = document.getElementById("textCr").value;
+    var restaruantId = parseInt(localStorage.getItem("currRes"))
+    console.log(order_num, rating, text, restaruantId)
+    //https://localhost:7091/ReviewEntityUser?order_num=130&rating=10&text=awesome%20taco&restaurantId=1
 
-        let url = `https://localhost:7091/ReviewEntityUser?order_num=${order_num}&rating=${rating}&text=${text}&restaurantId=${restaruantId}`
-        fetch(url, {
+    let url = `https://localhost:7091/ReviewEntityUser?order_num=${order_num}&rating=${rating}&text=${text}&restaurantId=${restaruantId}`
+    fetch(url, {
         method: "POST",
         headers: {
         "Content-type": "application/json; charset=UTF-8"
         }})
-        window.location.href = "http://127.0.0.1:5501/my-review.html";
-    }
+    // window.location.href = "http://127.0.0.1:5501/my-review.html";
+
 }
 
 populateData = async () => {
