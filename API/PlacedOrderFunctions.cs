@@ -219,6 +219,32 @@ public class PlacedOrderFunctions
         }
         return order_num;
     }
-    
+    //UPDATE placed_order_entity SET ready_time = ((SELECT ready_time FROM placed_order_entity WHERE order_num = 2) + INTERVAL '45 minutes') WHERE order_num =2;
+    public void updateReadyTime2(int order_num){
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        /*
+        UPDATE placed_order_entity SET order_total = (SELECT SUM(item_price) FROM order_items_entity WHERE order_num=2) WHERE order_num=2;
+        UPDATE placed_order_entity SET order_date = (SELECT NOW()::TIMESTAMP) WHERE order_num =2;
+        UPDATE placed_order_entity SET ready_time = (SELECT NOW()::TIMESTAMP + INTERVAL '45 minutes') WHERE order_num =2;
+        UPDATE placed_order_entity SET delivery_flag = false WHERE order_num =2;
+        */
+        NpgsqlCommand command = new NpgsqlCommand("UPDATE placed_order_entity SET ready_time = ((SELECT ready_time FROM placed_order_entity WHERE order_num ="+order_num+" ) + INTERVAL '45 minutes') WHERE order_num = "+order_num+";", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
+    }
+    public void deletePlacedOrder(int order_num){
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        /*
+        UPDATE placed_order_entity SET order_total = (SELECT SUM(item_price) FROM order_items_entity WHERE order_num=2) WHERE order_num=2;
+        UPDATE placed_order_entity SET order_date = (SELECT NOW()::TIMESTAMP) WHERE order_num =2;
+        UPDATE placed_order_entity SET ready_time = (SELECT NOW()::TIMESTAMP + INTERVAL '45 minutes') WHERE order_num =2;
+        UPDATE placed_order_entity SET delivery_flag = false WHERE order_num =2;
+        */
+        NpgsqlCommand command = new NpgsqlCommand("DELETE FROM placed_order_entity WHERE order_num = "+order_num+";", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
+    }
 }
 

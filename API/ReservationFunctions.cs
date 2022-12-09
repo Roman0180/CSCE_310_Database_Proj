@@ -175,9 +175,19 @@ public void deleteReservation(int reservation_id){
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
         using var conn = new NpgsqlConnection(cs);
         conn.Open();
-        NpgsqlCommand command = new NpgsqlCommand("DELETE FROM reservation_entity WHERE reservation_entity = "+reservation_id+";", conn);
+        NpgsqlCommand command = new NpgsqlCommand("DELETE FROM reservation_entity WHERE reservation_id = "+reservation_id+";", conn);
         NpgsqlDataReader reader = command.ExecuteReader();
     }
+    public void changeReservationOwner(int reservation_id, int customer_id)
+{
+    var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        NpgsqlCommand command = new NpgsqlCommand("UPDATE reservation_entity SET customer_id = "+customer_id+"WHERE reservation_id= "+reservation_id+";", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
 }
+}
+
+
 
 

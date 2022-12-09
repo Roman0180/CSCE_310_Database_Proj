@@ -64,4 +64,22 @@ public class PlacedOrderEntityController : ControllerBase
         int order_num = db.grabOrderNum();
         return order_num;
     }
+    [HttpPut("updateReadyTime")]
+    public void Put(int order_num,bool flag,bool flag2)
+    {
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        PlacedOrderFunctions db = new PlacedOrderFunctions();
+        db.updateReadyTime2(order_num);
+  
+        
+    }
+    [HttpDelete("deletePlacedOrder")]
+    public void Delete(int order_num)
+    {
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        PlacedOrderFunctions db = new PlacedOrderFunctions();
+        db.deletePlacedOrder(order_num);
+  
+        
+    }
 }

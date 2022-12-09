@@ -48,9 +48,9 @@
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="userprofile.html">My Profile</a></li>
-            <li><a class="dropdown-item" href="vieworders.html">My Orders</a></li>
+            <li><a class="dropdown-item" href="#">My Orders</a></li>
             <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
-            <li><a class="dropdown-item" href="my-review.html">My Reviews</a></li>
+            <li><a class="dropdown-item" href="#">My Reviews</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -95,11 +95,11 @@
             font-weight:bold;
         }
     </style>
-    FUEGO's Employees
+    LAYNE's Employees
       <p id='showData'></p>
-    FUEGO's Reservations
+      LAYNE's Reservations
       <p id='showData2'></p> 
-    FUEGO's Orders 
+      LAYNE's Orders 
       <p id='showData3'></p>  
         <script>
             
@@ -267,7 +267,7 @@ let get_data_orders = async(restaurantId) => {
     divShowData.innerHTML = "";
     divShowData.appendChild(table);
   }
-let restaurantId = 1;
+let restaurantId = 2;
 get_data_employees(restaurantId);
 get_data_reservation(restaurantId);
 get_data_orders(restaurantId);
