@@ -89,7 +89,19 @@ public class ReservationFunctions
         }
     }
 
-
-    
+    internal List<Tuple<int, DateTime, int>> getReservations(int userId)
+    {
+        List<Tuple<int, DateTime, int>> userReservations = new List<Tuple<int, DateTime, int>>(); 
+        foreach(List<Reservation> listReservations in reservationTable.Values){
+            foreach(Reservation reservation in listReservations){
+                if(reservation.customerId == userId){
+                    Tuple<int, DateTime, int> userDetails = new Tuple<int, DateTime, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId); 
+                    userReservations.Add(userDetails); 
+                }
+            }
+            
+        }
+        return userReservations; 
+    }
 }
 
