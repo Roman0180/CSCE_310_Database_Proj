@@ -73,7 +73,7 @@ function addToCart(id, price) {
     if (localStorage.getItem([itemName, itemPrice]) === null) {
         localStorage.setItem([itemName, itemPrice], itemCount);
     }
-    else {
+    else if (!(localStorage.getItem([itemName, itemPrice]) === null)){
         var count = parseInt(localStorage.getItem([itemName, itemPrice]))
         count += 1
         localStorage.setItem([itemName, itemPrice], count);
@@ -113,12 +113,13 @@ function deleteFromCart() {
     console.log(cboxes, len)
     for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) {
-            let priceSeperator = cboxes[i].offsetParent.innerText.indexOf("$")
-            let quentitySeperator = cboxes[i].offsetParent.innerText.indexOf("x")
+            let priceSeperator = cboxes[i].offsetParent.innerText.lastIndexOf("$")
+            let quentitySeperator = cboxes[i].offsetParent.innerText.lastIndexOf("x")
             var item = cboxes[i].offsetParent.innerText.substring(0, priceSeperator - 1)
-            item = item.trim()
             var price = cboxes[i].offsetParent.innerText.substring(priceSeperator + 1, quentitySeperator - 1)
+            item = item.trim()
             price = price.trim()
+
             var itemCount = localStorage.getItem([item, parseFloat(price)])
             itemCount -= 1
             if (itemCount < 1) {
@@ -389,6 +390,7 @@ $(document).ready(function () {
         })
     });
 });
+
 var i = 0;
 function childrenRow() {
     i++;
