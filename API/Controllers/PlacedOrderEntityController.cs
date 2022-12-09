@@ -39,12 +39,20 @@ public class PlacedOrderEntityController : ControllerBase
         db.updateDeliveryFlag(order_num,flag); 
         db.updateOrderDate(order_num);
         db.updateReadyTime(order_num);
-        db.updateOrderTotal(order_num);
+        // db.updateOrderTotal(order_num);
         //using var conn = new NpgsqlConnection(cs);
         //conn.Open();
         //INSERT INTO placed_order_entity VALUES(DEFAULT, 2, NULL, NULL, NULL, NULL);
         //NpgsqlCommand command = new NpgsqlCommand("INSERT INTO placed_order_entity VALUES (DEFAULT," + customer_id + ",'2000/01/01',false,'2000/01/01',-1.0 );", conn);
         
         //NpgsqlDataReader reader = command.ExecuteReader();
+    }
+
+    [HttpGet("grabLatestOrder")]
+    public int Get()
+    {
+        PlacedOrderFunctions db = new PlacedOrderFunctions(); 
+        int order_num = db.grabOrderNum();
+        return order_num;
     }
 }
