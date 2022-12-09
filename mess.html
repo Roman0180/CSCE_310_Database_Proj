@@ -95,26 +95,31 @@
             font-weight:bold;
         }
     </style>
-    Nam's Reviews
+    MESS's Employees
       <p id='showData'></p>
-        
+    MESS's Reservations
+      <p id='showData2'></p> 
+    MEss's Orders 
+      <p id='showData3'></p>  
         <script>
             
             //const reviewData = await grabReviewData(url);
             let  reviewData;
+            let reservationData;
+            let orderData;
 //         let reviewData;
-let get_data = async(restaurantId) => {
-    let url = "https://localhost:7091/ReviewEntityUser/checkReviews?restaurantId="+restaurantId;
+let get_data_employees = async(restaurantId) => {
+    let url = "https://localhost:7091/EmployeeEntity/getEmployeeByRestaurant?restaurantId="+restaurantId;
     let response = await fetch (url);
     reviewData = await response.json();	// fill array with data.
     
-    make_the_table();		// convert data to table.
+    make_the_table_employee();		// convert data to table.
   }  
   
-  let make_the_table = () => {
+  let make_the_table_employee = () => {
     console.log(reviewData);
-    let col = ["Comment ID","Name","Rating","Feedback","Date Posted","Employee Comment"];
-    let colOther = ["item1","item2","item3","item4","item5","item6"]
+    let col = ["Employee ID","Customer ID","Name","Admin Flag"];
+    let colOther = ["item1","item2","item3","item4"]
     // Extract value from table header.
     for (let i = 0; i < reviewData.length; i++) {
       for (let key in reviewData[i]) {
@@ -154,52 +159,136 @@ let get_data = async(restaurantId) => {
     const divShowData = document.getElementById('showData');
     divShowData.innerHTML = "";
     divShowData.appendChild(table);
+    
   }
-//   let get_data = async() => {
-//     let response = await fetch (url);
-//     let output = await response.json();
-//     console.log(output);
-//   }
+//employee^
+let get_data_reservation = async(restaurantId) => {
+    let url = "https://localhost:7091/ReservationEntity/getRestaurantReservations?restaurantId="+restaurantId;
+    let response = await fetch (url);
+    reservationData = await response.json();	// fill array with data.
+    
+    make_the_table_reservation();		// convert data to table.
+  }  
+  
+  let make_the_table_reservation = () => {
+    console.log(reservationData);
+    let col = ["Reservation ID","Party Size","Reservation Date","Customer ID","Name",];
+    let colOther = ["item1","item2","item3","item4","item5"]
+    // Extract value from table header.
+    for (let i = 0; i < reservationData.length; i++) {
+      for (let key in reservationData[i]) {
+        //console.log(key);
+        // if (col.indexOf(key) === -1) {
+        //   col.push(key);
+        // }
+      }
+    }
 
-//   get_data().then(reviewData => reviewData);
+    // Create a table.
+    const table = document.createElement("table");
 
-// console.log(reviewData);
-// const table = document.createElement("table");
+    // Create table header row using the extracted headers above.
+    let tr = table.insertRow(-1);                 // table row.
+    
+    for (let i = 0; i < col.length; i++) {
+      let th = document.createElement("th");      // table header.
+      th.innerHTML = col[i];
+      tr.appendChild(th);
+    }
 
-// // Create table header row using the extracted headers above.
-// let tr = table.insertRow(-1);                 // table row.
-// let col = ["comment_id","firstLast","rating","text_feedback","date_posted","comment","restaruant_id","employee_id"];
-// for (let i = 0; i < col.length; i++) {
-//   let th = document.createElement("th");      // table header.
-//   th.innerHTML = col[i];
-//   tr.appendChild(th);
-// }
-// for (let i = 0; i < reviewData.length; i++) {
+    // add json data to the table as rows.
+    for (let i = 0; i < reservationData.length; i++) {
 
-//     tr = table.insertRow(-1);
+      tr = table.insertRow(-1);
 
-//     for (let j = 0; j < col.length; j++) {
-//       let tabCell = tr.insertCell(-1);
-//       tabCell.innerHTML = reviewData[i][col[j]];
-//       console.log(reviewData[i][col[j]]);
-//     }
-//   }
+      for (let j = 0; j < col.length; j++) {
+        let tabCell = tr.insertCell(-1);
+        
+         tabCell.innerHTML = reservationData[i][colOther[j]];
+        
+      }
+    }
 
-//   // Now, add the newly created table with json data, to a container.
-//   const divShowData = document.getElementById('showData');
-//   divShowData.innerHTML = "";
-//   divShowData.appendChild(table);
-let restaurantId = 4;
-get_data(restaurantId);
+    // Now, add the newly created table with json data, to a container.
+    const divShowData = document.getElementById('showData2');
+    divShowData.innerHTML = "";
+    divShowData.appendChild(table);
+  }
+//Reservation^
+let get_data_orders = async(restaurantId) => {
+    let url = "https://localhost:7091/PlacedOrderEntity/getRestaurantOrders?restaurant_id="+restaurantId;
+    let response = await fetch (url);
+    orderData = await response.json();	// fill array with data.
+    
+    make_the_table_orders();		// convert data to table.
+  }  
+  
+  let make_the_table_orders = () => {
+    console.log(orderData);
+    let col = ["Order Num","Customer Id","Name","Ready Time","Order Date","Order Total"];
+    let colOther = ["item1","item2","item3","item4","item5","item6"]
+    // Extract value from table header.
+    for (let i = 0; i < orderData.length; i++) {
+      for (let key in orderData[i]) {
+        //console.log(key);
+        // if (col.indexOf(key) === -1) {
+        //   col.push(key);
+        // }
+      }
+    }
+
+    // Create a table.
+    const table = document.createElement("table");
+
+    // Create table header row using the extracted headers above.
+    let tr = table.insertRow(-1);                 // table row.
+    
+    for (let i = 0; i < col.length; i++) {
+      let th = document.createElement("th");      // table header.
+      th.innerHTML = col[i];
+      tr.appendChild(th);
+    }
+
+    // add json data to the table as rows.
+    for (let i = 0; i < orderData.length; i++) {
+
+      tr = table.insertRow(-1);
+
+      for (let j = 0; j < col.length; j++) {
+        let tabCell = tr.insertCell(-1);
+        
+         tabCell.innerHTML = orderData[i][colOther[j]];
+        
+      }
+    }
+
+    // Now, add the newly created table with json data, to a container.
+    const divShowData = document.getElementById('showData3');
+    divShowData.innerHTML = "";
+    divShowData.appendChild(table);
+  }
+let restaurantId = 3;
+get_data_employees(restaurantId);
+get_data_reservation(restaurantId);
+get_data_orders(restaurantId);
         </script>
-        <label for="commentEditId">Comment ID:</label>
-        <input type="text" id="commentEditId" name="commentEditId"><br><br>
-        <label for="commentEmp">Comment:</label>
-        <input type="text" id="commentEmp" name="commentEmp"><br><br>
-        <button onclick="editEmpFunction(restaurantId)">Edit/Insert</button><br><br>
-        <label for="commentDelEmpId">Comment ID:</label>
-        <input type="text" id="commentDelEmpId" name="commentDelEmpId"><br><br>
-        <button onclick="delEmpFunction()">Delete</button> <br><br>
+        <label for="reservationEditId">Reservation ID:</label>
+        <input type="text" id="reservationEditId" name="reservationEditId"><br><br>
+        <label for="partySize">Party Size:</label>
+        <input type="text" id="partySize" name="partySize"><br><br>
+        <button onclick="editReservation()">Edit Reservation</button><br><br>
+        <label for="reservationDelId">Reservation ID:</label>
+        <input type="text" id="reservationDelId" name="reservationDelId"><br><br>
+        <button onclick="deleteReservation()">Delete Reservation</button> <br><br>
+        <label for="reservationEditId2">Reservation ID:</label>
+        <input type="text" id="reservationEditId2" name="reservationEditId2"><br><br>
+        <label for="customerReservationId">Customer Id:</label>
+        <input type="text" id="customerReservationId" name="customerReservationId"><br><br>
+        <button onclick="editReservationCustomer()">Edit Reservation</button><br><br>
+        <input type="text" id="orderId" name="orderId"><br><br>
+        <button onclick="editReadyTime()">Edit Ready Time</button> <br><br>
+        <input type="text" id="orderIdDel" name="orderIdDel"><br><br>
+        <button onclick="deletePlacedOrder()">Delete Placed ORder</button> <br><br>
 
     </div>
     

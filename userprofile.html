@@ -153,10 +153,9 @@
         </a>
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
           <li><a class="dropdown-item" href="userprofile.html">My Profile</a></li>
-          <li><a class="dropdown-item" href="#">My Orders</a></li>
-          <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
-          <li><a class="dropdown-item" href="#">My Reviews</a></li>
-          <li><a class="dropdown-item" href="employeeRestaurants.html">My Restaurants</a></li>
+            <li><a class="dropdown-item" href="vieworders.html">My Orders</a></li>
+            <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
+            <li><a class="dropdown-item" href="my-review.html">My Reviews</a></li>
           <li>
             <hr class="dropdown-divider">
           </li>
@@ -182,6 +181,12 @@
       if (localStorage.id) {
         document.getElementById('LogIn').hidden = true
         document.getElementById('SignUp').hidden = true
+        // console.log(localStorage.isEmployee)
+        if (localStorage.isEmployee == 'false') {
+          // console.log('Hiding if not employee')
+          document.getElementById('adminbutton1').hidden = true
+          document.getElementById('adminbutton2').hidden = true
+        }
       } else {
         document.getElementById('dropdownUser1').hidden = true
         document.getElementById('Cart').hidden = true
@@ -292,9 +297,16 @@
         </div>
       </div>
       <div class="col text-center">
-        <button  class="btn btn-success" onclick="getRestaurantData()">View Restaurants</button>
-        <button  class="btn btn-success" onclick="goToRestaurant()">Go To Restaurant</button>
+        <button id = "adminbutton1" class="btn btn-success" onclick="getRestaurantData()">View Restaurants</button>
+        <button id = "adminbutton2" class="btn btn-success" onclick="goToRestaurant()">Go To Restaurant</button>
       </div>
+      <script>
+      if (localStorage.isEmployee == 'false') {
+        // console.log('Hiding if not employee')
+        document.getElementById('adminbutton1').hidden = true
+        document.getElementById('adminbutton2').hidden = true
+      }
+      </script>
       <div class="container" style="display:none" id="empRestaurants">
         <div class="row">
           <div class="col-12">

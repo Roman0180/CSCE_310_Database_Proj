@@ -48,9 +48,9 @@
           </a>
           <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="userprofile.html">My Profile</a></li>
-            <li><a class="dropdown-item" href="#">My Orders</a></li>
+            <li><a class="dropdown-item" href="vieworders.html">My Orders</a></li>
             <li><a class="dropdown-item" href="makeareservation.html">My Reservations</a></li>
-            <li><a class="dropdown-item" href="#">My Reviews</a></li>
+            <li><a class="dropdown-item" href="my-review.html">My Reviews</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -279,8 +279,17 @@ get_data_orders(restaurantId);
         <button onclick="editReservation()">Edit Reservation</button><br><br>
         <label for="reservationDelId">Reservation ID:</label>
         <input type="text" id="reservationDelId" name="reservationDelId"><br><br>
-        <button onclick="delReservation()">Delete Reservation</button> <br><br>
-        
+        <button onclick="deleteReservation()">Delete Reservation</button> <br><br>
+        <label for="reservationEditId2">Reservation ID:</label>
+        <input type="text" id="reservationEditId2" name="reservationEditId2"><br><br>
+        <label for="customerReservationId">Customer Id:</label>
+        <input type="text" id="customerReservationId" name="customerReservationId"><br><br>
+        <button onclick="editReservationCustomer()">Edit Reservation</button><br><br>
+        <input type="text" id="orderId" name="orderId"><br><br>
+        <button onclick="editReadyTime()">Edit Ready Time</button> <br><br>
+        <input type="text" id="orderIdDel" name="orderIdDel"><br><br>
+        <button onclick="deletePlacedOrder()">Delete Placed ORder</button> <br><br>
+
     </div>
     
     

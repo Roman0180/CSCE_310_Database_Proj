@@ -26,7 +26,7 @@ function userLogIn() {
                 firstName = res.data.item3
                 lastName = res.data.item4
                 var userId = parseInt(localStorage.getItem("id"))
-                var url = `https://localhost:7091/EmployeeEntity/getEmployeeByUserId?userId=${4}`
+                var url = `https://localhost:7091/EmployeeEntity/getEmployeeByUserId?userId=${userId}`
                 $.get(url, function (data) {
                     var isEmployee = data.item1
                     var employeeId = data.item2
@@ -73,7 +73,7 @@ function addToCart(id, price) {
     if (localStorage.getItem([itemName, itemPrice]) === null) {
         localStorage.setItem([itemName, itemPrice], itemCount);
     }
-    else {
+    else if (!(localStorage.getItem([itemName, itemPrice]) === null)){
         var count = parseInt(localStorage.getItem([itemName, itemPrice]))
         count += 1
         localStorage.setItem([itemName, itemPrice], count);
@@ -113,12 +113,13 @@ function deleteFromCart() {
     console.log(cboxes, len)
     for (var i = 0; i < len; i++) {
         if (cboxes[i].checked) {
-            let priceSeperator = cboxes[i].offsetParent.innerText.indexOf("$")
-            let quentitySeperator = cboxes[i].offsetParent.innerText.indexOf("x")
+            let priceSeperator = cboxes[i].offsetParent.innerText.lastIndexOf("$")
+            let quentitySeperator = cboxes[i].offsetParent.innerText.lastIndexOf("x")
             var item = cboxes[i].offsetParent.innerText.substring(0, priceSeperator - 1)
-            item = item.trim()
             var price = cboxes[i].offsetParent.innerText.substring(priceSeperator + 1, quentitySeperator - 1)
+            item = item.trim()
             price = price.trim()
+
             var itemCount = localStorage.getItem([item, parseFloat(price)])
             itemCount -= 1
             if (itemCount < 1) {
@@ -389,6 +390,7 @@ $(document).ready(function () {
         })
     });
 });
+
 var i = 0;
 function childrenRow() {
     i++;
@@ -534,24 +536,25 @@ function goToRestaurant()
     window.location.href = "http://127.0.0.1:5501/fuegos.html";
 
         else if(restaurantId ==2)
-        window.location.href = "http://127.0.0.1:5501/";
+        window.location.href = "http://127.0.0.1:5501/laynes.html";
 
         else if(restaurantId == 3)
-        window.location.href = "http://127.0.0.1:5501/";
+        window.location.href = "http://127.0.0.1:5501/Mess.html";
 
-        else window.location.href = "http://127.0.0.1:5501/";
+        else window.location.href = "http://127.0.0.1:5501/nams.html";
 
 }
 
 function deleteReservation() {
     if(localStorage.getItem("value"))
         {
-    var commentId = document.getElementById("commentDelEmpId").value;
-    console.log(commentId);
+    var reservation_id = document.getElementById("reservationDelId").value;
+    console.log(reservation_id);
+    //https://localhost:7091/ReservationEntity?reservation_id=-1
     //https://localhost:7091/ReviewEntityEmployee?comment_id=1&comment=none&employee_id=1
-    let url = `https://localhost:7091/ReviewEntityEmployee?comment_id=${commentId}&comment=${"none"}&employee_id=-1`
+    let url = `https://localhost:7091/ReservationEntity?reservation_id=${reservation_id}`
     fetch(url, {
-    method: "POST",
+    method: "DELETE",
     headers: {
     "Content-type": "application/json; charset=UTF-8"
     }})
@@ -565,14 +568,82 @@ function editReservation() {
     var reservationId = document.getElementById("reservationEditId").value;
     var partySize = document.getElementById("partySize").value;
     var employee_id = -1;
+    console.log(reservationId+" "+partySize);
     //https://localhost:7091/ReservationEntity?reservation_id=1&party_size=9
+    //https://localhost:7091/ReservationEntity?reservation_id=2&party_size=499
 
-    let url = `https://localhost:7091/ReviewEntityEmployee?comment_id=${commentId}&comment=${comment}&employee_id=${employee_id}`
+    let url = `https://localhost:7091/ReservationEntity?reservation_id=${reservationId}&party_size=${partySize}`
     fetch(url, {
-    method: "POST",
+    method: "PUT",
     headers: {
     "Content-type": "application/json; charset=UTF-8"
     }})
     window.location.reload();
 }
 }
+
+function editReservationCustomer() {
+    if(localStorage.getItem("value"))
+    {
+    var reservationId = document.getElementById("reservationEditId2").value;
+    var customerId = document.getElementById("customerReservationId").value;
+    var employee_id = -1;
+    console.log(reservationId+" "+customerId);
+    //https://localhost:7091/ReservationEntity?reservation_id=1&party_size=9
+    //https://localhost:7091/ReservationEntity?reservation_id=2&party_size=499
+        //https://localhost:7091/ReservationEntity/changeReservationOwner?reservation_id=36&customer_id=12
+
+    let url = `https://localhost:7091/ReservationEntity/changeReservationOwner?reservation_id=${reservationId}&customer_id=${customerId}`
+    fetch(url, {
+    method: "PUT",
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }})
+    window.location.reload();
+}
+}
+
+function editReadyTime() {
+    if(localStorage.getItem("value"))
+    {
+    var order_num = document.getElementById("orderId").value;
+    
+    console.log(order_num);
+    //https://localhost:7091/ReservationEntity?reservation_id=1&party_size=9
+    //https://localhost:7091/ReservationEntity?reservation_id=2&party_size=499
+        //https://localhost:7091/ReservationEntity/changeReservationOwner?reservation_id=36&customer_id=12
+
+    let url = `https://localhost:7091/PlacedOrderEntity/updateReadyTime?order_num=${order_num}`
+    fetch(url, {
+    method: "PUT",
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }})
+    window.location.reload();
+}
+}
+function deletePlacedOrder() {
+    if(localStorage.getItem("value"))
+    {
+    var order_num = document.getElementById("orderIdDel").value;
+    
+    console.log(order_num);
+    //https://localhost:7091/ReservationEntity?reservation_id=1&party_size=9
+    //https://localhost:7091/ReservationEntity?reservation_id=2&party_size=499
+        //https://localhost:7091/ReservationEntity/changeReservationOwner?reservation_id=36&customer_id=12
+
+    let url = `https://localhost:7091/PlacedOrderEntity/deletePlacedOrder?order_num=${order_num}`
+    fetch(url, {
+    method: "DELETE",
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }})
+    //window.location.reload();
+}
+}
+
+
+//https://localhost:7091/PlacedOrderEntity/updateReadyTime?order_num=3
+//https://localhost:7091/PlacedOrderEntity/deletePlacedOrder?order_num=82
+
+
