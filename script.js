@@ -351,10 +351,7 @@ async function grabReviewData(url) {
     return response.json();
 }
 
-function delFunction() {
-    var commentId = document.getElementById("commentDelId").value;
-    console.log(commentId);
-}
+
 
 function editFunction() {
     var commentId = document.getElementById("commentEditId").value;
@@ -383,3 +380,19 @@ function delFunction() {
     }})
     window.location.reload();
     }
+
+    function delEmpFunction() {
+        if(localStorage.getItem("value"))
+            {
+        var commentId = document.getElementById("commentDelEmpId").value;
+        console.log(commentId);
+        //https://localhost:7091/ReviewEntityEmployee?comment_id=1&comment=none&employee_id=1
+        let url = `https://localhost:7091/ReviewEntityEmployee?comment_id=${commentId}&comment=${"none"}&employee_id=-1`
+        fetch(url, {
+        method: "POST",
+        headers: {
+        "Content-type": "application/json; charset=UTF-8"
+        }})
+        window.location.reload();
+    }
+    }s
