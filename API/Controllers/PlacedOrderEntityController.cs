@@ -47,4 +47,12 @@ public class PlacedOrderEntityController : ControllerBase
         
         //NpgsqlDataReader reader = command.ExecuteReader();
     }
+
+    [HttpGet("grabLatestOrder")]
+    public int Get()
+    {
+        PlacedOrderFunctions db = new PlacedOrderFunctions(); 
+        int order_num = db.grabOrderNum();
+        return order_num;
+    }
 }
