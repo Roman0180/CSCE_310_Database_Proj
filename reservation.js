@@ -1,12 +1,46 @@
 function test() {
     event.preventDefault();
 }
-editReservation = async() => {
+editReservation = async(id) => {
+    var restaurantId = localStorage.getItem(id);
+    var partySize = prompt("Enter your group size", "Party Size");
+    url = `https://localhost:7091/ReservationEntity?reservation_id=${parseInt(restaurantId)}&party_size=${parseInt(partySize)}`
+    const settings = {
+        method: 'PUT',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(url, settings);
+        location.reload()
+    } catch (e) {
+        return e;
+    }
+
 
 }
 
-deleteReservation = async() => {
-    
+cancelReservation = async(id) =>  {
+    var restaurantId = localStorage.getItem(id)
+    var url = `https://localhost:7091/ReservationEntity?reservation_id=${restaurantId}`
+    console.log(url)
+    const settings = {
+        method: 'DELETE',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+    try {
+        const fetchResponse = await fetch(url, settings);
+        location.reload()
+    } catch (e) {
+        return e;
+    }
+
+
 }
 getAllReservations = async() => {
     url = `https://localhost:7091/ReservationEntity/getAllReservations?userId=${localStorage.getItem("id")}`
@@ -16,9 +50,11 @@ getAllReservations = async() => {
                 var restaurant = restaurants[data[i].item3]
                 var party = data[i].item1
                 var date = data[i].item2
-                $('#userResevationTable').find('tbody').append(`<tr><td><button onclick="editReservation()" class="btn btn-danger">Delete Reservation</button><button onclick="deleteReservation()" class="btn btn-warning">Edit Reservation</button></td><td>${restaurant}</td><td>${date}</td><td>${party}</td></tr>`);
+                var reservationId = parseInt(data[i].item4)
+                localStorage.setItem(date, reservationId)
+                $('#userResevationTable').find('tbody').append(`<tr><td><button id=${date} onclick="cancelReservation(this.id)" class="btn btn-danger">Cancel Reservation</button><button id=${date} onclick="editReservation(this.id)" class="btn btn-warning">Edit Reservation</button></td><td>${restaurant}</td><td>${date}</td><td>${party}</td></tr>`);
             }
-            
+            //<button id=${date} onclick="editReservation(this.id)" class="btn btn-warning">Edit Reservation</button>
             
         })
     

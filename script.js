@@ -227,20 +227,6 @@ placeOrder = async () => {
     itemsInOrder[orderIndex] = "Order Total: " + totalCost
     localStorage.setItem("itemsInOrder", itemsInOrder)
     
-    
-    
-
-    // if(localStorage.getItem("placedNum") == null){
-    //     localStorage.setItem("placedNum", 1)
-    // }
-    // else{
-    //     var placedNum = parseInt(localStorage.getItem("placedNum"));
-    //     placedNum += 1
-    //     localStorage.setItem("placedNum", placedNum);
-    // }
-
-    // let orderName = "order" + localStorage.getItem("placedNum").toString()
-    // localStorage.setItem(orderName, JSON.stringify(itemsInOrder));
 
     const settings = {
         method: 'POST',
@@ -260,8 +246,7 @@ placeOrder = async () => {
     
 }
 addEmployee = async () => {
-    // 1. reveal add employee form 
-    document.getElementById("empEditContainer").style = "block"
+    // 1.get data
     var empId = document.getElementById("empId")
     var adminLevel = document.querySelector('input[name="genderS"]:checked').value;
     restaurants = {1: "Fuego Tortilla Grill", 2: "Layne's", 3:"MESS Waffles, Etc.", 4:"Nam Cafe"}
@@ -286,6 +271,10 @@ addEmployee = async () => {
 
 
 }
+function revealEmployeeAdd(){
+    document.getElementById("empEditContainer").style = "block"
+
+}
 function getRestaurantData() {
     if (localStorage.getItem("isEmployee") == "true") {
         document.getElementById("empRestaurants").style = "block"
@@ -295,7 +284,7 @@ function getRestaurantData() {
             var restaurantAddy = data.item4
             var restaurantHours = data.item5
             var restaurantDesc = data.item6
-            $('#childTable').find('tbody').append(`<tr><td><button onclick="addEmployee()" class="btn btn-warning">Add Employee</button></td><td>${restaurantName}</td><td>${restaurantAddy}</td><td>${restaurantHours}</td><td>${restaurantDesc}</td></tr>`);
+            $('#childTable').find('tbody').append(`<tr><td><button onclick="revealEmployeeAdd()" class="btn btn-warning">Add Employee</button></td><td>${restaurantName}</td><td>${restaurantAddy}</td><td>${restaurantHours}</td><td>${restaurantDesc}</td></tr>`);
         })
     }
     else {
