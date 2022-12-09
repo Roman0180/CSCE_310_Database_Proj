@@ -14,10 +14,23 @@ public class Reservation{
     public int restaurantId; 
     public int customerId; 
 }
+
+public class ReservationWithNames
+{
+    public int reservation_id;
+    public int reservation_party_size;
+    public DateTime reservation_date_time;
+    public int restaurant_id;
+    public int customer_id;
+    public string first_name;
+    public string last_name;
+    public string firstLast;
+}
 public class ReservationFunctions
 {
     // restaurant of reservation -> all reservations at that restaurant
     Dictionary<int, List<Reservation>> reservationTable = new Dictionary<int, List<Reservation>>();
+    Dictionary<int, List<ReservationWithNames>> reservationTableWithNames = new Dictionary<int, List<ReservationWithNames>>();
 
     public void reservationDataFetch()
     {
@@ -42,6 +55,52 @@ public class ReservationFunctions
             }
         }
     }
+
+    public void reservationDataFetchVariant()
+    {
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        NpgsqlCommand command = new NpgsqlCommand("SELECT * from reservationWithNames", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
+        while (reader.Read()){
+            ReservationWithNames reservation = new ReservationWithNames(); 
+            reservation.reservation_id = reader.GetInt32(0);
+            reservation.reservation_party_size = reader.GetInt32(1);
+            reservation.reservation_date_time =reader.GetDateTime(2);
+            reservation.restaurant_id = reader.GetInt32(3);
+            reservation.customer_id = reader.GetInt32(4);
+            reservation.first_name = reader.GetString(5);
+            reservation.last_name = reader.GetString(6);
+            reservation.firstLast = reservation.first_name + " " + reservation.last_name;
+            if(reservationTableWithNames.ContainsKey(reservation.restaurant_id)){
+                reservationTableWithNames[reservation.restaurant_id].Add(reservation);
+            } 
+            else{
+                List<ReservationWithNames> newList = new List<ReservationWithNames>(); 
+                newList.Add(reservation); 
+                reservationTableWithNames.Add(reservation.restaurant_id, newList);
+            }
+        }
+    }
+
+
+    public List<Tuple<int,int,DateTime,int, string>> getReservationsWithNames(int restaurantId){
+        List<Tuple<int,int,DateTime,int, string>> reservationData= new List<Tuple<int,int,DateTime,int, string>>(); 
+
+        if (reservationTableWithNames.ContainsKey(restaurantId)){
+            foreach(var reservation in reservationTableWithNames[restaurantId]){
+                Tuple<int,int,DateTime,int, string> r = new Tuple<int,int,DateTime,int, string>(reservation.reservation_id, reservation.reservation_party_size, reservation.reservation_date_time, reservation.customer_id, reservation.firstLast); 
+                reservationData.Add(r); 
+            }
+            return reservationData; 
+        }
+        else{
+            return null; 
+        }
+    }
+
+
     public List<String> getReservations(int restaurantId, DateTime startDate){
         List<Tuple<int, DateTime, int, int>> reservationData= new List<Tuple<int, DateTime, int, int>>(); 
         HashSet<int> existing_reservation_times = new HashSet<int>(); 
@@ -103,5 +162,22 @@ public class ReservationFunctions
         }
         return userReservations; 
     }
+    public void updateReservation(int reservation_id, int partySize)
+{
+    var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        NpgsqlCommand command = new NpgsqlCommand("UPDATE reservation_entity SET reservation_party_size = "+partySize+"WHERE reservation_id= "+reservation_id+";", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
 }
+
+public void deleteReservation(int reservation_id){
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        NpgsqlCommand command = new NpgsqlCommand("DELETE FROM reservation_entity WHERE reservation_entity = "+reservation_id+";", conn);
+        NpgsqlDataReader reader = command.ExecuteReader();
+    }
+}
+
 
