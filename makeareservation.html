@@ -47,6 +47,7 @@
 
   <!-- Theme Style -->
   <link rel="stylesheet" href="css/style.css">
+  
 </head>
 
 <body>
@@ -200,7 +201,6 @@
               <!-- ######################################## -->
 
             </div>
-
             <!-- <div>
                   <button class="btn btn-primary btn-block text-white" onclick="reservationFetch()">Check Availabilty</button>
                 </div> -->
@@ -211,10 +211,53 @@
     </form>
     </div>
 
+    <!-- For viewing, updating, and deleting reservations that the user made -->
 
     </div>
     </div>
   </section>
+
+  <div class="p-5 text-center">
+    <h2 class="mb-3"><b>My Reservations</b></h2>
+  </div>
+  <div class="container-fluid" id="reservationContainer" style="">
+    <div class="row justify-content-center">
+      <div class="card my-4 p-3">
+        <div class="row main">
+          <form class="form-card">
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group"> <input type="text" class="form-control" id="reservationdate" required><label
+                    class="form-control-placeholder p-0" for="number" id="cardNumber">Reservation Date</label> </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group"> <input type="text" class="form-control p-0" id="reservationtime" required><label
+                    class="form-control-placeholder p-0" for="name" id="cardHolder">Reservation Time</label> </div>
+              </div>
+              <div class="form-group"> <input type="email" class="form-control p-0" id="reservationrestaurant" required><label
+                  class="form-control-placeholder p-0" for="name" id="cardHolder">Restaurant</label> </div>
+
+
+            </div>
+            <div class="row">
+              <div class="form-group"> <input type="text" class="form-control p-0" id="password" required><label
+                  class="form-control-placeholder p-0" for="name" id="reservationpartysize">Party Size</label> </div>
+            </div>
+
+        </div>
+        <div class="row mb-2">
+          <div class="col-sm-12"> 
+            <button type="button" onclick="" class="btn btn-primary">Delete Reservation</button>
+            <button type="button" onclick="" class="btn btn-primary">Update Reservation</button>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  </div>
 
   <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/jquery-migrate-3.0.1.min.js"></script>
