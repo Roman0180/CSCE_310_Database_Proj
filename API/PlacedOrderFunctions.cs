@@ -142,7 +142,22 @@ public class PlacedOrderFunctions
     //         return null;
     //     }
     // }
-
+    public int grabOrderNum(){
+        var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
+        using var conn = new NpgsqlConnection(cs);
+        conn.Open();
+        
+        
+        //SELECT MAX(order_num) FROM placed_order_entity;
+        NpgsqlCommand command = new NpgsqlCommand("SELECT MAX(order_num) FROM placed_order_entity;", conn);
+        //NpgsqlDataReader reader = command.ExecuteReader();
+        NpgsqlDataReader reader = command.ExecuteReader();
+        int order_num = 0;
+        while (reader.Read()){
+            order_num = reader.GetInt32(0);
+        }
+        return order_num;
+    }
 
     
 }

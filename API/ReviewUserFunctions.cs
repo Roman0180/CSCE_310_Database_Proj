@@ -26,7 +26,7 @@ public class ReviewWithCustomerID{
 public class ReviewUserFunctions
 {
     // restaurant of review -> all reviews at that restaurant
-    Dictionary<int, List<Review>> review_table = new Dictionary<int, List<Review>>();
+    Dictionary<int, List<ReviewWithCustomerID>> review_table = new Dictionary<int, List<ReviewWithCustomerID>>();
     Dictionary<int, List<ReviewWithCustomerID>> review_table_customer = new Dictionary<int, List<ReviewWithCustomerID>>();
     public void reviewDataFetch()
     {
@@ -36,7 +36,7 @@ public class ReviewUserFunctions
         NpgsqlCommand command = new NpgsqlCommand("SELECT * from reviewWithNames", conn);
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
-            Review review = new Review(); 
+            ReviewWithCustomerID review = new ReviewWithCustomerID(); 
             review.commentId = reader.GetInt32(0);
             review.firstName = reader.GetString(1);
             review.lastName = reader.GetString(2);
@@ -51,7 +51,7 @@ public class ReviewUserFunctions
                 review_table[review.restaurantId].Add(review);
             } 
             else{
-                List<Review> newList = new List<Review>(); 
+                List<ReviewWithCustomerID> newList = new List<ReviewWithCustomerID>(); 
                 newList.Add(review); 
                 review_table.Add(review.restaurantId, newList);
             }

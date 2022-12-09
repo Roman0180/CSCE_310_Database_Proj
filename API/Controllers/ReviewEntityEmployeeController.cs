@@ -12,13 +12,13 @@ public class ReviewEntityEmployeeController : ControllerBase
     private readonly ILogger<ReviewEntityEmployeeController> _logger;
 
 
-    [HttpGet(Name = "checkRestaurantReviews")]
-    public List<Tuple<int,string,int,string,DateTime,string,int>> Get(int restaurantId)
-    {
-        ReviewEmployeeFunctions db = new ReviewEmployeeFunctions(); 
-        db.reviewDataFetch(); 
-        return db.getReviews(restaurantId); 
-    }
+    // [HttpGet(Name = "checkRestaurantReviews")]
+    // public List<Tuple<int,string,int,string,DateTime,string,int>> Get(int restaurantId)
+    // {
+    //     ReviewEmployeeFunctions db = new ReviewEmployeeFunctions(); 
+    //     db.reviewDataFetch(); 
+    //     return db.getReviews(restaurantId); 
+    // }
 
     [HttpPost(Name = "updateComment")]
     public void Put(int comment_id, string comment,int employee_id)

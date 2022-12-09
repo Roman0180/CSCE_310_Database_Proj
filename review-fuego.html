@@ -81,7 +81,7 @@
           document.getElementById('Cart').hidden = true
         }
       </script>
-    </div>                                                           
+    </div>                                                             
     <!--------------------------------------------Table------------------------------------------------->
     <div class="table">
       <style>
@@ -103,8 +103,8 @@
             //const reviewData = await grabReviewData(url);
             let  reviewData;
 //         let reviewData;
-let get_data = async() => {
-    let url = "https://localhost:7091/ReviewEntityUser/checkReviews?restaurantId=1";
+let get_data = async(restaurantId) => {
+    let url = "https://localhost:7091/ReviewEntityUser/checkReviews?restaurantId="+restaurantId;
     let response = await fetch (url);
     reviewData = await response.json();	// fill array with data.
     
@@ -113,8 +113,8 @@ let get_data = async() => {
   
   let make_the_table = () => {
     console.log(reviewData);
-    let col = ["Name","Rating","Feedback","Date Posted","Employee Comment","Edit"];
-    let colOther = ["item2","item3","item4","item5","item6"]
+    let col = ["Comment ID","Name","Rating","Feedback","Date Posted","Employee Comment"];
+    let colOther = ["item1","item2","item3","item4","item5","item6"]
     // Extract value from table header.
     for (let i = 0; i < reviewData.length; i++) {
       for (let key in reviewData[i]) {
@@ -144,19 +144,8 @@ let get_data = async() => {
 
       for (let j = 0; j < col.length; j++) {
         let tabCell = tr.insertCell(-1);
-        if(j == col.length - 1)
-        {
-        var btn = document.createElement('input');
-        btn.type = "button";
-        btn.className = i;
-        btn.innerHTML = "EDIT";
-        btn.value = "EDIT";
-        //btn.onclick = (function(entry) {return function() {chooseUser(entry);}})(entry);
-        //btn.onclick = (function(btn) {console.log(btn.path[0].className);});
-        btn.onclick = (function(btn) {let id = parseInt(btn.path[0].className); console.log(id);});
-        tabCell.appendChild(btn);
-        }
-        else tabCell.innerHTML = reviewData[i][colOther[j]];
+        
+         tabCell.innerHTML = reviewData[i][colOther[j]];
         
       }
     }
@@ -200,9 +189,17 @@ let get_data = async() => {
 //   const divShowData = document.getElementById('showData');
 //   divShowData.innerHTML = "";
 //   divShowData.appendChild(table);
-get_data();
+let restaurantId = 1;
+get_data(restaurantId);
         </script>
-        
+        <label for="commentEditId">Comment ID:</label>
+        <input type="text" id="commentEditId" name="commentEditId"><br><br>
+        <label for="commentEmp">Comment:</label>
+        <input type="text" id="commentEmp" name="commentEmp"><br><br>
+        <button onclick="editEmpFunction(restaurantId)">Edit/Insert</button><br><br>
+        <label for="commentDelEmpId">Comment ID:</label>
+        <input type="text" id="commentDelEmpId" name="commentDelEmpId"><br><br>
+        <button onclick="delEmpFunction()">Delete</button> <br><br>
 
     </div>
     
