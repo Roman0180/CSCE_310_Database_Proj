@@ -182,7 +182,7 @@ function getRestaurantData() {
         })
     }
     else {
-
+        window.alert("You aren't an employee of any restaurants")
     }
 
 }
