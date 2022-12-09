@@ -16,7 +16,7 @@ public class ReservationEntityController : ControllerBase
     //     _logger = logger;
     // }
 
-    [HttpGet(Name = "checkReservations")]
+    [HttpGet("checkReservations")]
     public List<String> Get(int restaurantId, DateTime startDate)
     {
         ReservationFunctions db = new ReservationFunctions(); 
@@ -24,7 +24,15 @@ public class ReservationEntityController : ControllerBase
         return db.getReservations(restaurantId, startDate); 
     }
 
-    [HttpPost(Name = "createReservation")]
+    [HttpGet("getAllReservations")]
+    public List<Tuple<int, DateTime, int>> Get(int userId)
+    {
+        ReservationFunctions db = new ReservationFunctions(); 
+        db.reservationDataFetch(); 
+        return db.getReservations(userId); 
+    }
+
+    [HttpPost("createReservation")]
     public void Put(int reservationPartySize, DateTime reservationDateTime, int restaurantId, int reservationMaker)
     {
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";

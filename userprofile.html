@@ -340,63 +340,78 @@
           
         </div>
       </div>
-      <div>
-        <button onclick="getRestaurantData()">View Restaurants</button>
+      <div class="col text-center">
+        <button  class="btn btn-success" onclick="getRestaurantData()">View Restaurants</button>
       </div>
-      <div class="container">
+      <div class="container" style="display:none" id="empRestaurants">
         <div class="row">
           <div class="col-12">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="childTable">
               <thead>
                 <tr>
-                  <th scope="col">Select Day</th>
-                  <th scope="col">Article Name</th>
-                  <th scope="col">Author</th>
-                  <th scope="col">Words</th>
-                  <th scope="col">Shares</th>
+                  <th scope="col">Select</th>
+                  <th scope="col">Restaurant Name</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">Hours</th>
+                  <th scope="col">Description</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck1" checked>
-                        <label class="custom-control-label" for="customCheck1">1</label>
-                    </div>
-                  </td>
-                  <td>Bootstrap 4 CDN and Starter Template</td>
-                  <td>Cristina</td>
-                  <td>913</td>
-                  <td>2.846</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                        <label class="custom-control-label" for="customCheck2">2</label>
-                    </div>
-                  </td>
-                  <td>Bootstrap Grid 4 Tutorial and Examples</td>
-                  <td>Cristina</td>
-                  <td>1.434</td>
-                  <td>3.417</td>
-                </tr>
-                <tr>
-                  <td>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                        <label class="custom-control-label" for="customCheck3">3</label>
-                    </div>
-                  </td>
-                  <td>Bootstrap Flexbox Tutorial and Examples</td>
-                  <td>Cristina</td>
-                  <td>1.877</td>
-                  <td>1.234</td>
-                </tr>
               </tbody>
             </table>
           </div>
         </div>
+      </div>
+      <div>
+        <div class="container-fluid" id="paymentContainer" style="display:block">
+          <div class="row justify-content-center">
+            <div class="card my-4 p-3">
+              <div class="row main">
+                <div class="row justify-content-center mrow">
+    
+                  <form class="form-card">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="form-group"> <input type="text" class="form-control" id="empId" required><label
+                            class="form-control-placeholder p-0" for="number" id="cardNumber">Enter Employee Id</label> </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12">
+                        <h5>Make Admin?</h5> 
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                          <label class="form-check-label" for="flexRadioDefault1">
+                            Yes
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                          <label class="form-check-label" for="flexRadioDefault2">
+                            No
+                          </label>
+                        </div>
+                      </div>
+                   
+    
+                    </div>
+                    <div class="row lrow mt-4 mb-3">
+                      <div class="col-sm-8 col-12">
+    
+                      </div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col-sm-12"> <button type="button" onclick="addEmployee()" class="btn btn-primary">Add Employee</button>
+                      </div>
+                    </div>
+                  </form>
+                  
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        
       </div>
       
       <!--Js-CDN-->

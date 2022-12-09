@@ -27,12 +27,12 @@ function userLogIn() {
                 lastName = res.data.item4
                 var userId = parseInt(localStorage.getItem("id"))
                 var url = `https://localhost:7091/EmployeeEntity/getEmployeeByUserId?userId=${4}`
-                $.get(url,  function (data) {
+                $.get(url, function (data) {
                     var isEmployee = data.item1
                     var employeeId = data.item2
                     var restaurantId = data.item4
                     var isAdmin = data.item5
-                    localStorage.setItem("isEmployee", data.item1); 
+                    localStorage.setItem("isEmployee", data.item1);
                     localStorage.setItem("restaurantData", restaurantId);
                 })
                 window.alert("Welcome, " + firstName + " " + lastName + "!");
@@ -153,20 +153,38 @@ placeOrder = async () => {
     }
 
 }
+addEmployee = async () => {
+    // 1. reveal add employee form 
+
+    //2. make post request after information has been filled in
+    url = `https://localhost:7091/EmployeeEntity/registerEmployee?userId=${empId}&restaurantId=${restaurantId}&adminFlag=${adminLevel}`
+    const settings = {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        }
+    };
+
+
+
+}
 function getRestaurantData() {
-    if(localStorage.getItem("isEmployee") == "true"){
+    if (localStorage.getItem("isEmployee") == "true") {
+        document.getElementById("empRestaurants").style = "block"
         var location = `https://localhost:7091/RestaurantEntity?restaurantId=${localStorage.getItem("restaurantData")}`
         $.get(location, function (data) {
             var restaurantName = data.item3
             var restaurantAddy = data.item4
             var restaurantHours = data.item5
             var restaurantDesc = data.item6
+            $('#childTable').find('tbody').append(`<tr><td><button onclick="addEmployee()" class="btn btn-warning">Add Employee</button></td><td>${restaurantName}</td><td>${restaurantAddy}</td><td>${restaurantHours}</td><td>${restaurantDesc}</td></tr>`);
         })
     }
-    else{
+    else {
 
     }
-    
+
 }
 
 populateData = async () => {
@@ -250,7 +268,7 @@ $(document).ready(function () {
         var restaurantNum = document.getElementById("restaurant").value;
         var f = $('#checkin_date').data().datepicker.viewDate;
         startDate = stringToTimestamp(f.toString())
-        url = `https://localhost:7091/ReservationEntity?restaurantId=${restaurantNum}&startDate=${startDate}`
+        url = `https://localhost:7091/ReservationEntity/checkReservations?restaurantId=${restaurantNum}&startDate=${startDate}`
         $.get(url, function (data) {
             var T = document.getElementById("reservationTimes");
             T.style.display = "block";
@@ -265,6 +283,11 @@ $(document).ready(function () {
         })
     });
 });
+var i = 0;
+function childrenRow() {
+    i++;
+    $('#childTable').find('tbody').append('<tr><th scope="row">' + i + '</th><td class="col-sm-4"><input type="text" name="name" class="form-control" /></td><td><input type="text" name="school" class="form-control" /></td><td class="col-sm-2"><input type="text" name="year" class="form-control" /></td><td class="col-sm-2"><input type="text" name="age" class="form-control" /></td><td><input type="button" class="btn btn-block btn-default" id="addrow" onclick="childrenRow()" value="+" /></td></tr>');
+}
 function convertTime12To24(time) {
     var hours = Number(time.match(/^(\d+)/)[1]);
     var minutes = Number(time.match(/:(\d+)/)[1]);
@@ -288,7 +311,7 @@ makeReservation = async () => {
     formattedDateTime = startDate + 'T' + hours + ':00Z'
     // FIXME: update reservation maker to pull from local storage
     var reservationMaker = 1
-    url = `https://localhost:7091/ReservationEntity?reservationPartySize=${numPeople}&reservationDateTime=${formattedDateTime}&restaurantId=${restaurantNum}&reservationMaker=${reservationMaker}`
+    url = `https://localhost:7091/ReservationEntity/createReservation?reservationPartySize=${numPeople}&reservationDateTime=${formattedDateTime}&restaurantId=${restaurantNum}&reservationMaker=${localStorage.getItem("id")}`
     console.log(url)
     const settings = {
         method: 'POST',
@@ -304,3 +327,59 @@ makeReservation = async () => {
     }
 }
 
+async function grabReviewData(url) {
+    url = "https://localhost:7091/ReviewEntityUser?restaurantId=1";
+    // fetch(url).then(response => 
+    //     response.json().then(data => ({
+    //         data: data,
+    //         status: response.status
+    //     })
+    // ).then(res => {
+    //     // console.log(res.status, res.data.title)
+    //     console.log(res)
+    //         localStorage.id = res.data.item2
+    //         console.log(localStorage.id)
+    //         firstName = res.data.item3
+    //         lastName = res.data.item4
+    //         window.alert("Welcome, " + firstName + " " + lastName + "!");
+    //         window.location.replace("./index.html");
+        
+        
+    // }));
+    const response = await fetch(url);
+    console.log(response.json());
+    return response.json();
+}
+
+function delFunction() {
+    var commentId = document.getElementById("commentDelId").value;
+    console.log(commentId);
+}
+
+function editFunction() {
+    var commentId = document.getElementById("commentEditId").value;
+    var rating = document.getElementById("rating").value;
+    var feedback = document.getElementById("feedback").value;
+    console.log(commentId+" "+rating+" "+feedback);
+    let url = `https://localhost:7091/ReviewEntityUser?comment_id=${commentId}&rating=${rating}&feedback=${feedback}`
+    fetch(url, {
+    method: "PUT",
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }})
+    window.location.reload();
+    }
+
+function delFunction() {
+    var commentId = document.getElementById("commentDelId").value;
+    console.log(commentId);
+    //https://localhost:7091/ReviewEntityUser?comment_id=10
+
+    let url = `https://localhost:7091/ReviewEntityUser?comment_id=${commentId}`
+    fetch(url, {
+    method: "DELETE",
+    headers: {
+    "Content-type": "application/json; charset=UTF-8"
+    }})
+    window.location.reload();
+    }
