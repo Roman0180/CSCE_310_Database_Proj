@@ -369,26 +369,26 @@ function test() {
 }
 
 
-// $(document).ready(function () {
-//     $("#reservationButton").click(function () {
-//         var restaurantNum = document.getElementById("restaurant").value;
-//         var f = $('#checkin_date').data().datepicker.viewDate;
-//         startDate = stringToTimestamp(f.toString())
-//         url = `https://localhost:7091/ReservationEntity/checkReservations?restaurantId=${restaurantNum}&startDate=${startDate}`
-//         $.get(url, function (data) {
-//             var T = document.getElementById("reservationTimes");
-//             T.style.display = "block";
-//             var select = document.getElementById("restaurantReservationTimes");
+$(document).ready(function () {
+    $("#reservationButton").click(function () {
+        var restaurantNum = document.getElementById("restaurant").value;
+        var f = $('#checkin_date').data().datepicker.viewDate;
+        startDate = stringToTimestamp(f.toString())
+        url = `https://localhost:7091/ReservationEntity/checkReservations?restaurantId=${restaurantNum}&startDate=${startDate}`
+        $.get(url, function (data) {
+            var T = document.getElementById("reservationTimes");
+            T.style.display = "block";
+            var select = document.getElementById("restaurantReservationTimes");
 
-//             for (var option of data) {
-//                 var el = document.createElement("option");
-//                 el.textContent = option;
-//                 el.value = option;
-//                 select.appendChild(el);
-//             }
-//         })
-//     });
-// });
+            for (var option of data) {
+                var el = document.createElement("option");
+                el.textContent = option;
+                el.value = option;
+                select.appendChild(el);
+            }
+        })
+    });
+});
 var i = 0;
 function childrenRow() {
     i++;
