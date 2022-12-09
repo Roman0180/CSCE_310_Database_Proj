@@ -9,6 +9,7 @@ using System.Text.Json;
 namespace API;
 
 public class Reservation{
+    public int reservationId; 
     public int partySize; 
     public DateTime reservationTime; 
     public int restaurantId; 
@@ -41,6 +42,7 @@ public class ReservationFunctions
         NpgsqlDataReader reader = command.ExecuteReader();
         while (reader.Read()){
             Reservation reservation = new Reservation(); 
+            reservation.reservationId = reader.GetInt32(0);
             reservation.partySize = reader.GetInt32(1); 
             reservation.reservationTime = reader.GetDateTime(2); 
             reservation.restaurantId = reader.GetInt32(3); 
@@ -148,13 +150,13 @@ public class ReservationFunctions
         }
     }
 
-    internal List<Tuple<int, DateTime, int>> getReservations(int userId)
+    internal List<Tuple<int, DateTime, int, int>> getReservations(int userId)
     {
-        List<Tuple<int, DateTime, int>> userReservations = new List<Tuple<int, DateTime, int>>(); 
+        List<Tuple<int, DateTime, int, int>> userReservations = new List<Tuple<int, DateTime, int, int>>(); 
         foreach(List<Reservation> listReservations in reservationTable.Values){
             foreach(Reservation reservation in listReservations){
                 if(reservation.customerId == userId){
-                    Tuple<int, DateTime, int> userDetails = new Tuple<int, DateTime, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId); 
+                    Tuple<int, DateTime, int, int> userDetails = new Tuple<int, DateTime, int, int>(reservation.partySize, reservation.reservationTime, reservation.restaurantId, reservation.reservationId); 
                     userReservations.Add(userDetails); 
                 }
             }
@@ -175,7 +177,11 @@ public void deleteReservation(int reservation_id){
         var cs = "Host=csce-315-db.engr.tamu.edu;Username=csce310_gasiorowski;Password=229001014;Database=csce310_db";
         using var conn = new NpgsqlConnection(cs);
         conn.Open();
+<<<<<<< HEAD
+        NpgsqlCommand command = new NpgsqlCommand("DELETE FROM reservation_entity WHERE reservation_id =" + reservation_id+ ";", conn);
+=======
         NpgsqlCommand command = new NpgsqlCommand("DELETE FROM reservation_entity WHERE reservation_id = "+reservation_id+";", conn);
+>>>>>>> e5c6c65173200012fae8ffdf97a79523b44c3be4
         NpgsqlDataReader reader = command.ExecuteReader();
     }
     public void changeReservationOwner(int reservation_id, int customer_id)

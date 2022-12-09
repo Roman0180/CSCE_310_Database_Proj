@@ -25,7 +25,7 @@ public class ReservationEntityController : ControllerBase
     }
 
     [HttpGet("getAllReservations")]
-    public List<Tuple<int, DateTime, int>> Get(int userId)
+    public List<Tuple<int, DateTime, int, int>> Get(int userId)
     {
         ReservationFunctions db = new ReservationFunctions(); 
         db.reservationDataFetch(); 
